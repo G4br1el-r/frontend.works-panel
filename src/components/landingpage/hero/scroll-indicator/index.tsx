@@ -17,18 +17,9 @@ export function ScrollIndicator({ targetId }: ScrollIndicatorProps) {
         aria-hidden="true"
         className="animate-scroll-indicator-swing overflow-visible text-brand/70 transition-colors duration-300 group-hover:text-brand-light"
       >
-        <path
-          d="M6 2h16"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
+        <path d="M6 2h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         <path d="M14 2v28" stroke="currentColor" strokeWidth="1.5" />
-        <path
-          d="M14 30l6 8-6 10-6-10 6-8z"
-          fill="currentColor"
-          fillOpacity="0.9"
-        />
+        <path d="M14 30l6 8-6 10-6-10 6-8z" fill="currentColor" fillOpacity="0.9" />
       </svg>
 
       <span className="animate-scroll-indicator-pulse text-[11px] tracking-[0.25em] text-brand/70 transition-colors duration-300 group-hover:text-brand-light">

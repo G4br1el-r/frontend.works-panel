@@ -92,6 +92,22 @@
   animation: scroll-indicator-pulse 2.4s ease-in-out infinite;
 }
 
+@keyframes services-dot {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-services-dot {
+  animation: services-dot 1.8s ease-in-out infinite;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

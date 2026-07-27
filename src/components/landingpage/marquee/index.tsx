@@ -2,10 +2,7 @@ import { MARQUEE_SERVICES } from "@/utils/constants";
 
 function MarqueeTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
-    <div
-      className="flex shrink-0 items-center gap-6"
-      aria-hidden={ariaHidden || undefined}
-    >
+    <div className="flex shrink-0 items-center gap-6" aria-hidden={ariaHidden || undefined}>
       {MARQUEE_SERVICES.map((service) => (
         <span
           key={service}
