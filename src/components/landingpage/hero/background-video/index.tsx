@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
-const LEGACY_INLINE_ATTRS = {
-  "webkit-playsinline": "true",
-  "x5-playsinline": "true",
-} as Record<string, string>;
+import {
+  HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS,
+  HERO_POSTER_SRC,
+} from "@/utils/constants";
 
 export function BackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -24,9 +23,15 @@ export function BackgroundVideo() {
       }
     };
 
+    video.load();
     tryPlay();
 
     const hasFinished = () => video.ended;
+
+    const onCanPlay = () => {
+      if (!hasFinished()) tryPlay();
+    };
+    video.addEventListener("canplay", onCanPlay);
 
     const onVisibility = () => {
       if (!document.hidden && !hasFinished()) tryPlay();
@@ -40,6 +45,7 @@ export function BackgroundVideo() {
     document.addEventListener("click", onFirstInteraction, { once: true });
 
     return () => {
+      video.removeEventListener("canplay", onCanPlay);
       document.removeEventListener("visibilitychange", onVisibility);
       document.removeEventListener("touchstart", onFirstInteraction);
       document.removeEventListener("click", onFirstInteraction);
@@ -53,8 +59,9 @@ export function BackgroundVideo() {
       autoPlay
       muted
       playsInline
-      {...LEGACY_INLINE_ATTRS}
-      preload="auto"
+      {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
+      poster={HERO_POSTER_SRC}
+      preload="none"
       disablePictureInPicture
       disableRemotePlayback
       controls={false}

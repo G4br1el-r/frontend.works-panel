@@ -10,7 +10,8 @@
   --color-brand-deep: #a16207;
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo-black), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-archivo-black), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -29,6 +30,66 @@
 
 .animate-brand-pulse {
   animation: brand-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes wordmark-eyebrow {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    letter-spacing: 0.1em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.3em;
+  }
+}
+
+.animate-wordmark-eyebrow {
+  letter-spacing: 0.3em;
+  animation: wordmark-eyebrow 0.7s ease-out 0.3s both;
+}
+
+@keyframes scroll-indicator-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-scroll-indicator-in {
+  animation: scroll-indicator-in 0.8s ease-out 2.4s both;
+}
+
+@keyframes scroll-indicator-swing {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.animate-scroll-indicator-swing {
+  transform-origin: 14px 2px;
+  animation: scroll-indicator-swing 3.4s ease-in-out infinite;
+}
+
+@keyframes scroll-indicator-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-scroll-indicator-pulse {
+  animation: scroll-indicator-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes marquee {

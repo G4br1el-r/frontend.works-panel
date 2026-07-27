@@ -1,8 +1,12 @@
+import ReactDOM from "react-dom";
 import { BackgroundVideo } from "@/components/landingpage/hero/background-video";
 import { BrandWordmark } from "@/components/landingpage/hero/brand-wordmark";
 import { ScrollIndicator } from "@/components/landingpage/hero/scroll-indicator";
+import { HERO_POSTER_SRC } from "@/utils/constants";
 
 export function Hero() {
+  ReactDOM.preload(HERO_POSTER_SRC, { as: "image", fetchPriority: "high" });
+
   return (
     <section className="relative h-dvh w-full overflow-hidden bg-black">
       <BackgroundVideo />
