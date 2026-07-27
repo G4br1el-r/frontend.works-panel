@@ -9,11 +9,11 @@ export function AboutActions() {
       distance={12}
       duration={0.4}
       delay={0.7}
-      className="flex flex-col items-stretch gap-4 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6"
+      className="flex  flex-col items-stretch gap-4 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6"
     >
       <a
         href="/orcamento"
-        className="inline-flex items-center justify-center gap-2 bg-linear-to-r from-brand-light via-brand to-brand-deep px-5 py-3 text-xs font-bold tracking-widest text-black transition-[box-shadow,transform] duration-300 hover:shadow-(--shadow-brand-hover) hover:scale-104 active:scale-97 sm:px-6 sm:text-sm"
+        className="inline-flex transition-all duration-300 ease-in-out items-center justify-center gap-2 bg-linear-to-r from-brand-light via-brand to-brand-deep px-5 py-3 text-xs font-bold tracking-widest text-black hover:shadow-(--shadow-brand-hover) hover:scale-104 active:scale-97 sm:px-6 sm:text-sm"
         style={{ clipPath: NOTCHED_BUTTON_CLIP_PATH }}
       >
         FALE CONOSCO

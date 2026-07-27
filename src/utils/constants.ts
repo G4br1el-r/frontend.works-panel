@@ -47,6 +47,77 @@ export const MARQUEE_SERVICES = [
   "DO REPARO À OBRA COMPLETA",
 ];
 
+// src/components/landingpage/services/index.tsx
+export const SERVICES_ITEMS = [
+  {
+    id: "eletrica",
+    title: "ELÉTRICA",
+    description:
+      "Instalações, quadros, tomadas e correção de falhas com segurança e norma técnica.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "alvenaria",
+    title: "ALVENARIA E OBRA",
+    description:
+      "Do reparo pontual à obra completa, com acabamento firme e prazo respeitado.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "pintura",
+    title: "PINTURA",
+    description:
+      "Preparo de superfície, massa e pintura interna ou externa com acabamento uniforme.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "hidraulica",
+    title: "HIDRÁULICA",
+    description:
+      "Vazamentos, tubulações, louças e metais instalados e revisados sem retrabalho.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "marcenaria",
+    title: "MARCENARIA",
+    description:
+      "Montagem, instalação e ajuste de móveis planejados e estruturas sob medida.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "gesso",
+    title: "GESSO E DRYWALL",
+    description:
+      "Forros, sancas e paredes em drywall com nivelamento e acabamento limpo.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "revestimentos",
+    title: "REVESTIMENTOS",
+    description:
+      "Pisos, azulejos e porcelanatos assentados com alinhamento e rejunte impecável.",
+    image: "/images/drill.jpeg",
+  },
+  {
+    id: "manutencao",
+    title: "MANUTENÇÃO PREDIAL",
+    description:
+      "Rotina preventiva e corretiva para manter prédios e comércios sempre em ordem.",
+    image: "/images/drill.jpeg",
+  },
+];
+
+export const SERVICES_MORE_CARD = {
+  id: "mais-servicos",
+  eyebrow: "E MAIS",
+  title: "+10 SERVIÇOS",
+  description:
+    "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
+  cta: "VER TODOS",
+};
+
+export const SERVICES_QUOTE_CTA_URL = "/orcamento";
+
 // src/components/landingpage/hero/brand-wordmark/index.tsx
 export const HERO_BRAND_WORDMARK_LETTERS = [
   { char: "G", id: "letter-1" },
@@ -64,8 +135,6 @@ export const HERO_QUOTE_CTA_URL = "/";
 // src/components/landingpage/about/index.tsx e src/components/landingpage/hero/quote-cta/index.tsx
 export const NOTCHED_BUTTON_CLIP_PATH =
   "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)";
-
-export const HERO_POSTER_SRC = "/images/hero-poster.webp";
 
 // src/components/landingpage/hero/background-video/index.tsx
 export const HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS = {

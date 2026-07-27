@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import {
-  HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS,
-  HERO_POSTER_SRC,
-} from "@/utils/constants";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/utils/cn";
+import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/utils/constants";
 
 export function BackgroundVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -29,9 +28,12 @@ export function BackgroundVideo() {
     const hasFinished = () => video.ended;
 
     const onCanPlay = () => {
+      setIsReady(true);
       if (!hasFinished()) tryPlay();
     };
     video.addEventListener("canplay", onCanPlay);
+
+    if (video.readyState >= video.HAVE_CURRENT_DATA) setIsReady(true);
 
     const onVisibility = () => {
       if (!document.hidden && !hasFinished()) tryPlay();
@@ -55,12 +57,14 @@ export function BackgroundVideo() {
   return (
     <video
       ref={videoRef}
-      className="absolute inset-0 h-full w-full object-cover"
+      className={cn(
+        "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
+        isReady ? "opacity-100" : "opacity-0",
+      )}
       autoPlay
       muted
       playsInline
       {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
-      poster={HERO_POSTER_SRC}
       preload="none"
       disablePictureInPicture
       disableRemotePlayback
