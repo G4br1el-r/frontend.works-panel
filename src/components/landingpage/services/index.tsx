@@ -14,7 +14,7 @@ const CARD_NUMBER =
   "absolute top-3 right-3 font-display text-5xl leading-none text-white/10 transition-colors duration-500 ease-out group-hover:text-brand sm:top-4 sm:right-4 sm:text-6xl md:text-7xl xl:text-8xl";
 
 const CARD_OVERLAY =
-  "absolute inset-0 translate-y-full bg-linear-to-t from-brand-deep/85 via-brand/25 to-transparent transition-transform duration-500 ease-out group-hover:translate-y-0";
+  "absolute inset-0 translate-y-full bg-linear-to-t from-black/80 via-black/40 to-transparent transition-transform duration-500 ease-out group-hover:translate-y-0";
 
 const CARD_TITLE =
   "font-display text-base tracking-wide text-white text-balance sm:text-lg md:text-xl xl:text-2xl";
@@ -58,7 +58,7 @@ export function Services() {
           </a>
         </FadeIn>
 
-        <div className="mt-8 grid grid-cols-1 gap-px bg-brand/10 sm:mt-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 xl:mt-20">
+        <div className="mt-8 grid grid-cols-1 gap-px bg-black sm:mt-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 xl:mt-20">
           {SERVICES_ITEMS.map((service, index) => (
             <FadeIn
               key={service.id}
@@ -102,11 +102,22 @@ export function Services() {
             distance={20}
             duration={0.5}
             delay={SERVICES_ITEMS.length * 0.08}
+            className="sm:col-span-2 lg:col-span-1"
           >
             <a
               href={SERVICES_QUOTE_CTA_URL}
-              className={`group relative flex w-full flex-col justify-end gap-2 overflow-hidden bg-gray-dark p-4 transition-colors duration-500 ease-out hover:bg-black sm:gap-3 sm:p-5 md:p-6 ${CARD_HEIGHT}`}
+              className={`group relative flex w-full flex-col justify-end gap-2 overflow-hidden bg-black p-4 sm:gap-3 sm:p-5 md:p-6 ${CARD_HEIGHT}`}
             >
+              <ImageComponent
+                src={SERVICES_MORE_CARD.image}
+                alt="Outros serviços executados pela equipe"
+                classNameWrapper="absolute inset-0"
+                classNameImg="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 426px"
+              />
+
+              <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-black/10" />
+
               <div className={CARD_OVERLAY} />
 
               <span className={CARD_NUMBER} aria-hidden="true">

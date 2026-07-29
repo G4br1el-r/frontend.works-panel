@@ -19,7 +19,7 @@ export function BrandWordmark() {
         onMount
         direction="up"
         distance={10}
-        delay={1.5}
+        delay={1.15}
         duration={0.6}
         className="relative text-neutral-300 tracking-[0.2em] sm:tracking-[0.25em] text-xs sm:text-lg font-medium"
       >

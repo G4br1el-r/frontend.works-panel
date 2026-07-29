@@ -15,7 +15,7 @@ export function WordmarkLetters() {
           initial={{ opacity: 0, y: "100%", rotateX: 90 }}
           animate={{ opacity: 1, y: "0%", rotateX: 0 }}
           transition={{
-            delay: 0.5 + i * 0.06,
+            delay: 0.35 + i * 0.06,
             duration: 2,
             ease: [0.16, 1, 0.3, 1],
           }}
