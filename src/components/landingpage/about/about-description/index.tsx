@@ -6,7 +6,6 @@ export function AboutDescription() {
       direction="up"
       distance={16}
       duration={0.5}
-      delay={0.1}
       className="flex flex-col gap-3"
     >
       <p className="text-sm leading-relaxed text-neutral-300 sm:text-base">

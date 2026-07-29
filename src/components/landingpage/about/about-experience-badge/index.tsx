@@ -7,7 +7,6 @@ export function AboutExperienceBadge() {
       direction="none"
       fromScale={0.85}
       duration={0.5}
-      delay={0.4}
       className="flex w-full shrink-0 flex-row items-center justify-center gap-3 border border-brand/30 bg-black/70 px-5 py-4 text-center backdrop-blur-md lg:w-40 lg:flex-col lg:gap-1 lg:py-6"
     >
       <AnimatedCounter

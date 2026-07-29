@@ -9,7 +9,7 @@ export function AboutRule() {
       initial={{ width: 0 }}
       whileInView={{ width: 64 }}
       viewport={DEFAULT_VIEWPORT}
-      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="h-px bg-brand"
     />
   );

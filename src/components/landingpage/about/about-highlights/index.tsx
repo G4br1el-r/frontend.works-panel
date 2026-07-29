@@ -5,7 +5,6 @@ export function AboutHighlights() {
   return (
     <Stagger
       as="ul"
-      delay={0.3}
       staggerDelay={0.05}
       className="grid grid-cols-1 gap-x-5 gap-y-3 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
     >

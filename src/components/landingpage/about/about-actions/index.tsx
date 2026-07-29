@@ -8,7 +8,6 @@ export function AboutActions() {
       direction="up"
       distance={12}
       duration={0.4}
-      delay={0.7}
       className="flex  flex-col items-stretch gap-4 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6"
     >
       <a
