@@ -14,7 +14,7 @@ export function Hero() {
         <BrandWordmark />
       </div>
 
-      <ScrollIndicator targetId="servicos" />
+      <ScrollIndicator targetId="solucoes" />
     </section>
   );
 }

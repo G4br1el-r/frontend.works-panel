@@ -16,6 +16,7 @@
 
 :root {
   --brand-glow: 217 160 0;
+  --shadow-brand-hover: 0 8px 28px rgb(var(--brand-glow) / 0.35);
 }
 
 @keyframes brand-pulse {
@@ -92,7 +93,7 @@
   animation: scroll-indicator-pulse 2.4s ease-in-out infinite;
 }
 
-@keyframes services-dot {
+@keyframes brand-dot {
   0%,
   100% {
     opacity: 0.25;
@@ -104,8 +105,8 @@
   }
 }
 
-.animate-services-dot {
-  animation: services-dot 1.8s ease-in-out infinite;
+.animate-brand-dot {
+  animation: brand-dot 1.8s ease-in-out infinite;
 }
 
 @keyframes marquee {

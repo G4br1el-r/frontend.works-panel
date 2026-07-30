@@ -1,16 +1,35 @@
 "use client";
 
+import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/utils/constants";
 
-export function BackgroundVideo() {
+interface BackgroundVideoProps {
+  sources?: { src: string; type: string }[];
+  className?: string;
+  /** Só começa a tocar quando o vídeo entra na viewport. */
+  playOnInView?: boolean;
+}
+
+const DEFAULT_SOURCES = [
+  { src: "/videos/video.webm", type: "video/webm" },
+  { src: "/videos/video.mp4", type: "video/mp4" },
+];
+
+export function BackgroundVideo({
+  sources = DEFAULT_SOURCES,
+  className,
+  playOnInView = false,
+}: BackgroundVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isReady, setIsReady] = useState(false);
+  const isInView = useInView(videoRef, { once: true, amount: 0.5 });
+  const shouldPlay = !playOnInView || isInView;
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldPlay) return;
 
     video.muted = true;
     video.defaultMuted = true;
@@ -52,7 +71,7 @@ export function BackgroundVideo() {
       document.removeEventListener("touchstart", onFirstInteraction);
       document.removeEventListener("click", onFirstInteraction);
     };
-  }, []);
+  }, [shouldPlay]);
 
   return (
     <video
@@ -60,8 +79,9 @@ export function BackgroundVideo() {
       className={cn(
         "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
         isReady ? "opacity-100" : "opacity-0",
+        className,
       )}
-      autoPlay
+      autoPlay={!playOnInView}
       muted
       playsInline
       {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
@@ -72,8 +92,9 @@ export function BackgroundVideo() {
       tabIndex={-1}
       aria-hidden="true"
     >
-      <source src="/videos/video.webm" type="video/webm" />
-      <source src="/videos/video.mp4" type="video/mp4" />
+      {sources.map(({ src, type }) => (
+        <source key={src} src={src} type={type} />
+      ))}
     </video>
   );
 }
