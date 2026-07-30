@@ -1,4 +1,15 @@
-import { BadgeCheck, Clock, Gem, Handshake, Home as HomeIcon, MapPin, ScrollText } from "lucide-react";
+import {
+  BadgeCheck,
+  Clock,
+  Gem,
+  Hammer,
+  Handshake,
+  HardHat,
+  Home as HomeIcon,
+  MapPin,
+  ScrollText,
+  Sparkles,
+} from "lucide-react";
 
 export const DESKTOP_BREAKPOINT_PX = 1024;
 
@@ -13,14 +24,7 @@ export const ABOUT_HIGHLIGHTS = [
   { icon: MapPin, text: "Atendimento em toda a região" },
 ];
 
-export const METRICS_ITEMS = [
-  { id: "years", value: "8+", label: "ANOS DE EXPERIÊNCIA" },
-  { id: "projects", value: "150+", label: "PROJETOS ENTREGUES" },
-  { id: "clients", value: "100%", label: "CLIENTES SATISFEITOS" },
-  { id: "response", value: "24H", label: "TEMPO DE RESPOSTA" },
-];
-
-export const MARQUEE_SERVICES = [
+export const MARQUEE_SOLUTIONS = [
   "ELÉTRICA",
   "ALVENARIA E OBRA",
   "PINTURA",
@@ -38,67 +42,131 @@ export const MARQUEE_SERVICES = [
   "DO REPARO À OBRA COMPLETA",
 ];
 
-export const SERVICES_ITEMS = [
+export const SOLUTIONS_ITEMS = [
   {
     id: "eletrica",
     title: "ELÉTRICA",
-    description: "Instalações, quadros, tomadas e correção de falhas com segurança e norma técnica.",
-    image: "/images/services-image/electrical.jpeg",
+    description:
+      "Instalações, quadros, tomadas e correção de falhas com segurança e norma técnica.",
+    image: "/images/solutions/electrical.jpeg",
   },
   {
     id: "alvenaria",
     title: "ALVENARIA E OBRA",
-    description: "Do reparo pontual à obra completa, com acabamento firme e prazo respeitado.",
-    image: "/images/services-image/masonry.jpeg",
+    description:
+      "Do reparo pontual à obra completa, com acabamento firme e prazo respeitado.",
+    image: "/images/solutions/masonry.jpeg",
   },
   {
     id: "pintura",
     title: "PINTURA",
-    description: "Preparo de superfície, massa e pintura interna ou externa com acabamento uniforme.",
-    image: "/images/services-image/painting.jpeg",
+    description:
+      "Preparo de superfície, massa e pintura interna ou externa com acabamento uniforme.",
+    image: "/images/solutions/painting.jpeg",
   },
   {
     id: "hidraulica",
     title: "HIDRÁULICA",
-    description: "Vazamentos, tubulações, louças e metais instalados e revisados sem retrabalho.",
-    image: "/images/services-image/hydraulics.jpeg",
+    description:
+      "Vazamentos, tubulações, louças e metais instalados e revisados sem retrabalho.",
+    image: "/images/solutions/hydraulics.jpeg",
   },
   {
     id: "marcenaria",
     title: "MARCENARIA",
-    description: "Montagem, instalação e ajuste de móveis planejados e estruturas sob medida.",
-    image: "/images/services-image/woodworking.jpeg",
+    description:
+      "Montagem, instalação e ajuste de móveis planejados e estruturas sob medida.",
+    image: "/images/solutions/woodworking.jpeg",
   },
   {
     id: "gesso",
     title: "GESSO E DRYWALL",
-    description: "Forros, sancas e paredes em drywall com nivelamento e acabamento limpo.",
-    image: "/images/services-image/drywall.jpeg",
+    description:
+      "Forros, sancas e paredes em drywall com nivelamento e acabamento limpo.",
+    image: "/images/solutions/drywall.jpeg",
   },
   {
     id: "revestimentos",
     title: "REVESTIMENTOS",
-    description: "Pisos, azulejos e porcelanatos assentados com alinhamento e rejunte impecável.",
-    image: "/images/services-image/coating.jpeg",
+    description:
+      "Pisos, azulejos e porcelanatos assentados com alinhamento e rejunte impecável.",
+    image: "/images/solutions/coating.jpeg",
   },
   {
     id: "manutencao",
     title: "MANUTENÇÃO PREDIAL",
-    description: "Rotina preventiva e corretiva para manter prédios e comércios sempre em ordem.",
-    image: "/images/services-image/building-maintenance.jpeg",
+    description:
+      "Rotina preventiva e corretiva para manter prédios e comércios sempre em ordem.",
+    image: "/images/solutions/building-maintenance.jpeg",
   },
 ];
 
-export const SERVICES_MORE_CARD = {
-  id: "mais-servicos",
+export const SOLUTIONS_MORE_CARD = {
+  id: "mais-solucoes",
   eyebrow: "E MAIS",
   title: "+10 SERVIÇOS",
-  description: "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
+  description:
+    "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
   cta: "VER TODOS",
-  image: "/images/services-image/more-services.jpeg",
+  image: "/images/solutions/more-solutions.jpeg",
 };
 
-export const SERVICES_QUOTE_CTA_URL = "/orcamento";
+export const SOLUTIONS_QUOTE_CTA_URL = "/orcamento";
+
+export const METRICS_BACKGROUND_VIDEO_SOURCES = [
+  { src: "/videos/metrics-background.mp4", type: "video/mp4" },
+];
+
+export const METRICS_ANIMATION_DELAY = 3;
+
+export const METRICS_COUNTER_DURATION = 2;
+
+export const METRICS_ITEMS = [
+  {
+    id: "anos",
+    icon: HardHat,
+    value: 20,
+    decimals: 0,
+    prefix: "",
+    suffix: "+",
+    label: "ANOS DE MERCADO",
+    description:
+      "Duas décadas atendendo residências e empresas com trabalho entregue e reputação construída no boca a boca.",
+  },
+  {
+    id: "resposta",
+    icon: Clock,
+    value: 24,
+    decimals: 0,
+    prefix: "",
+    suffix: "h",
+    label: "TEMPO DE RESPOSTA",
+    description:
+      "Orçamento respondido em até um dia útil, com atendimento de urgência para o que não pode esperar.",
+  },
+  {
+    id: "satisfacao",
+    icon: Sparkles,
+    value: 98,
+    decimals: 0,
+    prefix: "",
+    suffix: "%",
+    label: "CLIENTES SATISFEITOS",
+    description:
+      "Avaliam o serviço como ótimo ou excelente e seguem chamando a equipe para os próximos projetos.",
+  },
+  {
+    id: "projetos",
+    icon: Hammer,
+    value: 1.2,
+    decimals: 1,
+    prefix: "",
+    suffix: "k",
+    label: "SERVIÇOS ENTREGUES",
+    description:
+      "Do reparo pontual à obra completa, cada frente concluída com acabamento conferido item por item.",
+  },
+];
 
 export const HERO_BRAND_WORDMARK_LETTERS = [
   { char: "G", id: "letter-1" },
@@ -114,6 +182,9 @@ export const HERO_QUOTE_CTA_URL = "/";
 
 export const NOTCHED_BUTTON_CLIP_PATH =
   "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)";
+
+export const NOTCHED_CARD_CLIP_PATH =
+  "polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px))";
 
 export const HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS = {
   "webkit-playsinline": "true",

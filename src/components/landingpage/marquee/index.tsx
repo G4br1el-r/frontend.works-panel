@@ -1,14 +1,17 @@
-import { MARQUEE_SERVICES } from "@/utils/constants";
+import { MARQUEE_SOLUTIONS } from "@/utils/constants";
 
 function MarqueeTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
-    <div className="flex shrink-0 items-center gap-6" aria-hidden={ariaHidden || undefined}>
-      {MARQUEE_SERVICES.map((service) => (
+    <div
+      className="flex shrink-0 items-center gap-6"
+      aria-hidden={ariaHidden || undefined}
+    >
+      {MARQUEE_SOLUTIONS.map((solution) => (
         <span
-          key={service}
+          key={solution}
           className="flex items-center gap-6 whitespace-nowrap text-sm font-medium tracking-[0.2em] text-brand/80 sm:text-base"
         >
-          {service}
+          {solution}
           <span className="text-brand-deep/60" aria-hidden="true">
             ◆
           </span>
