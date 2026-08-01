@@ -1,9 +1,14 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
+import { useScrollToSection } from "@/hooks/use-scroll-to-section";
 import { NOTCHED_BUTTON_CLIP_PATH } from "@/utils/constants";
 
 export function AboutActions() {
+  const handleClick = useScrollToSection();
+
   return (
     <FadeIn
       direction="up"
@@ -22,6 +27,7 @@ export function AboutActions() {
 
       <Link
         href="#solucoes"
+        onClick={handleClick}
         className="group inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-brand-light transition-colors hover:text-brand sm:justify-start sm:text-sm"
       >
         NOSSOS SERVIÇOS
