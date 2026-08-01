@@ -7,7 +7,7 @@ export function Solutions() {
   return (
     <section
       id="solucoes"
-      className="w-full overflow-x-hidden bg-black px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10 lg:py-24"
+      className="w-full scroll-mt-16 overflow-x-hidden bg-black px-4 py-14 sm:scroll-mt-20 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10 lg:py-24"
     >
       <div className="mx-auto w-full max-w-7xl">
         <FadeIn

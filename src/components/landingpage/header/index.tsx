@@ -1,0 +1,84 @@
+"use client";
+
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
+import { HeaderCta } from "@/components/landingpage/header/header-cta";
+import { HeaderLogo } from "@/components/landingpage/header/header-logo";
+import { HeaderNav } from "@/components/landingpage/header/header-nav";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/utils/cn";
+
+const HEADER_SCROLL_THRESHOLD_PX = 24;
+
+export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > HEADER_SCROLL_THRESHOLD_PX);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
+        isScrolled
+          ? "border-white/10 bg-black/70 backdrop-blur-md"
+          : "border-transparent bg-transparent",
+      )}
+    >
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-10">
+        <HeaderLogo />
+
+        <HeaderNav className="hidden items-center gap-8 lg:flex" />
+
+        <HeaderCta className="hidden lg:inline-flex" />
+
+        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          <SheetTrigger
+            type="button"
+            aria-label="Abrir menu"
+            className="cursor-pointer text-white lg:hidden"
+          >
+            <Menu size={24} aria-hidden="true" />
+          </SheetTrigger>
+
+          <SheetContent
+            side="left"
+            className="flex w-3/4 flex-col gap-8 border-white/10 bg-black px-6 py-8 sm:max-w-xs"
+          >
+            <SheetHeader className="p-0">
+              <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
+              <SheetDescription className="sr-only">
+                Links de navegação e orçamento
+              </SheetDescription>
+            </SheetHeader>
+
+            <HeaderNav
+              onLinkClick={() => setIsMenuOpen(false)}
+              className="flex flex-col gap-6"
+            />
+
+            <HeaderCta
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full"
+            />
+          </SheetContent>
+        </Sheet>
+      </div>
+    </header>
+  );
+}

@@ -4,7 +4,10 @@ import { ScrollIndicator } from "@/components/landingpage/hero/scroll-indicator"
 
 export function Hero() {
   return (
-    <section className="relative h-dvh w-full overflow-hidden bg-black">
+    <section
+      id="inicio"
+      className="relative h-dvh w-full overflow-hidden bg-black"
+    >
       <BackgroundVideo />
 
       <div className="absolute inset-0 bg-black/55" />

@@ -36,8 +36,9 @@ export const SITE_KEYWORDS = [
   "telhados",
   "orçamento de obra",
 ];
-export const SITE_OG_IMAGE = "/images/card.jpeg";
-export const SITE_FAVICON = "/images/card-favicon.ico";
+export const SITE_OG_IMAGE = "/images/brand/card.jpeg";
+export const SITE_FAVICON = "/images/brand/card-favicon.ico";
+export const SITE_HEADER_LOGO = "/images/brand/card-header.png";
 export const SITE_APPLE_ICON = "/apple-touch-icon.png";
 export const SITE_MANIFEST = "/site.webmanifest";
 
@@ -207,6 +208,14 @@ export const HERO_BRAND_WORDMARK_LETTERS = [
 ];
 
 export const HERO_QUOTE_CTA_URL = "/";
+
+export const HEADER_NAV_ITEMS = [
+  { id: "inicio", label: "HOME", href: "#inicio" },
+  { id: "sobre", label: "QUEM SOMOS", href: "#sobre" },
+  { id: "solucoes", label: "SERVIÇOS", href: "#solucoes" },
+  { id: "diferenciais", label: "DIFERENCIAIS", href: "#diferenciais" },
+  { id: "contato", label: "CONTATO", href: HERO_QUOTE_CTA_URL },
+];
 
 export const NOTCHED_BUTTON_CLIP_PATH =
   "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)";
