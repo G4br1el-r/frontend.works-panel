@@ -11,8 +11,9 @@ export function SolutionsGrid() {
           key={solution.id}
           direction="up"
           distance={20}
-          duration={0.5}
-          delay={index * 0.08}
+          duration={0.3}
+          delay={index * 0.04}
+          viewportMargin="0px 0px -10% 0px"
         >
           <SolutionCard
             title={solution.title}
@@ -26,8 +27,9 @@ export function SolutionsGrid() {
       <FadeIn
         direction="up"
         distance={20}
-        duration={0.5}
-        delay={SOLUTIONS_ITEMS.length * 0.08}
+        duration={0.3}
+        delay={SOLUTIONS_ITEMS.length * 0.04}
+        viewportMargin="0px 0px -10% 0px"
         className="sm:col-span-2 lg:col-span-1"
       >
         <SolutionsMoreCard />

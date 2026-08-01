@@ -13,6 +13,34 @@ import {
 
 export const DESKTOP_BREAKPOINT_PX = 1024;
 
+export const SITE_URL = "https://www.guigoulart.com.br";
+export const SITE_NAME = "Guilherme Goulart";
+export const SITE_DEFAULT_TITLE = "Guilherme Goulart | Prestação de Serviços";
+export const SITE_DEFAULT_DESCRIPTION =
+  "Prestação de serviços com Guilherme Goulart. Solicite seu orçamento.";
+export const SITE_CATEGORY = "construção civil";
+export const SITE_KEYWORDS = [
+  "prestação de serviços",
+  "construção civil",
+  "reformas residenciais",
+  "reformas comerciais",
+  "manutenção predial",
+  "elétrica",
+  "hidráulica",
+  "alvenaria",
+  "pintura",
+  "marcenaria",
+  "gesso e drywall",
+  "revestimentos",
+  "impermeabilização",
+  "telhados",
+  "orçamento de obra",
+];
+export const SITE_OG_IMAGE = "/images/card.jpeg";
+export const SITE_FAVICON = "/images/card-favicon.ico";
+export const SITE_APPLE_ICON = "/apple-touch-icon.png";
+export const SITE_MANIFEST = "/site.webmanifest";
+
 export const ABOUT_HIGHLIGHTS = [
   { icon: HomeIcon, text: "Atendimento residencial e empresarial" },
   { icon: Clock, text: "Do reparo pontual à obra completa" },

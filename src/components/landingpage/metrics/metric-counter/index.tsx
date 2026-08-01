@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import { useEffect, useRef } from "react";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 import {
   METRICS_ANIMATION_DELAY,
   METRICS_COUNTER_DURATION,
@@ -28,6 +29,7 @@ export function MetricCounter({
 }: MetricCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.6 });
+  const isDesktop = useIsDesktop();
   const count = useMotionValue(0);
   const formatted = useTransform(count, (latest) =>
     latest.toLocaleString("pt-BR", {
@@ -41,11 +43,11 @@ export function MetricCounter({
 
     const controls = animate(count, value, {
       duration: METRICS_COUNTER_DURATION,
-      delay: METRICS_ANIMATION_DELAY,
+      delay: isDesktop ? METRICS_ANIMATION_DELAY : 0,
       ease: "easeOut",
     });
     return () => controls.stop();
-  }, [isInView, value, count]);
+  }, [isInView, isDesktop, value, count]);
 
   return (
     <span

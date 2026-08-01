@@ -19,6 +19,7 @@ interface FadeInProps {
   as?: ElementType;
   fromScale?: number;
   onMount?: boolean;
+  viewportMargin?: string;
 }
 
 export function FadeIn({
@@ -31,12 +32,18 @@ export function FadeIn({
   as = "div",
   fromScale,
   onMount = false,
+  viewportMargin,
 }: FadeInProps) {
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
   const variants = buildFadeVariants(direction, distance, fromScale);
   const trigger = onMount
     ? { animate: "visible" as const }
-    : { whileInView: "visible" as const, viewport: DEFAULT_VIEWPORT };
+    : {
+        whileInView: "visible" as const,
+        viewport: viewportMargin
+          ? { ...DEFAULT_VIEWPORT, margin: viewportMargin }
+          : DEFAULT_VIEWPORT,
+      };
 
   return (
     <MotionTag
