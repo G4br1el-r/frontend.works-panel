@@ -13,7 +13,7 @@ import {
 
 export const DESKTOP_BREAKPOINT_PX = 1024;
 
-export const SITE_URL = "https://www.guigoulart.com.br";
+export const SITE_URL = "https://gui-goulart.vercel.app";
 export const SITE_NAME = "Guilherme Goulart";
 export const SITE_DEFAULT_TITLE = "Guilherme Goulart | Prestação de Serviços";
 export const SITE_DEFAULT_DESCRIPTION =
