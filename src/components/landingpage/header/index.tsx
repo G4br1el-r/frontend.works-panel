@@ -1,10 +1,12 @@
 "use client";
 
 import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { useState } from "react";
 import { HeaderCta } from "@/components/landingpage/header/header-cta";
 import { HeaderLogo } from "@/components/landingpage/header/header-logo";
 import { HeaderNav } from "@/components/landingpage/header/header-nav";
+import { DEFAULT_EASE } from "@/components/motion/variants";
 import {
   Sheet,
   SheetContent,
@@ -13,26 +15,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useScrolled } from "@/hooks/use-scrolled";
 import { cn } from "@/utils/cn";
 
 const HEADER_SCROLL_THRESHOLD_PX = 24;
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > HEADER_SCROLL_THRESHOLD_PX);
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const isScrolled = useScrolled(HEADER_SCROLL_THRESHOLD_PX);
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: DEFAULT_EASE }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
         isScrolled
@@ -41,7 +37,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-10">
-        <HeaderLogo />
+        <HeaderLogo className="order-2 lg:order-0" />
 
         <HeaderNav className="hidden items-center gap-8 lg:flex" />
 
@@ -51,7 +47,7 @@ export function Header() {
           <SheetTrigger
             type="button"
             aria-label="Abrir menu"
-            className="cursor-pointer text-white lg:hidden"
+            className="order-1 cursor-pointer text-white lg:order-0 lg:hidden"
           >
             <Menu size={24} aria-hidden="true" />
           </SheetTrigger>
@@ -79,6 +75,6 @@ export function Header() {
           </SheetContent>
         </Sheet>
       </div>
-    </header>
+    </motion.header>
   );
 }

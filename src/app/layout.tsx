@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Archivo_Black } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/landingpage/header";
 import {
@@ -103,6 +104,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`min-h-full scroll-smooth antialiased ${archivo.variable} ${archivoBlack.variable}`}>
       <body className="min-h-full flex flex-col bg-black font-sans">
+        <Script id="disable-scroll-restoration" strategy="beforeInteractive">
+          {
+            "if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }"
+          }
+        </Script>
         <Header />
         {children}
       </body>
