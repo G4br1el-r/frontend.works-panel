@@ -7,9 +7,12 @@ import { ImageComponent } from "@/components/shared/ImageComponent";
 
 export function About() {
   return (
-    <section className="relative flex w-full min-h-dvh overflow-hidden">
+    <section
+      id="sobre"
+      className="relative flex w-full min-h-dvh scroll-mt-16 overflow-hidden sm:scroll-mt-20"
+    >
       <ImageComponent
-        src="/images/drill.jpeg"
+        src="/images/general/drill.jpeg"
         alt="Ferramenta elétrica em uso durante execução de serviço"
         classNameWrapper="h-full w-full absolute inset-0"
         classNameImg="object-cover"

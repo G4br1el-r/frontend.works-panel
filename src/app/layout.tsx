@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Archivo_Black } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/landingpage/header";
 import {
   SITE_APPLE_ICON,
   SITE_CATEGORY,
@@ -101,7 +102,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`min-h-full scroll-smooth antialiased ${archivo.variable} ${archivoBlack.variable}`}>
-      <body className="min-h-full flex flex-col bg-black font-sans">{children}</body>
+      <body className="min-h-full flex flex-col bg-black font-sans">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
