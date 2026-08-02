@@ -11,7 +11,7 @@ export function TestimonialCard({ quote, name, role }: TestimonialCardProps) {
   return (
     <div className="relative mx-auto flex w-full max-w-4xl flex-col gap-6 sm:gap-8">
       <span
-        className="pointer-events-none absolute -top-10 left-1/2 size-40 -translate-x-1/2 rounded-full bg-brand/10 blur-3xl"
+        className="pointer-events-none absolute -top-10 left-1/2 size-28 -translate-x-1/2 rounded-full bg-brand/5 blur-3xl sm:size-40"
         aria-hidden="true"
       />
 

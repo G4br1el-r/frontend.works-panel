@@ -9,7 +9,7 @@ import {
 
 export function CtaBanner() {
   return (
-    <section className="relative mb-5 w-full overflow-hidden bg-black">
+    <section className="relative mb-15 w-full overflow-hidden bg-black">
       <CautionStripe />
 
       <div className="px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:px-10">

@@ -9,15 +9,23 @@ import { cn } from "@/utils/cn";
 import { TESTIMONIALS_ITEMS } from "@/utils/constants";
 
 export function TestimonialsCarousel() {
-  const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true }));
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" }, [autoplay.current]);
+  const autoplay = useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true }),
+  );
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "center" },
+    [autoplay.current],
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi?.scrollTo(index), [emblaApi]);
+  const scrollTo = useCallback(
+    (index: number) => emblaApi?.scrollTo(index),
+    [emblaApi],
+  );
 
   const onSelect = useCallback((api: NonNullable<typeof emblaApi>) => {
     setSelectedIndex(api.selectedScrollSnap());
@@ -54,8 +62,15 @@ export function TestimonialsCarousel() {
         <div className="min-w-0 flex-1 overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {TESTIMONIALS_ITEMS.map((testimonial) => (
-              <div key={testimonial.id} className="min-w-0 shrink-0 basis-full px-1 sm:px-4">
-                <TestimonialCard quote={testimonial.quote} name={testimonial.name} role={testimonial.role} />
+              <div
+                key={testimonial.id}
+                className="min-w-0 shrink-0 basis-full px-1 sm:px-4"
+              >
+                <TestimonialCard
+                  quote={testimonial.quote}
+                  name={testimonial.name}
+                  role={testimonial.role}
+                />
               </div>
             ))}
           </div>
@@ -81,7 +96,9 @@ export function TestimonialsCarousel() {
             aria-label={`Ir para depoimento de ${testimonial.name}`}
             className={cn(
               "size-2 cursor-pointer rounded-full transition-all duration-300 ease-out",
-              index === selectedIndex ? "w-6 bg-brand" : "bg-white/15 hover:bg-white/30",
+              index === selectedIndex
+                ? "w-6 bg-brand"
+                : "bg-white/15 hover:bg-white/30",
             )}
           />
         ))}

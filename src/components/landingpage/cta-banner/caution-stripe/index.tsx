@@ -8,7 +8,7 @@ const STRIPE_BACKGROUND =
 
 export function CautionStripe() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
 
   return (
     <div ref={ref} className="h-3 w-full overflow-hidden sm:h-4">
