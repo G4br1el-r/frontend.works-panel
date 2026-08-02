@@ -3,7 +3,7 @@ import { METRICS_BACKGROUND_VIDEO_SOURCES } from "@/utils/constants";
 
 export function MetricsBackground() {
   return (
-    <div className="hidden lg:absolute lg:inset-0 lg:block lg:h-full lg:w-full">
+    <div className="absolute inset-0 h-full w-full" aria-hidden="true">
       <BackgroundVideo sources={METRICS_BACKGROUND_VIDEO_SOURCES} playOnInView />
 
       <div
