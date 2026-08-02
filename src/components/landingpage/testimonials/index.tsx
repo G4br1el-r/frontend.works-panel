@@ -16,10 +16,19 @@ export function Testimonials() {
 
       <div className="relative mx-auto w-full max-w-7xl">
         <FadeIn direction="up" distance={16} duration={0.5}>
-          <SectionHeading eyebrow="DEPOIMENTOS" lines={["O QUE DIZEM", "NOSSOS CLIENTES"]} />
+          <SectionHeading
+            eyebrow="DEPOIMENTOS"
+            lines={["O QUE DIZEM", "NOSSOS CLIENTES"]}
+          />
         </FadeIn>
 
-        <FadeIn direction="up" distance={24} duration={0.6} delay={0.15} className="mt-10 sm:mt-12 lg:mt-16">
+        <FadeIn
+          direction="up"
+          distance={24}
+          duration={0.6}
+          delay={0.15}
+          className="mt-10 sm:mt-12 lg:mt-16"
+        >
           <TestimonialsCarousel />
         </FadeIn>
       </div>
