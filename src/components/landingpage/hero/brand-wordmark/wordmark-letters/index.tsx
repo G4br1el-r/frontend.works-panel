@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { HERO_BRAND_WORDMARK_LETTERS } from "@/utils/constants";
 
 const LETTER_CLASS =
-  "inline-block text-5xl sm:text-7xl md:text-8xl font-display tracking-wide bg-linear-to-b from-brand-light via-brand to-brand-deep bg-clip-text text-transparent";
+  "inline-block text-4xl min-[400px]:text-5xl sm:text-7xl md:text-8xl font-display tracking-wide bg-linear-to-b from-brand-light via-brand to-brand-deep bg-clip-text text-transparent";
 
 export function WordmarkLetters() {
   return (
