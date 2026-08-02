@@ -197,6 +197,44 @@ export const METRICS_ITEMS = [
   },
 ];
 
+export const TESTIMONIALS_ITEMS = [
+  {
+    id: "marcos",
+    quote:
+      "A equipe superou nossas expectativas em todos os sentidos. Identificaram um vazamento que outros dois profissionais não conseguiram resolver, entregaram o serviço no prazo combinado e ainda deixaram tudo limpo e organizado. Já chamamos de novo para outros três projetos e voltaremos a chamar sempre que precisarmos.",
+    name: "Marcos R.",
+    role: "Síndico — Edifício Bela Vista",
+  },
+  {
+    id: "jose",
+    quote:
+      "Resolveram um vazamento que outros dois profissionais não conseguiram identificar. Serviço rápido, limpo e com garantia por escrito. Recomendo de olhos fechados.",
+    name: "José S.",
+    role: "Morador — Bairro Jardim América",
+  },
+  {
+    id: "carlos",
+    quote:
+      "A reforma completa do banheiro ficou pronta antes do prazo combinado. Acabamento impecável e equipe muito educada durante toda a obra, sem sujeira nem retrabalho.",
+    name: "Carlos A.",
+    role: "Proprietário — Residência Vila Nova",
+  },
+  {
+    id: "patricia",
+    quote:
+      "Contratamos para trocar o quadro elétrico do escritório e o serviço foi rápido, seguro e sem burocracia. Explicaram cada etapa antes de começar e cumpriram o orçamento à risca.",
+    name: "Patrícia M.",
+    role: "Gerente Administrativa — Escritório Central",
+  },
+  {
+    id: "roberto",
+    quote:
+      "Já são três obras com eles: pintura, drywall e agora revestimento. Sempre no prazo, sempre com o mesmo padrão de qualidade. Virou nosso fornecedor fixo de manutenção.",
+    name: "Roberto F.",
+    role: "Proprietário — Comércio Vila Rica",
+  },
+];
+
 export const HERO_BRAND_WORDMARK_LETTERS = [
   { char: "G", id: "letter-1" },
   { char: "O", id: "letter-2" },
@@ -214,7 +252,7 @@ export const HEADER_NAV_ITEMS = [
   { id: "sobre", label: "QUEM SOMOS", href: "#sobre" },
   { id: "solucoes", label: "SERVIÇOS", href: "#solucoes" },
   { id: "diferenciais", label: "DIFERENCIAIS", href: "#diferenciais" },
-  { id: "contato", label: "CONTATO", href: HERO_QUOTE_CTA_URL },
+  { id: "depoimentos", label: "DEPOIMENTOS", href: "#depoimentos" },
 ];
 
 export const NOTCHED_BUTTON_CLIP_PATH =
