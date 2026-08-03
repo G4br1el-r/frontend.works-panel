@@ -1,15 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ImageComponent } from "@/components/shared/ImageComponent";
-import {
-  SOLUTIONS_MORE_CARD,
-  SOLUTIONS_QUOTE_CTA_URL,
-} from "@/utils/constants";
+import { ALL_SOLUTIONS_URL, SOLUTIONS_MORE_CARD } from "@/utils/constants";
 
 export function SolutionsMoreCard() {
   return (
     <Link
-      href={SOLUTIONS_QUOTE_CTA_URL}
+      href={ALL_SOLUTIONS_URL}
       className="group relative flex w-full flex-col justify-end gap-2 overflow-hidden bg-black p-4 h-64 sm:h-72 sm:gap-3 sm:p-5 md:h-80 md:p-6 xl:h-96"
     >
       <ImageComponent

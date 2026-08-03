@@ -246,6 +246,8 @@ export const SOLUTIONS_MORE_CARD = {
 
 export const SOLUTIONS_QUOTE_CTA_URL = "/orcamento";
 
+export const ALL_SOLUTIONS_URL = "/todas-solucoes";
+
 export const METRICS_BACKGROUND_VIDEO_SOURCES = [
   { src: "/videos/metrics-background.mp4", type: "video/mp4" },
 ];

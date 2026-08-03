@@ -9,7 +9,7 @@ interface SolutionHeroProps {
 
 export function SolutionHero({ title, image }: SolutionHeroProps) {
   return (
-    <section className="relative h-72 w-full overflow-hidden bg-black sm:h-80 md:h-96">
+    <section className="relative h-72 w-full overflow-hidden bg-black sm:h-80 md:h-120">
       <ImageComponent
         src={image}
         alt={`Serviço de ${title.toLowerCase()}`}

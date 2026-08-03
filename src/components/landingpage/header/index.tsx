@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { CartSheet } from "@/components/landingpage/cart/cart-sheet";
 import { HeaderBag } from "@/components/landingpage/header/header-bag";
 import { HeaderLogo } from "@/components/landingpage/header/header-logo";
 import { HeaderNav } from "@/components/landingpage/header/header-nav";
@@ -70,6 +71,8 @@ export function Header() {
           </SheetContent>
         </Sheet>
       </div>
+
+      <CartSheet />
     </motion.header>
   );
 }
