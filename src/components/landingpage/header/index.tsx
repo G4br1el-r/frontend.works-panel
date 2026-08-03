@@ -3,7 +3,7 @@
 import { Menu } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { HeaderCta } from "@/components/landingpage/header/header-cta";
+import { HeaderBag } from "@/components/landingpage/header/header-bag";
 import { HeaderLogo } from "@/components/landingpage/header/header-logo";
 import { HeaderNav } from "@/components/landingpage/header/header-nav";
 import { DEFAULT_EASE } from "@/components/motion/variants";
@@ -41,7 +41,7 @@ export function Header() {
 
         <HeaderNav className="hidden items-center gap-8 lg:flex" />
 
-        <HeaderCta className="hidden lg:inline-flex" />
+        <HeaderBag className="order-3 lg:order-0" />
 
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <SheetTrigger
@@ -59,18 +59,13 @@ export function Header() {
             <SheetHeader className="p-0">
               <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
               <SheetDescription className="sr-only">
-                Links de navegação e orçamento
+                Links de navegação
               </SheetDescription>
             </SheetHeader>
 
             <HeaderNav
               onLinkClick={() => setIsMenuOpen(false)}
               className="flex flex-col gap-6"
-            />
-
-            <HeaderCta
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full"
             />
           </SheetContent>
         </Sheet>

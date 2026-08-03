@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useScrollToSection } from "@/hooks/use-scroll-to-section";
 import { HEADER_NAV_ITEMS } from "@/utils/constants";
 
@@ -10,6 +11,8 @@ interface HeaderNavProps {
 }
 
 export function HeaderNav({ onLinkClick, className }: HeaderNavProps) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const handleClick = useScrollToSection(onLinkClick);
 
   return (
@@ -17,8 +20,8 @@ export function HeaderNav({ onLinkClick, className }: HeaderNavProps) {
       {HEADER_NAV_ITEMS.map((item) => (
         <Link
           key={item.id}
-          href={item.href}
-          onClick={handleClick}
+          href={isHome ? item.href : `/${item.href}`}
+          onClick={isHome ? handleClick : onLinkClick}
           className="group relative text-sm font-semibold tracking-wide text-neutral-200 transition-colors hover:text-brand-light"
         >
           {item.label}
