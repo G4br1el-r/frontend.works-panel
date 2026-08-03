@@ -5,9 +5,13 @@ import { NOTCHED_CARD_CLIP_PATH } from "@/utils/constants";
 
 interface SolutionServicesProps {
   servicos: string[];
+  solutionLabel: string;
 }
 
-export function SolutionServices({ servicos }: SolutionServicesProps) {
+export function SolutionServices({
+  servicos,
+  solutionLabel,
+}: SolutionServicesProps) {
   return (
     <div>
       <FadeIn
@@ -40,7 +44,7 @@ export function SolutionServices({ servicos }: SolutionServicesProps) {
               className="group relative flex items-center gap-3 overflow-hidden border border-brand/20 bg-black/50 p-4 backdrop-blur-md transition-all duration-500 ease-out hover:border-brand/60 hover:bg-black/70 sm:gap-4 sm:p-5 md:p-6"
               style={{ clipPath: NOTCHED_CARD_CLIP_PATH }}
             >
-              <ServiceItem servico={servico} />
+              <ServiceItem servico={servico} solutionLabel={solutionLabel} />
             </div>
           </StaggerItem>
         ))}

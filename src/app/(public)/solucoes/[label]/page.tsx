@@ -23,7 +23,10 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
       <section className="w-full bg-black px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-7xl">
           <SolutionDescription description={solution.description} />
-          <SolutionServices servicos={solution.servicos} />
+          <SolutionServices
+            servicos={solution.servicos}
+            solutionLabel={solution.label}
+          />
         </div>
       </section>
     </main>
