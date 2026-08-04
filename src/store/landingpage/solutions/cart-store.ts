@@ -9,6 +9,7 @@ interface CartState {
   removeItem: (solutionLabel: string, servico: string) => void;
   toggleItem: (solutionLabel: string, servico: string) => void;
   isInCart: (solutionLabel: string, servico: string) => boolean;
+  clearSolution: (solutionLabel: string) => void;
   clearCart: () => void;
 }
 
@@ -52,6 +53,14 @@ export const useCartStore = create<CartState>()(
 
       isInCart: (solutionLabel, servico) => {
         return (get().cart[solutionLabel] ?? []).includes(servico);
+      },
+
+      clearSolution: (solutionLabel) => {
+        set((state) => {
+          const cart = { ...state.cart };
+          delete cart[solutionLabel];
+          return { cart };
+        });
       },
 
       clearCart: () => set({ cart: {} }),

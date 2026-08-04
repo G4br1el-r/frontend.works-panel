@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { CartSheet } from "@/components/landingpage/cart/cart-sheet";
+import { HeaderAccount } from "@/components/landingpage/header/header-account";
 import { HeaderBag } from "@/components/landingpage/header/header-bag";
 import { HeaderLogo } from "@/components/landingpage/header/header-logo";
 import { HeaderNav } from "@/components/landingpage/header/header-nav";
@@ -42,7 +43,10 @@ export function Header() {
 
         <HeaderNav className="hidden items-center gap-8 lg:flex" />
 
-        <HeaderBag className="order-3 lg:order-0" />
+        <div className="order-3 flex items-center gap-2 lg:order-0">
+          <HeaderAccount />
+          <HeaderBag />
+        </div>
 
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <SheetTrigger
