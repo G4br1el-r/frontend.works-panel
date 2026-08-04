@@ -12,7 +12,7 @@ export function About() {
       className="relative flex w-full min-h-dvh scroll-mt-16 overflow-hidden sm:scroll-mt-20"
     >
       <ImageComponent
-        src="/images/general/drill.jpeg"
+        src="/images/general/drill.webp"
         alt="Ferramenta elétrica em uso durante execução de serviço"
         classNameWrapper="h-full w-full absolute inset-0"
         classNameImg="object-cover"
