@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Plus } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { DEFAULT_EASE } from "@/components/motion/variants";
 import { useCartStore } from "@/store/landingpage/solutions/cart-store";
 import { cn } from "@/utils/cn";
@@ -16,81 +16,63 @@ export function ServiceItem({ servico, solutionLabel }: ServiceItemProps) {
   const toggleItem = useCartStore((state) => state.toggleItem);
 
   return (
-    <>
+    <motion.button
+      type="button"
+      onClick={() => toggleItem(solutionLabel, servico)}
+      whileTap={{ scale: 0.98 }}
+      aria-pressed={added}
+      aria-label={
+        added ? `Remover ${servico} da sacola` : `Adicionar ${servico} à sacola`
+      }
+      className={cn(
+        "group flex h-full w-full cursor-pointer items-center gap-3 rounded-lg border border-white/10 bg-white/3 p-4 text-left transition-all duration-300 ease-out hover:border-brand/50 hover:bg-white/6 sm:gap-4 sm:p-5",
+        added && "border-brand/40 bg-brand/5",
+      )}
+    >
       <span
         className={cn(
-          "pointer-events-none absolute -top-16 -right-16 size-32 rounded-full bg-brand/20 opacity-0 blur-3xl transition-opacity duration-700 ease-out group-hover:opacity-100",
-          added && "opacity-100",
-        )}
-        aria-hidden="true"
-      />
-
-      <span
-        className={cn(
-          "pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-linear-to-r from-brand via-brand-light to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100",
-          added && "scale-x-100",
-        )}
-        aria-hidden="true"
-      />
-
-      <span
-        className={cn(
-          "relative flex size-9 shrink-0 items-center justify-center border border-brand/30 bg-brand/10 text-brand transition-all duration-500 ease-out group-hover:border-brand group-hover:bg-brand group-hover:text-black group-hover:shadow-(--shadow-brand-hover) sm:size-10",
-          added &&
-            "border-brand bg-brand text-black shadow-(--shadow-brand-hover)",
+          "flex size-5 shrink-0 items-center justify-center rounded-md border-2 border-white/25 text-transparent transition-all duration-300 ease-out group-hover:border-brand/60 sm:size-6",
+          added && "border-brand bg-brand text-black",
         )}
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={added ? "check" : "plus"}
-            initial={{ scale: 0.4, rotate: -45, opacity: 0 }}
-            animate={{ scale: 1, rotate: 0, opacity: 1 }}
-            exit={{ scale: 0.4, rotate: 45, opacity: 0 }}
-            transition={{ duration: 0.25, ease: DEFAULT_EASE }}
-            className="flex items-center justify-center"
-          >
-            {added ? (
-              <Check size={16} className="stroke-[1.5]" aria-hidden="true" />
-            ) : (
-              <Plus size={16} className="stroke-[1.5]" aria-hidden="true" />
-            )}
-          </motion.span>
-        </AnimatePresence>
+        <Check size={14} className="stroke-3" aria-hidden="true" />
       </span>
 
       <span
         className={cn(
-          "relative min-w-0 flex-1 text-sm leading-snug text-pretty text-white/80 transition-colors duration-500 ease-out group-hover:text-white sm:text-base",
+          "min-w-0 flex-1 text-sm leading-snug text-pretty text-white/80 transition-colors duration-300 ease-out group-hover:text-white sm:text-base",
           added && "text-white",
         )}
       >
         {servico}
       </span>
 
-      <motion.button
-        type="button"
-        onClick={() => toggleItem(solutionLabel, servico)}
-        whileTap={{ scale: 0.85 }}
-        animate={added ? { scale: [1, 1.15, 1] } : { scale: 1 }}
-        transition={{ duration: 0.3, ease: DEFAULT_EASE }}
-        aria-pressed={added}
-        aria-label={
-          added
-            ? `Remover ${servico} da sacola`
-            : `Adicionar ${servico} à sacola`
-        }
+      <span
         className={cn(
-          "relative flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full border border-brand/30 text-brand transition-all duration-300 ease-out hover:scale-110 group-hover:border-brand group-hover:bg-brand group-hover:text-black group-hover:shadow-(--shadow-brand-hover) sm:size-8",
-          added &&
-            "border-brand bg-brand text-black shadow-(--shadow-brand-hover)",
+          "flex shrink-0 items-center justify-center gap-1.5 rounded-full border px-3 py-2 text-[0.6rem] font-bold whitespace-nowrap tracking-widest transition-all duration-300 ease-out sm:min-w-32 sm:px-4 sm:text-[0.65rem]",
+          added
+            ? "border-brand bg-brand text-black"
+            : "border-brand/30 text-brand transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-black",
         )}
       >
         {added ? (
-          <Check size={15} className="stroke-2" aria-hidden="true" />
+          <motion.span
+            key="added"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2, ease: DEFAULT_EASE }}
+            className="flex items-center gap-1.5"
+          >
+            <Check size={12} className="stroke-3" aria-hidden="true" />
+            <span className="hidden sm:inline">ADICIONADO</span>
+          </motion.span>
         ) : (
-          <Plus size={15} className="stroke-2" aria-hidden="true" />
+          <span className="flex items-center gap-1.5">
+            <Plus size={12} className="stroke-3" aria-hidden="true" />
+            <span className="hidden sm:inline">ADICIONAR</span>
+          </span>
         )}
-      </motion.button>
-    </>
+      </span>
+    </motion.button>
   );
 }

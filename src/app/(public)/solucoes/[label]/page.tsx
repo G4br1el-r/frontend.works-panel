@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { RelatedSolutions } from "@/components/landingpage/solutions/related-solutions";
 import { SolutionDescription } from "@/components/landingpage/solutions/solution-description";
 import { SolutionHero } from "@/components/landingpage/solutions/solution-hero";
 import { SolutionServices } from "@/components/landingpage/solutions/solution-services";
@@ -27,6 +28,8 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
             servicos={solution.servicos}
             solutionLabel={solution.label}
           />
+
+          <RelatedSolutions currentLabel={solution.label} />
         </div>
       </section>
     </main>
