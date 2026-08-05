@@ -1,6 +1,7 @@
 "use client";
 
 import { useInView } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/utils/constants";
@@ -8,9 +9,7 @@ import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/utils/constants";
 interface BackgroundVideoProps {
   sources?: { src: string; type: string }[];
   className?: string;
-  /** Só começa a tocar quando o vídeo entra na viewport. */
   playOnInView?: boolean;
-  /** Imagem exibida imediatamente, antes do vídeo carregar. */
   poster?: string;
 }
 
@@ -77,28 +76,40 @@ export function BackgroundVideo({
   }, [shouldPlay]);
 
   return (
-    <video
-      ref={videoRef}
-      className={cn(
-        "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
-        poster || isReady ? "opacity-100" : "opacity-0",
-        className,
+    <>
+      {poster && (
+        <Image
+          src={poster}
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className={cn("absolute inset-0 h-full w-full object-cover", className)}
+        />
       )}
-      autoPlay={!playOnInView}
-      muted
-      playsInline
-      poster={poster}
-      {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
-      preload={poster ? "metadata" : "none"}
-      disablePictureInPicture
-      disableRemotePlayback
-      controls={false}
-      tabIndex={-1}
-      aria-hidden="true"
-    >
-      {sources.map(({ src, type }) => (
-        <source key={src} src={src} type={type} />
-      ))}
-    </video>
+      <video
+        ref={videoRef}
+        className={cn(
+          "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
+          poster || isReady ? "opacity-100" : "opacity-0",
+          className,
+        )}
+        autoPlay={!playOnInView}
+        muted
+        playsInline
+        {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
+        preload={poster ? "metadata" : "none"}
+        disablePictureInPicture
+        disableRemotePlayback
+        controls={false}
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        {sources.map(({ src, type }) => (
+          <source key={src} src={src} type={type} />
+        ))}
+      </video>
+    </>
   );
 }
