@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Archivo_Black } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Header } from "@/components/landingpage/header";
 import {
@@ -108,6 +109,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-black font-sans">
         <Header />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
