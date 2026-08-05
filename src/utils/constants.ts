@@ -36,7 +36,7 @@ export const SITE_KEYWORDS = [
   "telhados",
   "orçamento de obra",
 ];
-export const SITE_OG_IMAGE = "/images/brand/card.jpeg";
+export const SITE_OG_IMAGE = "/images/brand/card.webp";
 export const SITE_FAVICON = "/images/brand/card-favicon.ico";
 export const SITE_HEADER_LOGO = "/images/brand/card-header.png";
 export const SITE_APPLE_ICON = "/apple-touch-icon.png";
@@ -78,7 +78,7 @@ export const SOLUTIONS_ITEMS = [
     title: "ELÉTRICA",
     description:
       "Instalações, quadros, tomadas e correção de falhas com segurança e norma técnica.",
-    image: "/images/solutions/electrical.jpeg",
+    image: "/images/solutions/electrical.webp",
     servicos: [
       "Instalação e troca de tomadas e interruptores",
       "Montagem e reforma de quadros de distribuição",
@@ -98,7 +98,7 @@ export const SOLUTIONS_ITEMS = [
     title: "ALVENARIA E OBRA",
     description:
       "Do reparo pontual à obra completa, com acabamento firme e prazo respeitado.",
-    image: "/images/solutions/masonry.jpeg",
+    image: "/images/solutions/masonry.webp",
     servicos: [
       "Levantamento de paredes e muros",
       "Construção e reforma de fundações",
@@ -118,7 +118,7 @@ export const SOLUTIONS_ITEMS = [
     title: "PINTURA",
     description:
       "Preparo de superfície, massa e pintura interna ou externa com acabamento uniforme.",
-    image: "/images/solutions/painting.jpeg",
+    image: "/images/solutions/painting.webp",
     servicos: [
       "Pintura interna residencial e comercial",
       "Pintura externa e de fachadas",
@@ -138,7 +138,7 @@ export const SOLUTIONS_ITEMS = [
     title: "HIDRÁULICA",
     description:
       "Vazamentos, tubulações, louças e metais instalados e revisados sem retrabalho.",
-    image: "/images/solutions/hydraulics.jpeg",
+    image: "/images/solutions/hydraulics.webp",
     servicos: [
       "Detecção e reparo de vazamentos",
       "Instalação e troca de tubulações",
@@ -158,7 +158,7 @@ export const SOLUTIONS_ITEMS = [
     title: "MARCENARIA",
     description:
       "Montagem, instalação e ajuste de móveis planejados e estruturas sob medida.",
-    image: "/images/solutions/woodworking.jpeg",
+    image: "/images/solutions/woodworking.webp",
     servicos: [
       "Montagem de móveis planejados",
       "Instalação de armários e closets",
@@ -178,7 +178,7 @@ export const SOLUTIONS_ITEMS = [
     title: "GESSO E DRYWALL",
     description:
       "Forros, sancas e paredes em drywall com nivelamento e acabamento limpo.",
-    image: "/images/solutions/drywall.jpeg",
+    image: "/images/solutions/drywall.webp",
     servicos: [
       "Instalação de forro de gesso",
       "Construção de parede em drywall",
@@ -198,7 +198,7 @@ export const SOLUTIONS_ITEMS = [
     title: "REVESTIMENTOS",
     description:
       "Pisos, azulejos e porcelanatos assentados com alinhamento e rejunte impecável.",
-    image: "/images/solutions/coating.jpeg",
+    image: "/images/solutions/coating.webp",
     servicos: [
       "Assentamento de piso porcelanato",
       "Instalação de azulejos e revestimentos de parede",
@@ -218,7 +218,7 @@ export const SOLUTIONS_ITEMS = [
     title: "MANUTENÇÃO PREDIAL",
     description:
       "Rotina preventiva e corretiva para manter prédios e comércios sempre em ordem.",
-    image: "/images/solutions/building-maintenance.jpeg",
+    image: "/images/solutions/building_maintenance.webp",
     servicos: [
       "Manutenção preventiva periódica",
       "Reparos corretivos emergenciais",
@@ -241,7 +241,7 @@ export const SOLUTIONS_MORE_CARD = {
   description:
     "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
   cta: "VER TODOS",
-  image: "/images/solutions/more-solutions.jpeg",
+  image: "/images/solutions/more_solutions.webp",
 };
 
 export const SOLUTIONS_QUOTE_CTA_URL = "/orcamento";
