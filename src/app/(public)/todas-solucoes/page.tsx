@@ -1,8 +1,45 @@
+import type { Metadata } from "next";
 import { SolutionHero } from "@/components/landingpage/solutions/solution-hero";
 import { SolutionServices } from "@/components/landingpage/solutions/solution-services";
 import { FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { SOLUTIONS_ITEMS, SOLUTIONS_MORE_CARD } from "@/utils/constants";
+import {
+  ALL_SOLUTIONS_URL,
+  SITE_NAME,
+  SOLUTIONS_ITEMS,
+  SOLUTIONS_MORE_CARD,
+} from "@/utils/constants";
+
+const TITLE = "Todos os Serviços";
+const DESCRIPTION =
+  "Confira a lista completa de serviços: elétrica, hidráulica, alvenaria, pintura, marcenaria, drywall, revestimentos, manutenção predial e muito mais.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: ALL_SOLUTIONS_URL,
+  },
+  openGraph: {
+    title: `${TITLE} | ${SITE_NAME}`,
+    description: DESCRIPTION,
+    url: ALL_SOLUTIONS_URL,
+    images: [
+      {
+        url: SOLUTIONS_MORE_CARD.image,
+        width: 1200,
+        height: 630,
+        alt: TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${TITLE} | ${SITE_NAME}`,
+    description: DESCRIPTION,
+    images: [SOLUTIONS_MORE_CARD.image],
+  },
+};
 
 export default function AllSolutionsPage() {
   return (
