@@ -10,6 +10,8 @@ interface BackgroundVideoProps {
   className?: string;
   /** Só começa a tocar quando o vídeo entra na viewport. */
   playOnInView?: boolean;
+  /** Imagem exibida imediatamente, antes do vídeo carregar. */
+  poster?: string;
 }
 
 const DEFAULT_SOURCES = [
@@ -21,6 +23,7 @@ export function BackgroundVideo({
   sources = DEFAULT_SOURCES,
   className,
   playOnInView = false,
+  poster,
 }: BackgroundVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isReady, setIsReady] = useState(false);
@@ -78,14 +81,15 @@ export function BackgroundVideo({
       ref={videoRef}
       className={cn(
         "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
-        isReady ? "opacity-100" : "opacity-0",
+        poster || isReady ? "opacity-100" : "opacity-0",
         className,
       )}
       autoPlay={!playOnInView}
       muted
       playsInline
+      poster={poster}
       {...HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS}
-      preload="none"
+      preload={poster ? "metadata" : "none"}
       disablePictureInPicture
       disableRemotePlayback
       controls={false}

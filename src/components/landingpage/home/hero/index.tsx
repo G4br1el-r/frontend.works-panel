@@ -8,7 +8,7 @@ export function Hero() {
       id="inicio"
       className="relative h-dvh w-full overflow-hidden bg-black"
     >
-      <BackgroundVideo />
+      <BackgroundVideo poster="/images/hero/hero-poster.jpg" />
 
       <div className="absolute inset-0 bg-black/55" />
       <div className="absolute inset-0 bg-linear-to-b from-black/70 via-transparent to-black/80" />
