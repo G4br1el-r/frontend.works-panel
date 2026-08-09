@@ -1,5 +1,5 @@
 import { BackgroundVideo } from "@/components/landingpage/home/hero/background-video";
-import { METRICS_BACKGROUND_VIDEO_SOURCES } from "@/utils/constants";
+import { METRICS_BACKGROUND_VIDEO_SOURCES } from "@/lib/utils/constants";
 
 export function MetricsBackground() {
   return (

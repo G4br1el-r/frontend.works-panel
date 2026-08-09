@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ImageComponent } from "@/components/shared/ImageComponent";
+import { ImageComponent } from "@/components/shared/image-component";
 
 type SolutionCardProps = {
   label: string;

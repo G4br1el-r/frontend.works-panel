@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ImageComponent } from "@/components/shared/ImageComponent";
-import { ALL_SOLUTIONS_URL, SOLUTIONS_MORE_CARD } from "@/utils/constants";
+import { ImageComponent } from "@/components/shared/image-component";
+import { ALL_SOLUTIONS_URL, SOLUTIONS_MORE_CARD } from "@/lib/utils/constants";
 
 export function SolutionsMoreCard() {
   return (

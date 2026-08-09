@@ -4,9 +4,9 @@ import { RelatedSolutions } from "@/components/landingpage/solutions/related-sol
 import { SolutionDescription } from "@/components/landingpage/solutions/solution-description";
 import { SolutionHero } from "@/components/landingpage/solutions/solution-hero";
 import { SolutionServices } from "@/components/landingpage/solutions/solution-services";
-import { SITE_NAME } from "@/utils/constants";
-import { getSolution } from "@/utils/get-solution";
-import { toTitleCase } from "@/utils/to-title-case";
+import { SITE_NAME } from "@/lib/utils/constants";
+import { getSolution } from "@/lib/utils/get-solution";
+import { toTitleCase } from "@/lib/utils/to-title-case";
 
 interface SolutionPageProps {
   params: Promise<{ label: string }>;

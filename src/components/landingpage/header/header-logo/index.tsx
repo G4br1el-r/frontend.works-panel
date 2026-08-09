@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useScrollToSection } from "@/hooks/use-scroll-to-section";
-import { cn } from "@/utils/cn";
-import { SITE_HEADER_LOGO } from "@/utils/constants";
+import { useScrollToSection } from "@/hooks/shared/use-scroll-to-section";
+import { cn } from "@/lib/utils/cn";
+import { SITE_HEADER_LOGO } from "@/lib/utils/constants";
 
 interface HeaderLogoProps {
   className?: string;

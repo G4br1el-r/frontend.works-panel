@@ -1,7 +1,7 @@
 import { SolutionsGrid } from "@/components/landingpage/home/solutions/solutions-grid";
 import { SolutionsQuoteCta } from "@/components/landingpage/home/solutions/solutions-quote-cta";
 import { FadeIn } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 export function Solutions() {
   return (

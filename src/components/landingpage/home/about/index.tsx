@@ -3,7 +3,7 @@ import { AboutDescription } from "@/components/landingpage/home/about/about-desc
 import { AboutExperienceBadge } from "@/components/landingpage/home/about/about-experience-badge";
 import { AboutHeading } from "@/components/landingpage/home/about/about-heading";
 import { AboutHighlights } from "@/components/landingpage/home/about/about-highlights";
-import { ImageComponent } from "@/components/shared/ImageComponent";
+import { ImageComponent } from "@/components/shared/image-component";
 
 export function About() {
   return (

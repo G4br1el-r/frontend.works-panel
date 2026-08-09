@@ -1,7 +1,7 @@
 import { Quote } from "lucide-react";
 import { TestimonialsCarousel } from "@/components/landingpage/home/testimonials/testimonials-carousel";
 import { FadeIn } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 export function Testimonials() {
   return (

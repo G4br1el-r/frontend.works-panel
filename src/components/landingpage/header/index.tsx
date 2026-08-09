@@ -17,8 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useScrolled } from "@/hooks/use-scrolled";
-import { cn } from "@/utils/cn";
+import { useScrolled } from "@/hooks/shared/use-scrolled";
+import { cn } from "@/lib/utils/cn";
 
 const HEADER_SCROLL_THRESHOLD_PX = 24;
 

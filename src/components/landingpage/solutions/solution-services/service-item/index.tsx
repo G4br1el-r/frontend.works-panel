@@ -3,8 +3,8 @@
 import { Check, Plus } from "lucide-react";
 import { motion } from "motion/react";
 import { DEFAULT_EASE } from "@/components/motion/variants";
+import { cn } from "@/lib/utils/cn";
 import { useCartStore } from "@/store/landingpage/solutions/cart-store";
-import { cn } from "@/utils/cn";
 
 interface ServiceItemProps {
   servico: string;

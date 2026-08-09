@@ -1,7 +1,7 @@
 import { SolutionCard } from "@/components/landingpage/home/solutions/solution-card";
 import { FadeIn } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/shared/SectionHeading";
-import { SOLUTIONS_ITEMS } from "@/utils/constants";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { SOLUTIONS_ITEMS } from "@/lib/utils/constants";
 
 const RELATED_SOLUTIONS_COUNT = 3;
 

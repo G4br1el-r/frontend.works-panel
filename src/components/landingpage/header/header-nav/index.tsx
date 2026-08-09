@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useScrollToSection } from "@/hooks/use-scroll-to-section";
-import { HEADER_NAV_ITEMS } from "@/utils/constants";
+import { useScrollToSection } from "@/hooks/shared/use-scroll-to-section";
+import { HEADER_NAV_ITEMS } from "@/lib/utils/constants";
 
 interface HeaderNavProps {
   onLinkClick?: () => void;

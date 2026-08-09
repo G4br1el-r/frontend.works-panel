@@ -8,11 +8,11 @@ import {
   useTransform,
 } from "motion/react";
 import { useEffect, useRef } from "react";
-import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { useIsDesktop } from "@/hooks/shared/use-is-desktop";
 import {
   METRICS_ANIMATION_DELAY,
   METRICS_COUNTER_DURATION,
-} from "@/utils/constants";
+} from "@/lib/utils/constants";
 
 interface MetricCounterProps {
   value: number;

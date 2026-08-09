@@ -22,7 +22,7 @@ const FIELD_LABEL_CLASSNAME =
   "text-xs font-semibold tracking-widest text-brand";
 
 const FIELD_INPUT_CLASSNAME =
-  "border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-brand";
+  "border border-white/10 bg-white/5 px-3 py-2.5 text-base text-white placeholder:text-white/30 outline-none transition-colors focus:border-brand sm:text-sm";
 
 interface QuoteRequestDialogProps {
   open: boolean;

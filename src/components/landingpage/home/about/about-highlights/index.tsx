@@ -1,5 +1,5 @@
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
-import { ABOUT_HIGHLIGHTS } from "@/utils/constants";
+import { ABOUT_HIGHLIGHTS } from "@/lib/utils/constants";
 
 export function AboutHighlights() {
   return (

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
   --color-background: #000000;
   --color-foreground: #ededed;
@@ -11,13 +13,98 @@
   --color-brand-deep: #a16207;
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-display:
-    var(--font-archivo-black), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo-black), ui-sans-serif, system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-panel-accent: var(--panel-accent);
+  --color-panel-accent-light: var(--panel-accent-light);
+  --color-panel-accent-foreground: var(--panel-accent-foreground);
+
+  --color-panel-page: var(--panel-page);
+  --color-panel-surface: var(--panel-surface);
+  --color-panel-surface-foreground: var(--panel-surface-foreground);
+  --color-panel-border: var(--panel-border);
+  --color-panel-muted: var(--panel-muted);
+  --color-panel-muted-foreground: var(--panel-muted-foreground);
+
+  --color-status-success: var(--status-success);
+  --color-status-success-bg: var(--status-success-bg);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-danger: var(--status-danger);
+  --color-status-danger-bg: var(--status-danger-bg);
+  --color-status-info: var(--status-info);
+  --color-status-info-bg: var(--status-info-bg);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
 :root {
   --brand-glow: 217 160 0;
   --shadow-brand-hover: 0 8px 28px rgb(var(--brand-glow) / 0.35);
+
+  --sidebar: hsl(220 25% 98%);
+  --sidebar-foreground: hsl(222 15% 40%);
+  --sidebar-primary: var(--color-brand);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: hsl(220 20% 93%);
+  --sidebar-accent-foreground: hsl(222 25% 12%);
+  --sidebar-border: hsl(220 15% 90%);
+  --sidebar-ring: var(--color-brand);
+
+  --panel-accent: var(--color-brand);
+  --panel-accent-light: #fef3c7;
+  --panel-accent-foreground: #ffffff;
+  --panel-accent-glow: var(--brand-glow);
+
+  --panel-page: hsl(220 23% 96%);
+  --panel-surface: hsl(0 0% 100%);
+  --panel-surface-foreground: hsl(222 25% 12%);
+  --panel-border: hsl(220 16% 89%);
+  --panel-muted: hsl(220 20% 95%);
+  --panel-muted-foreground: hsl(220 9% 46%);
+
+  --status-success: hsl(152 60% 32%);
+  --status-success-bg: hsl(150 55% 94%);
+  --status-warning: hsl(38 95% 40%);
+  --status-warning-bg: hsl(45 90% 93%);
+  --status-danger: hsl(0 68% 48%);
+  --status-danger-bg: hsl(0 75% 96%);
+  --status-info: hsl(217 85% 52%);
+  --status-info-bg: hsl(217 75% 95%);
+
+  --primary: var(--panel-accent);
+  --primary-foreground: var(--panel-accent-foreground);
+  --secondary: var(--panel-muted);
+  --secondary-foreground: var(--panel-surface-foreground);
+  --muted: var(--panel-muted);
+  --muted-foreground: var(--panel-muted-foreground);
+  --accent: var(--panel-muted);
+  --accent-foreground: var(--panel-surface-foreground);
+  --destructive: var(--status-danger);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: var(--panel-border);
+  --input: var(--panel-border);
+  --ring: var(--panel-accent);
 }
 
 @keyframes brand-pulse {
@@ -123,6 +210,30 @@
   animation: marquee 40s linear infinite;
 }
 
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
 video::-webkit-media-controls,
 video::-webkit-media-controls-panel,
 video::-webkit-media-controls-start-playback-button,
@@ -146,4 +257,15 @@ video::-webkit-media-controls-overlay-play-button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.dark {
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }

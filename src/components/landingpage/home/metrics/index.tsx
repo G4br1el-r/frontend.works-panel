@@ -1,7 +1,7 @@
 import { MetricsBackground } from "@/components/landingpage/home/metrics/metrics-background";
 import { MetricsGrid } from "@/components/landingpage/home/metrics/metrics-grid";
 import { FadeIn } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 export function Metrics() {
   return (

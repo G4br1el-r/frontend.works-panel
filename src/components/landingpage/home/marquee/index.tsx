@@ -1,4 +1,4 @@
-import { MARQUEE_SOLUTIONS } from "@/utils/constants";
+import { MARQUEE_SOLUTIONS } from "@/lib/utils/constants";
 
 function MarqueeTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
