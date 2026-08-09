@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   NOTCHED_BUTTON_CLIP_PATH,
   SOLUTIONS_QUOTE_CTA_URL,
-} from "@/utils/constants";
+} from "@/lib/utils/constants";
 
 export function SolutionsQuoteCta() {
   return (

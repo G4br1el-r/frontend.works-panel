@@ -1,5 +1,5 @@
 import { Quote } from "lucide-react";
-import { getInitials } from "@/utils/get-initials";
+import { getInitials } from "@/lib/utils/get-initials";
 
 interface TestimonialCardProps {
   quote: string;

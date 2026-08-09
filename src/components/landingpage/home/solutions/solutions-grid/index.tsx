@@ -1,7 +1,7 @@
 import { SolutionCard } from "@/components/landingpage/home/solutions/solution-card";
 import { SolutionsMoreCard } from "@/components/landingpage/home/solutions/solutions-more-card";
 import { FadeIn } from "@/components/motion/fade-in";
-import { SOLUTIONS_ITEMS } from "@/utils/constants";
+import { SOLUTIONS_ITEMS } from "@/lib/utils/constants";
 
 export function SolutionsGrid() {
   return (

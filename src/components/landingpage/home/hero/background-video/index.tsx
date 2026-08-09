@@ -3,8 +3,8 @@
 import { useInView } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/utils/cn";
-import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/utils/constants";
+import { cn } from "@/lib/utils/cn";
+import { HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS } from "@/lib/utils/constants";
 
 interface BackgroundVideoProps {
   sources?: { src: string; type: string }[];
@@ -85,7 +85,10 @@ export function BackgroundVideo({
           priority
           fetchPriority="high"
           sizes="100vw"
-          className={cn("absolute inset-0 h-full w-full object-cover", className)}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover",
+            className,
+          )}
         />
       )}
       <video

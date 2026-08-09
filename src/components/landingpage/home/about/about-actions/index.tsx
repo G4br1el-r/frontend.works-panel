@@ -3,8 +3,8 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
-import { useScrollToSection } from "@/hooks/use-scroll-to-section";
-import { NOTCHED_BUTTON_CLIP_PATH } from "@/utils/constants";
+import { useScrollToSection } from "@/hooks/shared/use-scroll-to-section";
+import { NOTCHED_BUTTON_CLIP_PATH } from "@/lib/utils/constants";
 
 export function AboutActions() {
   const handleClick = useScrollToSection();

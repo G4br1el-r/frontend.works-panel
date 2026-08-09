@@ -4,9 +4,9 @@ import { ShoppingBag } from "lucide-react";
 import { AnimatePresence, motion, useAnimationControls } from "motion/react";
 import { useEffect, useRef } from "react";
 import { DEFAULT_EASE } from "@/components/motion/variants";
+import { cn } from "@/lib/utils/cn";
 import { useCartSheetStore } from "@/store/landingpage/solutions/cart-sheet-store";
 import { useCartItemCount } from "@/store/landingpage/solutions/cart-store";
-import { cn } from "@/utils/cn";
 
 interface HeaderBagProps {
   className?: string;

@@ -5,8 +5,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TestimonialCard } from "@/components/landingpage/home/testimonials/testimonial-card";
-import { cn } from "@/utils/cn";
-import { TESTIMONIALS_ITEMS } from "@/utils/constants";
+import { cn } from "@/lib/utils/cn";
+import { TESTIMONIALS_ITEMS } from "@/lib/utils/constants";
 
 export function TestimonialsCarousel() {
   const autoplay = useRef(

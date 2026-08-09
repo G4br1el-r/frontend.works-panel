@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useScrollToSection } from "@/hooks/use-scroll-to-section";
+import { useScrollToSection } from "@/hooks/shared/use-scroll-to-section";
 
 type ScrollIndicatorProps = {
   targetId: string;

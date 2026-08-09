@@ -1,6 +1,6 @@
 import { FadeIn } from "@/components/motion/fade-in";
-import { ImageComponent } from "@/components/shared/ImageComponent";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { ImageComponent } from "@/components/shared/image-component";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 interface SolutionHeroProps {
   title: string;

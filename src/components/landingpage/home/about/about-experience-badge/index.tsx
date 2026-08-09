@@ -1,5 +1,5 @@
 import { FadeIn } from "@/components/motion/fade-in";
-import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
+import { AnimatedCounter } from "@/components/shared/animated-counter";
 
 export function AboutExperienceBadge() {
   return (

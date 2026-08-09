@@ -6,8 +6,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils/cn";
 import { useContactStore } from "@/store/landingpage/solutions/contact-store";
-import { cn } from "@/utils/cn";
 
 interface HeaderAccountProps {
   className?: string;

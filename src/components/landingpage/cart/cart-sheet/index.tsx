@@ -13,13 +13,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { getSolution } from "@/lib/utils/get-solution";
 import { useCartSheetStore } from "@/store/landingpage/solutions/cart-sheet-store";
 import {
   useCartItemCount,
   useCartStore,
 } from "@/store/landingpage/solutions/cart-store";
 import { useContactStore } from "@/store/landingpage/solutions/contact-store";
-import { getSolution } from "@/utils/get-solution";
 
 const SUBMITTED_FEEDBACK_DURATION_MS = 2500;
 

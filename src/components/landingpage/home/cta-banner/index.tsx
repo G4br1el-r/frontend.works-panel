@@ -5,7 +5,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 import {
   NOTCHED_BUTTON_CLIP_PATH,
   SOLUTIONS_QUOTE_CTA_URL,
-} from "@/utils/constants";
+} from "@/lib/utils/constants";
 
 export function CtaBanner() {
   return (

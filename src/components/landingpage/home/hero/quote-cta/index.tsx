@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 import {
   HERO_QUOTE_CTA_URL,
   NOTCHED_BUTTON_CLIP_PATH,
-} from "@/utils/constants";
+} from "@/lib/utils/constants";
 
 export function QuoteCta() {
   return (

@@ -2,12 +2,12 @@
 
 import { MetricCard } from "@/components/landingpage/home/metrics/metric-card";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
-import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { useIsDesktop } from "@/hooks/shared/use-is-desktop";
 import {
   METRICS_ANIMATION_DELAY,
   METRICS_ITEMS,
   NOTCHED_CARD_CLIP_PATH,
-} from "@/utils/constants";
+} from "@/lib/utils/constants";
 
 export function MetricsGrid() {
   const isDesktop = useIsDesktop();
