@@ -1,5 +1,3 @@
-"use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { type FieldErrors, useForm } from "react-hook-form";
@@ -56,6 +54,4 @@ export function useCreateNewEmployeer() {
   return { onSubmit, onInvalid, form };
 }
 
-export type UseCreateNewEmployeerReturn = ReturnType<
-  typeof useCreateNewEmployeer
->;
+export type UseCreateNewEmployeerReturn = ReturnType<typeof useCreateNewEmployeer>;

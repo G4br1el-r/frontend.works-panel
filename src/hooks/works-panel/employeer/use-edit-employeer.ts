@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { type FieldErrors, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import type { EmployeerResponseData } from "@/@type/works-panel/employeer/get-employeer.type";
+import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import {
   type EmployeerFormData,
   type EmployeerFormOutput,
@@ -21,13 +21,13 @@ function formatDailyRateForInput(dailyRate: number | string) {
 }
 
 interface UseEditEmployeerOptions {
-  employeer: EmployeerResponseData | null;
+  employeer: EmployeerResponseType | null;
   onSuccess?: () => void;
 }
 
 async function editEmployeer(id: number, payload: EmployeerFormOutput) {
   const response = await fetch("/api/works-panel/employeer/edit", {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, ...payload }),
   });
@@ -39,10 +39,7 @@ async function editEmployeer(id: number, payload: EmployeerFormOutput) {
   return response.json();
 }
 
-export function useEditEmployeer({
-  employeer,
-  onSuccess,
-}: UseEditEmployeerOptions) {
+export function useEditEmployeer({ employeer, onSuccess }: UseEditEmployeerOptions) {
   const router = useRouter();
 
   const form = useForm<EmployeerFormData, unknown, EmployeerFormOutput>({

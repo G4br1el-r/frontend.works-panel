@@ -26,11 +26,7 @@ export function CreateEmployeerDialog() {
       onClear={() => form.reset()}
       disabled={isSubmitting}
     >
-      <CreateEmployeerForm
-        form={form}
-        onInvalid={onInvalid}
-        onSubmit={onSubmit}
-      />
+      <CreateEmployeerForm form={form} onInvalid={onInvalid} onSubmit={onSubmit} formId="create-employeer-form" />
     </FormDialog>
   );
 }
