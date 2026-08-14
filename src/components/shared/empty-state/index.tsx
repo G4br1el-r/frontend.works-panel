@@ -1,17 +1,16 @@
-import { HardHat, type LucideIcon } from "lucide-react";
 import { FadeIn } from "@/components/motion/fade-in";
+import type { IconName } from "@/lib/utils/iconsMap";
+import { iconMap } from "@/lib/utils/iconsMap";
 
-interface EmptyEmployeersProps {
-  icon?: LucideIcon;
-  title?: string;
-  subtitle?: string;
+interface EmptyStateProps {
+  icon: IconName;
+  title: string;
+  subtitle: string;
 }
 
-export function EmptyEmployeers({
-  icon: Icon = HardHat,
-  title = "Nenhum funcionário cadastrado",
-  subtitle = "Cadastre a equipe para acompanhar quem está em cada obra.",
-}: EmptyEmployeersProps) {
+export function EmptyState({ icon, title, subtitle }: EmptyStateProps) {
+  const Icon = iconMap[icon];
+
   return (
     <FadeIn
       direction="up"
@@ -24,9 +23,7 @@ export function EmptyEmployeers({
         <Icon className="size-6" />
       </span>
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-panel-surface-foreground">
-          {title}
-        </p>
+        <p className="text-sm font-medium text-panel-surface-foreground">{title}</p>
         <p className="text-sm text-panel-muted-foreground">{subtitle}</p>
       </div>
     </FadeIn>

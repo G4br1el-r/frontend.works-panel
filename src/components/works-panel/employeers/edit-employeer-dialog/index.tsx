@@ -1,13 +1,13 @@
 "use client";
 
 import { useFormState } from "react-hook-form";
-import type { EmployeerResponseData } from "@/@type/works-panel/employeer/get-employeer.type";
+import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import { FormDialog } from "@/components/shared/form-dialog";
 import { CreateEmployeerForm } from "@/components/works-panel/employeers/create-employeer-form";
 import { useEditEmployeer } from "@/hooks/works-panel/employeer/use-edit-employeer";
 
 interface EditEmployeerDialogProps {
-  employeer: EmployeerResponseData | null;
+  employeer: EmployeerResponseType | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }

@@ -1,9 +1,9 @@
 import { GetAllEmployeerService } from "@/app/services/works-panel/employeer/get-all-employeer.service";
 import { FadeIn } from "@/components/motion/fade-in";
+import { EmptyState } from "@/components/shared/empty-state";
 import { TitleSection } from "@/components/shared/title-section";
 import { CreateEmployeerDialog } from "@/components/works-panel/employeers/create-employeer-dialog";
 import { EmployeersTable } from "@/components/works-panel/employeers/employeers-table";
-import { EmptyEmployeers } from "@/components/works-panel/employeers/empty-employeers";
 
 export default async function Employeer() {
   const employeers = await GetAllEmployeerService();
@@ -25,7 +25,11 @@ export default async function Employeer() {
       </FadeIn>
 
       {isEmptyEmployeers ? (
-        <EmptyEmployeers />
+        <EmptyState
+          icon="hardHat"
+          title="Nenhum funcionário cadastrado"
+          subtitle="Cadastre a equipe para acompanhar quem está em cada obra."
+        />
       ) : (
         <EmployeersTable employeers={employeers} />
       )}

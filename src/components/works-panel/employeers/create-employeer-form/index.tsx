@@ -6,24 +6,15 @@ import type { UseCreateNewEmployeerReturn } from "@/hooks/works-panel/employeer/
 import { cn } from "@/lib/utils/cn";
 
 type CreateEmployeerFormProps = UseCreateNewEmployeerReturn & {
-  formId?: string;
+  formId: string;
 };
 
-export function CreateEmployeerForm({
-  form,
-  onInvalid,
-  onSubmit,
-  formId = "create-employeer-form",
-}: CreateEmployeerFormProps) {
+export function CreateEmployeerForm({ form, onInvalid, onSubmit, formId }: CreateEmployeerFormProps) {
   const { control, handleSubmit } = form;
   const { errors, isSubmitting } = useFormState({ control });
 
   return (
-    <form
-      id={formId}
-      className="flex flex-col gap-4"
-      onSubmit={handleSubmit(onSubmit, onInvalid)}
-    >
+    <form id={formId} className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit, onInvalid)}>
       <InputComponent.root>
         <div className="w-full">
           <InputComponent.label

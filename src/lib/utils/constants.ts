@@ -384,6 +384,16 @@ export const HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS = {
 } as Record<string, string>;
 
 // ============================================================
+// WORKS PANEL — Segment
+// ============================================================
+
+export const SEGMENT_COVER_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+
+export const SEGMENT_COVER_ALLOWED_MIME_PREFIX = "image/";
+
+export const SEGMENT_COVER_WEBP_QUALITY = 80;
+
+// ============================================================
 // WORKS PANEL — App Sidebar
 // ============================================================
 

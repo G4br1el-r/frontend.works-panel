@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
-import type { EmployeerResponseData } from "@/@type/works-panel/employeer/get-employeer.type";
+import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
 
@@ -25,36 +25,63 @@ function formatDate(value: string) {
   return `${dateLabel} às ${timeLabel}`;
 }
 
+function getInitials(name: string) {
+  const [first, second] = name.trim().split(/\s+/);
+  return `${first?.[0] ?? ""}${second?.[0] ?? ""}`.toUpperCase();
+}
+
 interface CreateEmployeersColumnsOptions {
-  onEdit?: (employeer: EmployeerResponseData) => void;
-  onDelete?: (employeer: EmployeerResponseData) => void;
+  onEdit?: (employeer: EmployeerResponseType) => void;
+  onDelete?: (employeer: EmployeerResponseType) => void;
 }
 
 export function createEmployeersColumns({
   onEdit,
   onDelete,
-}: CreateEmployeersColumnsOptions): ColumnDef<EmployeerResponseData>[] {
+}: CreateEmployeersColumnsOptions): ColumnDef<EmployeerResponseType>[] {
   return [
     {
       accessorKey: "name",
       header: "Nome",
+      cell: ({ row }) => (
+        <div className="flex items-center gap-3">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-panel-accent-light text-xs font-semibold text-panel-accent">
+            {getInitials(row.original.name)}
+          </span>
+          <span className="font-medium text-panel-surface-foreground">
+            {row.original.name}
+          </span>
+        </div>
+      ),
     },
     {
       id: "dailyRate",
       accessorFn: (employeer) => toNumber(employeer.dailyRate),
       header: "Diária",
-      cell: ({ getValue }) => formatCurrency(getValue<number>()),
+      cell: ({ getValue }) => (
+        <span className="font-medium text-panel-surface-foreground">
+          {formatCurrency(getValue<number>())}
+        </span>
+      ),
     },
     {
       accessorKey: "createdAt",
       header: "Cadastrado em",
-      cell: ({ row }) => formatDate(row.original.createdAt),
+      cell: ({ row }) => (
+        <span className="text-panel-muted-foreground">
+          {formatDate(row.original.createdAt)}
+        </span>
+      ),
     },
     {
       id: "agendaDays",
       header: "Dias da agenda",
       enableSorting: false,
-      cell: () => <span className="text-panel-muted-foreground">—</span>,
+      cell: () => (
+        <span className="inline-flex items-center rounded-full border border-dashed border-panel-border px-2 py-0.5 text-xs text-panel-muted-foreground">
+          Em breve
+        </span>
+      ),
     },
     {
       id: "actions",
