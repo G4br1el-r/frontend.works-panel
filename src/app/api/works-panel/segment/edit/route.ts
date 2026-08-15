@@ -29,7 +29,7 @@ export async function PATCH(request: Request) {
       payload,
     );
 
-    revalidateTag("segments", "max");
+    revalidateTag("segments", { expire: 0 });
 
     return NextResponse.json(segment, { status: 200 });
   } catch (error) {

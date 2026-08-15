@@ -1,5 +1,5 @@
 import { SolutionsGrid } from "@/components/landingpage/home/solutions/solutions-grid";
-import { SolutionsQuoteCta } from "@/components/landingpage/home/solutions/solutions-quote-cta";
+import { SolutionsViewAllCta } from "@/components/landingpage/solutions/solutions-view-all-cta";
 import { FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -16,11 +16,8 @@ export function Solutions() {
           duration={0.5}
           className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-10"
         >
-          <SectionHeading
-            eyebrow="O QUE OFERECEMOS"
-            lines={["NOSSOS", "SERVIÇOS"]}
-          />
-          <SolutionsQuoteCta />
+          <SectionHeading eyebrow="O QUE OFERECEMOS" lines={["NOSSOS", "SERVIÇOS"]} />
+          <SolutionsViewAllCta />
         </FadeIn>
 
         <SolutionsGrid />

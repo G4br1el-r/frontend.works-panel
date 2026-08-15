@@ -22,7 +22,7 @@ export async function DELETE(request: Request) {
   try {
     await api.delete(`/employeer/${parsed.data.id}`);
 
-    revalidateTag("employeers", "max");
+    revalidateTag("employeers", { expire: 0 });
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {

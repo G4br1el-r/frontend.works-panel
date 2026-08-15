@@ -12,22 +12,37 @@ export async function POST(request: Request) {
   const file = formData.get("file");
 
   if (!(file instanceof File)) {
-    return NextResponse.json({ message: "Nenhum arquivo enviado." }, { status: 400 });
+    return NextResponse.json(
+      { message: "Nenhum arquivo enviado." },
+      { status: 400 },
+    );
   }
 
   if (!file.type.startsWith(SEGMENT_COVER_ALLOWED_MIME_PREFIX)) {
-    return NextResponse.json({ message: "O arquivo enviado não é uma imagem." }, { status: 400 });
+    return NextResponse.json(
+      { message: "O arquivo enviado não é uma imagem." },
+      { status: 400 },
+    );
   }
 
   if (file.size > SEGMENT_COVER_MAX_FILE_SIZE_BYTES) {
-    return NextResponse.json({ message: "A imagem deve ter no máximo 5MB." }, { status: 400 });
+    return NextResponse.json(
+      { message: "A imagem deve ter no máximo 5MB." },
+      { status: 400 },
+    );
   }
 
   let webpBuffer: Buffer;
   try {
-    webpBuffer = await convertToWebp(await file.arrayBuffer(), SEGMENT_COVER_WEBP_QUALITY);
+    webpBuffer = await convertToWebp(
+      await file.arrayBuffer(),
+      SEGMENT_COVER_WEBP_QUALITY,
+    );
   } catch {
-    return NextResponse.json({ message: "Não foi possível processar a imagem." }, { status: 400 });
+    return NextResponse.json(
+      { message: "Não foi possível processar a imagem." },
+      { status: 400 },
+    );
   }
 
   const blob = await put(`segments/${crypto.randomUUID()}.webp`, webpBuffer, {

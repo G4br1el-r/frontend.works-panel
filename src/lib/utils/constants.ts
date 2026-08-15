@@ -11,6 +11,7 @@ import {
   Layers,
   MapPin,
   Package,
+  RulerDimensionLine,
   ScrollText,
   Sparkles,
   Users,
@@ -27,8 +28,7 @@ export const DESKTOP_BREAKPOINT_PX = 1024;
 export const SITE_URL = "https://gui-goulart.vercel.app";
 export const SITE_NAME = "Guilherme Goulart";
 export const SITE_DEFAULT_TITLE = "Guilherme Goulart | Prestação de Serviços";
-export const SITE_DEFAULT_DESCRIPTION =
-  "Prestação de serviços com Guilherme Goulart. Solicite seu orçamento.";
+export const SITE_DEFAULT_DESCRIPTION = "Prestação de serviços com Guilherme Goulart. Solicite seu orçamento.";
 export const SITE_CATEGORY = "construção civil";
 export const SITE_KEYWORDS = [
   "prestação de serviços",
@@ -82,175 +82,11 @@ export const MARQUEE_SOLUTIONS = [
   "DO REPARO À OBRA COMPLETA",
 ];
 
-export const SOLUTIONS_ITEMS = [
-  {
-    id: 1,
-    label: "eletrica",
-    title: "ELÉTRICA",
-    description:
-      "Instalações, quadros, tomadas e correção de falhas com segurança e norma técnica.",
-    image: "/images/solutions/electrical.webp",
-    servicos: [
-      "Instalação e troca de tomadas e interruptores",
-      "Montagem e reforma de quadros de distribuição",
-      "Instalação de disjuntores e dispositivos DR",
-      "Passagem de fiação e infraestrutura elétrica",
-      "Instalação de luminárias e pontos de iluminação",
-      "Correção de curtos-circuitos e falhas intermitentes",
-      "Instalação de chuveiro e ponto elétrico de alta carga",
-      "Aterramento e proteção contra descargas elétricas",
-      "Instalação de ventiladores de teto e exaustores",
-      "Laudo e adequação elétrica às normas técnicas",
-    ],
-  },
-  {
-    id: 2,
-    label: "alvenaria-e-obra",
-    title: "ALVENARIA E OBRA",
-    description:
-      "Do reparo pontual à obra completa, com acabamento firme e prazo respeitado.",
-    image: "/images/solutions/masonry.webp",
-    servicos: [
-      "Levantamento de paredes e muros",
-      "Construção e reforma de fundações",
-      "Reboco e chapisco de alvenaria",
-      "Abertura e fechamento de vãos",
-      "Construção de degraus e escadas",
-      "Contrapiso e nivelamento de laje",
-      "Demolição controlada de estruturas",
-      "Construção de churrasqueiras e áreas externas",
-      "Reforma estrutural e ampliação de cômodos",
-      "Acompanhamento completo de obra do início ao fim",
-    ],
-  },
-  {
-    id: 3,
-    label: "pintura",
-    title: "PINTURA",
-    description:
-      "Preparo de superfície, massa e pintura interna ou externa com acabamento uniforme.",
-    image: "/images/solutions/painting.webp",
-    servicos: [
-      "Pintura interna residencial e comercial",
-      "Pintura externa e de fachadas",
-      "Preparo de superfície e lixamento",
-      "Aplicação de massa corrida e acrílica",
-      "Textura e efeitos decorativos em parede",
-      "Pintura de portões e estruturas metálicas",
-      "Impermeabilização de fachadas com pintura",
-      "Verniz e pintura em madeira",
-      "Retoque e repintura pontual",
-      "Consultoria de cores e acabamentos",
-    ],
-  },
-  {
-    id: 4,
-    label: "hidraulica",
-    title: "HIDRÁULICA",
-    description:
-      "Vazamentos, tubulações, louças e metais instalados e revisados sem retrabalho.",
-    image: "/images/solutions/hydraulics.webp",
-    servicos: [
-      "Detecção e reparo de vazamentos",
-      "Instalação e troca de tubulações",
-      "Instalação de louças sanitárias",
-      "Instalação de torneiras e metais",
-      "Desentupimento de ralos e esgoto",
-      "Instalação de caixa d'água e bombas",
-      "Instalação de aquecedor e boiler",
-      "Reparo de registros e válvulas",
-      "Instalação de filtros e purificadores",
-      "Revisão geral de sistema hidráulico",
-    ],
-  },
-  {
-    id: 5,
-    label: "marcenaria",
-    title: "MARCENARIA",
-    description:
-      "Montagem, instalação e ajuste de móveis planejados e estruturas sob medida.",
-    image: "/images/solutions/woodworking.webp",
-    servicos: [
-      "Montagem de móveis planejados",
-      "Instalação de armários e closets",
-      "Fabricação de móveis sob medida",
-      "Instalação de portas e batentes",
-      "Ajuste e regulagem de dobradiças",
-      "Instalação de prateleiras e nichos",
-      "Reparo e restauração de móveis",
-      "Instalação de rodapés e molduras",
-      "Montagem de deck e estruturas em madeira",
-      "Instalação de bancadas e balcões",
-    ],
-  },
-  {
-    id: 6,
-    label: "gesso-e-drywall",
-    title: "GESSO E DRYWALL",
-    description:
-      "Forros, sancas e paredes em drywall com nivelamento e acabamento limpo.",
-    image: "/images/solutions/drywall.webp",
-    servicos: [
-      "Instalação de forro de gesso",
-      "Construção de parede em drywall",
-      "Sanca aberta e fechada com iluminação",
-      "Instalação de rebaixo de teto",
-      "Isolamento acústico com drywall",
-      "Instalação de gesso 3D decorativo",
-      "Reparo de trincas e recortes em drywall",
-      "Instalação de forro modular removível",
-      "Divisórias em drywall para ambientes",
-      "Acabamento e pintura de gesso",
-    ],
-  },
-  {
-    id: 7,
-    label: "revestimentos",
-    title: "REVESTIMENTOS",
-    description:
-      "Pisos, azulejos e porcelanatos assentados com alinhamento e rejunte impecável.",
-    image: "/images/solutions/coating.webp",
-    servicos: [
-      "Assentamento de piso porcelanato",
-      "Instalação de azulejos e revestimentos de parede",
-      "Assentamento de piso laminado e vinílico",
-      "Rejuntamento e nivelamento de piso",
-      "Instalação de rodapé e soleiras",
-      "Revestimento de fachada em pastilha ou pedra",
-      "Troca e reparo de pisos danificados",
-      "Instalação de piso em área externa e antiderrapante",
-      "Assentamento de mármore e granito",
-      "Impermeabilização de área molhada antes do revestimento",
-    ],
-  },
-  {
-    id: 8,
-    label: "manutencao-predial",
-    title: "MANUTENÇÃO PREDIAL",
-    description:
-      "Rotina preventiva e corretiva para manter prédios e comércios sempre em ordem.",
-    image: "/images/solutions/building_maintenance.webp",
-    servicos: [
-      "Manutenção preventiva periódica",
-      "Reparos corretivos emergenciais",
-      "Manutenção de áreas comuns e fachadas",
-      "Inspeção e manutenção de telhados",
-      "Manutenção de portões e sistemas automatizados",
-      "Limpeza e manutenção de calhas e ralos",
-      "Manutenção de sistemas elétricos e hidráulicos prediais",
-      "Vistoria técnica e laudo de manutenção",
-      "Manutenção de pintura e revestimentos externos",
-      "Contrato de manutenção contínua para condomínios e empresas",
-    ],
-  },
-];
-
 export const SOLUTIONS_MORE_CARD = {
   id: "mais-solucoes",
   eyebrow: "E MAIS",
   title: "+10 SERVIÇOS",
-  description:
-    "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
+  description: "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
   cta: "VER TODOS",
   image: "/images/solutions/more_solutions.webp",
 };
@@ -259,9 +95,7 @@ export const SOLUTIONS_QUOTE_CTA_URL = "/orcamento";
 
 export const ALL_SOLUTIONS_URL = "/todas-solucoes";
 
-export const METRICS_BACKGROUND_VIDEO_SOURCES = [
-  { src: "/videos/metrics-background.mp4", type: "video/mp4" },
-];
+export const METRICS_BACKGROUND_VIDEO_SOURCES = [{ src: "/videos/metrics-background.mp4", type: "video/mp4" }];
 
 export const METRICS_ANIMATION_DELAY = 3;
 
@@ -287,8 +121,7 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "h",
     label: "TEMPO DE RESPOSTA",
-    description:
-      "Orçamento respondido em até um dia útil, com atendimento de urgência para o que não pode esperar.",
+    description: "Orçamento respondido em até um dia útil, com atendimento de urgência para o que não pode esperar.",
   },
   {
     id: "satisfacao",
@@ -298,8 +131,7 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "%",
     label: "CLIENTES SATISFEITOS",
-    description:
-      "Avaliam o serviço como ótimo ou excelente e seguem chamando a equipe para os próximos projetos.",
+    description: "Avaliam o serviço como ótimo ou excelente e seguem chamando a equipe para os próximos projetos.",
   },
   {
     id: "projetos",
@@ -309,8 +141,7 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "k",
     label: "SERVIÇOS ENTREGUES",
-    description:
-      "Do reparo pontual à obra completa, cada frente concluída com acabamento conferido item por item.",
+    description: "Do reparo pontual à obra completa, cada frente concluída com acabamento conferido item por item.",
   },
 ];
 
@@ -437,15 +268,15 @@ export const APP_SIDEBAR_NAV_GROUPS = [
         badge: undefined,
       },
       {
-        title: "Serviços",
-        href: "/gestao-obras/servicos",
-        icon: Wrench,
-        badge: undefined,
-      },
-      {
         title: "Segmentos",
         href: "/gestao-obras/segmentos",
         icon: Layers,
+        badge: undefined,
+      },
+      {
+        title: "Serviços",
+        href: "/gestao-obras/servicos",
+        icon: Wrench,
         badge: undefined,
       },
       {
@@ -458,6 +289,12 @@ export const APP_SIDEBAR_NAV_GROUPS = [
         title: "Funcionários",
         href: "/gestao-obras/funcionarios",
         icon: HardHat,
+        badge: undefined,
+      },
+      {
+        title: "Medidas",
+        href: "/gestao-obras/medidas",
+        icon: RulerDimensionLine,
         badge: undefined,
       },
     ],

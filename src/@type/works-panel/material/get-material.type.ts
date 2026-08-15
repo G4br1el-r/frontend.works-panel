@@ -1,12 +1,12 @@
-import type { UnitResponseType } from "@/@type/works-panel/unit/get-unit.type";
+import type { MeasureResponseType } from "@/@type/works-panel/measure/get-measure.type";
 
 export interface MaterialResponseType {
   id: number;
   name: string;
   basePrice: string;
   active: boolean;
-  unitId: number | null;
-  unit: UnitResponseType | null;
+  measureId: number | null;
+  measure: MeasureResponseType | null;
   createdAt: string;
   updatedAt: string;
 }

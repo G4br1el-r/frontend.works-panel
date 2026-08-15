@@ -15,20 +15,29 @@ export async function PATCH(request: Request) {
   const parsed = editEmployeerPayloadSchema.safeParse(body);
 
   if (!parsed.success) {
-    return NextResponse.json({ message: "Dados inválidos", issues: z.flattenError(parsed.error) }, { status: 400 });
+    return NextResponse.json(
+      { message: "Dados inválidos", issues: z.flattenError(parsed.error) },
+      { status: 400 },
+    );
   }
 
   const { id, ...payload } = parsed.data;
 
   try {
-    const employeer = await api.patch<EmployeerResponseType>(`/employeer/${id}`, payload);
+    const employeer = await api.patch<EmployeerResponseType>(
+      `/employeer/${id}`,
+      payload,
+    );
 
-    revalidateTag("employeers", "max");
+    revalidateTag("employeers", { expire: 0 });
 
     return NextResponse.json(employeer, { status: 200 });
   } catch (error) {
     if (isAppError(error)) {
-      return NextResponse.json({ message: error.message, code: error.code }, { status: error.statusCode });
+      return NextResponse.json(
+        { message: error.message, code: error.code },
+        { status: error.statusCode },
+      );
     }
     throw error;
   }

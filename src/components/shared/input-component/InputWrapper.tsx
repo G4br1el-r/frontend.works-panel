@@ -4,7 +4,7 @@ import { type IconName, iconMap } from "@/lib/utils/iconsMap";
 
 interface InputWrapperProps {
   children: React.ReactNode;
-  iconName: IconName;
+  iconName?: IconName;
   isPassword?: boolean;
   showPassword?: boolean;
   isLoading?: boolean;
@@ -27,7 +27,7 @@ export function InputWrapper({
   onShowPassword,
   isLoading,
 }: InputWrapperProps) {
-  const Icon = iconMap[iconName];
+  const Icon = iconName ? iconMap[iconName] : null;
   const IconPassword = iconMap[showPassword ? "eye" : "eyeClose"];
 
   return (
@@ -41,22 +41,24 @@ export function InputWrapper({
       {isLoading ? (
         <Loader2
           aria-hidden="true"
-          className={cn("w-5 h-5 shrink-0 animate-spin", classNameIcon)}
+          className={cn("w-4 h-4 shrink-0 animate-spin", classNameIcon)}
         />
-      ) : onSubmitIcon ? (
+      ) : onSubmitIcon && Icon ? (
         <button
           type="button"
           onClick={onSubmitIcon}
           aria-label="Pesquisar"
           className="flex items-center justify-center shrink-0"
         >
-          <Icon className={cn("w-5 h-5", classNameIcon)} />
+          <Icon className={cn("w-4 h-4", classNameIcon)} />
         </button>
       ) : (
-        <Icon
-          aria-hidden="true"
-          className={cn("w-5 h-5 shrink-0", classNameIcon)}
-        />
+        Icon && (
+          <Icon
+            aria-hidden="true"
+            className={cn("w-4 h-4 shrink-0", classNameIcon)}
+          />
+        )
       )}
       {children}
       {isPassword && IconPassword ? (
@@ -64,7 +66,7 @@ export function InputWrapper({
           onMouseDown={(e: { preventDefault: () => any }) => e.preventDefault()}
           onClick={() => onShowPassword?.()}
           aria-hidden="true"
-          className={cn("w-5 h-5 shrink-0 cursor-pointer", classNameIcon)}
+          className={cn("w-4 h-4 shrink-0 cursor-pointer", classNameIcon)}
         />
       ) : null}
     </div>

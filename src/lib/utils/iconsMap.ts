@@ -3,15 +3,21 @@ import {
   EyeOff,
   FileText,
   HardHat,
+  Home,
   Image,
   Layers,
   Lock,
   Mail,
+  Package,
+  Phone,
+  RulerDimensionLine,
   Search,
   SearchX,
   Tags,
   User,
   Wallet,
+  Waypoints,
+  Wrench,
 } from "lucide-react";
 
 export const iconMap = {
@@ -28,6 +34,12 @@ export const iconMap = {
   layers: Layers,
   tags: Tags,
   hardHat: HardHat,
+  ruler: RulerDimensionLine,
+  package: Package,
+  wrench: Wrench,
+  phone: Phone,
+  waypoints: Waypoints,
+  home: Home,
 } as const;
 
 export type IconName = keyof typeof iconMap;
