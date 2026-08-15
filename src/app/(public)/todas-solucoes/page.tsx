@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
+import { GetAllSegmentService } from "@/app/services/works-panel/segment/get-all-segment.service";
 import { SolutionHero } from "@/components/landingpage/solutions/solution-hero";
-import { SolutionServices } from "@/components/landingpage/solutions/solution-services";
-import { FadeIn } from "@/components/motion/fade-in";
-import { SectionHeading } from "@/components/shared/section-heading";
+import { SolutionsEmpty } from "@/components/landingpage/solutions/solutions-empty";
 import {
   ALL_SOLUTIONS_URL,
   SITE_NAME,
-  SOLUTIONS_ITEMS,
   SOLUTIONS_MORE_CARD,
 } from "@/lib/utils/constants";
+import { SolutionBlock } from "./solution-block";
 
 const TITLE = "Todos os Serviços";
 const DESCRIPTION =
@@ -41,7 +40,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AllSolutionsPage() {
+export default async function AllSolutionsPage() {
+  const SEGMENTS = await GetAllSegmentService({ active: true });
+  const SOLUTIONS_ITEMS = SEGMENTS.filter((segment) =>
+    segment.serviceItems?.some((item) => item.active),
+  );
+  const isSolutionsEmpty = SOLUTIONS_ITEMS.length === 0;
+
   return (
     <main className="w-full">
       <SolutionHero
@@ -51,31 +56,13 @@ export default function AllSolutionsPage() {
 
       <section className="w-full bg-black px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-14 sm:gap-16 md:gap-20">
-          {SOLUTIONS_ITEMS.map((solution, index) => (
-            <FadeIn
-              key={solution.id}
-              direction="up"
-              distance={16}
-              duration={0.5}
-              className="border-b border-white/10 pb-14 last:border-b-0 last:pb-0"
-            >
-              <div className="flex flex-col gap-6 sm:gap-8">
-                <SectionHeading
-                  eyebrow={`SOLUÇÃO ${String(index + 1).padStart(2, "0")}`}
-                  lines={[solution.title]}
-                />
-
-                <p className="max-w-3xl text-sm leading-relaxed text-pretty text-white/70 sm:text-base">
-                  {solution.description}
-                </p>
-
-                <SolutionServices
-                  servicos={solution.servicos}
-                  solutionLabel={solution.label}
-                />
-              </div>
-            </FadeIn>
-          ))}
+          {isSolutionsEmpty ? (
+            <SolutionsEmpty />
+          ) : (
+            SOLUTIONS_ITEMS.map((segment, index) => (
+              <SolutionBlock key={segment.id} segment={segment} index={index} />
+            ))
+          )}
         </div>
       </section>
     </main>

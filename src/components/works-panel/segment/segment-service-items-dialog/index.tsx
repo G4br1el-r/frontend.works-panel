@@ -29,8 +29,11 @@ export function SegmentServiceItemsDialog({ segment, open, onOpenChange }: Segme
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton={false} className="rounded-lg border-panel-border bg-panel-surface p-0 sm:p-0">
-        <DialogHeader className="flex-row items-start justify-between gap-4 space-y-0 border-b border-panel-border p-6">
+      <DialogContent
+        showCloseButton={false}
+        className="flex max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-lg border-panel-border bg-panel-surface p-0 sm:p-0"
+      >
+        <DialogHeader className="flex-row shrink-0 items-start justify-between gap-4 space-y-0 border-b border-panel-border p-4 sm:p-6">
           <div className="flex flex-col">
             <DialogTitle className="font-bold text-panel-surface-foreground">Serviços vinculados</DialogTitle>
             <DialogDescription className="text-panel-muted-foreground">
@@ -43,7 +46,7 @@ export function SegmentServiceItemsDialog({ segment, open, onOpenChange }: Segme
           </DialogClose>
         </DialogHeader>
 
-        <div className="flex flex-col gap-2 p-6">
+        <div className="flex flex-col gap-2 overflow-y-auto p-4 sm:p-6">
           {serviceItems.length > 0 ? (
             <ul className="flex flex-col divide-y divide-panel-border">
               {serviceItems.map((item) => (

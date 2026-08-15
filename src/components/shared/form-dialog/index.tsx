@@ -44,9 +44,9 @@ export function FormDialog({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         showCloseButton={false}
-        className="rounded-lg border-panel-border bg-panel-surface p-0 sm:p-0"
+        className="flex max-h-[calc(100dvh-2rem)] flex-col overflow-hidden rounded-lg border-panel-border bg-panel-surface p-0 sm:p-0"
       >
-        <DialogHeader className="flex-row items-start justify-between gap-4 space-y-0 border-b border-panel-border p-6">
+        <DialogHeader className="flex-row shrink-0 items-start justify-between gap-4 space-y-0 border-b border-panel-border p-4 sm:p-6">
           <div className="flex flex-col">
             <DialogTitle className="text-panel-surface-foreground font-bold">
               {title}
@@ -63,13 +63,13 @@ export function FormDialog({
           </DialogClose>
         </DialogHeader>
 
-        <div className="p-6">{children}</div>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</div>
 
-        <DialogFooter className="mt-0 flex-row justify-end gap-2 border-t border-panel-border p-3">
+        <DialogFooter className="mt-0 shrink-0 flex-col-reverse gap-2 border-t border-panel-border p-3 sm:flex-row sm:justify-end">
           <Button
             type="button"
             variant="secondary"
-            className="hover:bg-panel-border cursor-pointer"
+            className="hover:bg-panel-border w-full cursor-pointer sm:w-auto"
             onClick={onClear}
             disabled={disabled}
           >
@@ -78,7 +78,7 @@ export function FormDialog({
           <Button
             form={formId}
             type="submit"
-            className="cursor-pointer"
+            className="w-full cursor-pointer sm:w-auto"
             disabled={disabled}
           >
             {saveLabel}

@@ -1,15 +1,26 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type CartBySolution = Record<string, string[]>;
+export interface CartServiceItem {
+  id: number;
+  name: string;
+  basePrice: string;
+}
+
+interface CartGroup {
+  segmentName: string;
+  items: CartServiceItem[];
+}
+
+export type CartBySegment = Record<number, CartGroup>;
 
 interface CartState {
-  cart: CartBySolution;
-  addItem: (solutionLabel: string, servico: string) => void;
-  removeItem: (solutionLabel: string, servico: string) => void;
-  toggleItem: (solutionLabel: string, servico: string) => void;
-  isInCart: (solutionLabel: string, servico: string) => boolean;
-  clearSolution: (solutionLabel: string) => void;
+  cart: CartBySegment;
+  addItem: (segmentId: number, segmentName: string, item: CartServiceItem) => void;
+  removeItem: (segmentId: number, itemId: number) => void;
+  toggleItem: (segmentId: number, segmentName: string, item: CartServiceItem) => void;
+  isInCart: (segmentId: number, itemId: number) => boolean;
+  clearSolution: (segmentId: number) => void;
   clearCart: () => void;
 }
 
@@ -18,47 +29,51 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       cart: {},
 
-      addItem: (solutionLabel, servico) => {
+      addItem: (segmentId, segmentName, item) => {
         set((state) => {
-          const current = state.cart[solutionLabel] ?? [];
-          if (current.includes(servico)) return state;
+          const current = state.cart[segmentId]?.items ?? [];
+          if (current.some((existing) => existing.id === item.id)) return state;
           return {
-            cart: { ...state.cart, [solutionLabel]: [...current, servico] },
+            cart: {
+              ...state.cart,
+              [segmentId]: { segmentName, items: [...current, item] },
+            },
           };
         });
       },
 
-      removeItem: (solutionLabel, servico) => {
+      removeItem: (segmentId, itemId) => {
         set((state) => {
-          const current = state.cart[solutionLabel] ?? [];
-          const next = current.filter((item) => item !== servico);
+          const group = state.cart[segmentId];
+          if (!group) return state;
+
+          const items = group.items.filter((item) => item.id !== itemId);
           const cart = { ...state.cart };
-          if (next.length > 0) {
-            cart[solutionLabel] = next;
+          if (items.length > 0) {
+            cart[segmentId] = { ...group, items };
           } else {
-            delete cart[solutionLabel];
+            delete cart[segmentId];
           }
           return { cart };
         });
       },
 
-      toggleItem: (solutionLabel, servico) => {
-        const current = get().cart[solutionLabel] ?? [];
-        if (current.includes(servico)) {
-          get().removeItem(solutionLabel, servico);
+      toggleItem: (segmentId, segmentName, item) => {
+        if (get().isInCart(segmentId, item.id)) {
+          get().removeItem(segmentId, item.id);
         } else {
-          get().addItem(solutionLabel, servico);
+          get().addItem(segmentId, segmentName, item);
         }
       },
 
-      isInCart: (solutionLabel, servico) => {
-        return (get().cart[solutionLabel] ?? []).includes(servico);
+      isInCart: (segmentId, itemId) => {
+        return (get().cart[segmentId]?.items ?? []).some((item) => item.id === itemId);
       },
 
-      clearSolution: (solutionLabel) => {
+      clearSolution: (segmentId) => {
         set((state) => {
           const cart = { ...state.cart };
-          delete cart[solutionLabel];
+          delete cart[segmentId];
           return { cart };
         });
       },
@@ -67,15 +82,14 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "gui-goulart:cart",
+      version: 1,
+      migrate: () => ({ cart: {} }),
     },
   ),
 );
 
 export function useCartItemCount() {
   return useCartStore((state) =>
-    Object.values(state.cart).reduce(
-      (total, servicos) => total + servicos.length,
-      0,
-    ),
+    Object.values(state.cart).reduce((total, group) => total + group.items.length, 0),
   );
 }

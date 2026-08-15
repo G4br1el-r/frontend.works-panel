@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Archivo_Black } from "next/font/google";
 import "../globals.css";
 import { Header } from "@/components/landingpage/header";
+import { Toaster } from "@/components/landingpage/toaster";
 import {
   SITE_APPLE_ICON,
   SITE_CATEGORY,
@@ -109,6 +110,7 @@ export default function PublicRootLayout({
       <body className="min-h-full flex flex-col bg-black font-sans">
         <Header />
         {children}
+        <Toaster />
         <SpeedInsights />
       </body>
     </html>

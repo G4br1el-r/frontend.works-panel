@@ -30,7 +30,7 @@ export async function DELETE(request: Request) {
       });
     }
 
-    revalidateTag("segments", "max");
+    revalidateTag("segments", { expire: 0 });
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {

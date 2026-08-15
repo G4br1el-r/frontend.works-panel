@@ -3,7 +3,9 @@
 import { Menu } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { AddressSelectDialog } from "@/components/landingpage/cart/address-select-dialog";
 import { CartSheet } from "@/components/landingpage/cart/cart-sheet";
+import { CustomerIdentifyDialog } from "@/components/landingpage/cart/customer-identify-dialog";
 import { HeaderAccount } from "@/components/landingpage/header/header-account";
 import { HeaderBag } from "@/components/landingpage/header/header-bag";
 import { HeaderLogo } from "@/components/landingpage/header/header-logo";
@@ -77,6 +79,8 @@ export function Header() {
       </div>
 
       <CartSheet />
+      <CustomerIdentifyDialog />
+      <AddressSelectDialog />
     </motion.header>
   );
 }

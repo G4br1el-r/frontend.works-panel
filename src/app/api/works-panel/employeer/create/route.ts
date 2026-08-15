@@ -11,18 +11,27 @@ export async function POST(request: Request) {
   const parsed = createEmployeerPayloadSchema.safeParse(body);
 
   if (!parsed.success) {
-    return NextResponse.json({ message: "Dados inválidos", issues: z.flattenError(parsed.error) }, { status: 400 });
+    return NextResponse.json(
+      { message: "Dados inválidos", issues: z.flattenError(parsed.error) },
+      { status: 400 },
+    );
   }
 
   try {
-    const employeer = await api.post<EmployeerResponseType>("/employeer", parsed.data);
+    const employeer = await api.post<EmployeerResponseType>(
+      "/employeer",
+      parsed.data,
+    );
 
-    revalidateTag("employeers", "max");
+    revalidateTag("employeers", { expire: 0 });
 
     return NextResponse.json(employeer, { status: 201 });
   } catch (error) {
     if (isAppError(error)) {
-      return NextResponse.json({ message: error.message, code: error.code }, { status: error.statusCode });
+      return NextResponse.json(
+        { message: error.message, code: error.code },
+        { status: error.statusCode },
+      );
     }
     throw error;
   }

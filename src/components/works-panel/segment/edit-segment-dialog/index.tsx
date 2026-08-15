@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-hook-form";
 import type { SegmentResponseType } from "@/@type/works-panel/segment/get-segment.type";
-import { FormDialog } from "@/components/shared/form-dialog";
+import { FormSheet } from "@/components/shared/form-sheet";
 import { CreateSegmentForm } from "@/components/works-panel/segment/create-segment-form";
 import { useEditSegment } from "@/hooks/works-panel/segment/use-edit-segment";
 
@@ -24,7 +24,7 @@ export function EditSegmentDialog({
   const { isSubmitting } = useFormState({ control: form.control });
 
   return (
-    <FormDialog
+    <FormSheet
       open={open}
       onOpenChange={onOpenChange}
       title="Editar segmento"
@@ -40,6 +40,6 @@ export function EditSegmentDialog({
         onSubmit={onSubmit}
         formId="edit-segment-form"
       />
-    </FormDialog>
+    </FormSheet>
   );
 }

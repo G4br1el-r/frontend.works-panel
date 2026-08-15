@@ -1,22 +1,25 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
+import type { ServiceItemResponseType } from "@/@type/works-panel/service-item/get-service-item.type";
 import { ServiceItem } from "@/components/landingpage/solutions/solution-services/service-item";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { useCartStore } from "@/store/landingpage/solutions/cart-store";
 
 interface SolutionServicesProps {
-  servicos: string[];
-  solutionLabel: string;
+  serviceItems: ServiceItemResponseType[];
+  segmentId: number;
+  segmentName: string;
 }
 
 export function SolutionServices({
-  servicos,
-  solutionLabel,
+  serviceItems,
+  segmentId,
+  segmentName,
 }: SolutionServicesProps) {
   const selectedCount = useCartStore(
-    (state) => state.cart[solutionLabel]?.length ?? 0,
+    (state) => state.cart[segmentId]?.items.length ?? 0,
   );
   const clearSolution = useCartStore((state) => state.clearSolution);
 
@@ -39,7 +42,7 @@ export function SolutionServices({
         {selectedCount > 0 && (
           <button
             type="button"
-            onClick={() => clearSolution(solutionLabel)}
+            onClick={() => clearSolution(segmentId)}
             className="flex shrink-0 cursor-pointer items-center gap-1.5 text-[0.7rem] font-semibold tracking-[0.15em] text-white/50 transition-colors hover:text-brand sm:text-xs sm:tracking-[0.2em]"
           >
             <Trash2 size={14} aria-hidden="true" />
@@ -53,16 +56,24 @@ export function SolutionServices({
         staggerDelay={0.04}
         className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3"
       >
-        {servicos.map((servico) => (
+        {serviceItems.map((serviceItem) => (
           <StaggerItem
-            key={servico}
+            key={serviceItem.id}
             as="li"
             direction="up"
             distance={10}
             duration={0.2}
             className="h-full"
           >
-            <ServiceItem servico={servico} solutionLabel={solutionLabel} />
+            <ServiceItem
+              item={{
+                id: serviceItem.id,
+                name: serviceItem.name,
+                basePrice: serviceItem.basePrice,
+              }}
+              segmentId={segmentId}
+              segmentName={segmentName}
+            />
           </StaggerItem>
         ))}
       </Stagger>

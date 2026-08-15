@@ -16,15 +16,13 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  APP_SIDEBAR_NAV_GROUPS,
-  SITE_HEADER_LOGO,
-  SITE_NAME,
-} from "@/lib/utils/constants";
+import { APP_SIDEBAR_NAV_GROUPS, SITE_HEADER_LOGO, SITE_NAME } from "@/lib/utils/constants";
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { isMobile, setOpenMobile } = useSidebar();
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -34,21 +32,13 @@ export function AppSidebar() {
           className="flex items-center gap-2.5 rounded-lg px-1 py-1.5 group-data-[collapsible=icon]:justify-center"
         >
           <span className="relative size-8 shrink-0 overflow-hidden rounded-md ring-1 ring-black/5">
-            <Image
-              src={SITE_HEADER_LOGO}
-              alt={SITE_NAME}
-              fill
-              sizes="32px"
-              className="object-cover"
-            />
+            <Image src={SITE_HEADER_LOGO} alt={SITE_NAME} fill sizes="32px" className="object-cover" />
           </span>
           <span className="flex min-w-0 flex-col group-data-[collapsible=icon]:hidden">
             <span className="truncate font-display text-sm leading-tight text-sidebar-accent-foreground">
               {SITE_NAME}
             </span>
-            <span className="truncate text-[11px] leading-tight text-sidebar-foreground/70">
-              Painel de gestão
-            </span>
+            <span className="truncate text-[11px] leading-tight text-sidebar-foreground/70">Painel de gestão</span>
           </span>
         </Link>
       </SidebarHeader>
@@ -75,7 +65,12 @@ export function AppSidebar() {
                         "data-[active=true]:hover:bg-panel-accent"
                       }
                     >
-                      <Link href={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          if (isMobile) setOpenMobile(false);
+                        }}
+                      >
                         <item.icon />
                         <span>{item.title}</span>
                       </Link>

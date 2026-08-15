@@ -55,7 +55,7 @@ export function SegmentCoverUploadField({
   return (
     <div
       className={cn(
-        "relative h-32 w-full overflow-hidden rounded-lg border border-dashed border-panel-border bg-panel-page/60 transition-all",
+        "relative aspect-video w-full overflow-hidden rounded-lg border border-dashed border-panel-border bg-panel-page/60 transition-all",
         hasError && "animate-shake border-destructive",
       )}
     >
@@ -83,8 +83,8 @@ export function SegmentCoverUploadField({
           <ImageComponent
             src={value}
             alt="Capa do segmento"
-            classNameImg="object-cover"
-            sizes="320px"
+            classNameImg="object-cover object-center"
+            sizes="(min-width: 640px) 480px, 100vw"
           />
         ) : (
           <div className="flex flex-col items-center gap-1.5 text-panel-muted-foreground">

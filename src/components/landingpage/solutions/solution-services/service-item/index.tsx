@@ -4,25 +4,46 @@ import { Check, Plus } from "lucide-react";
 import { motion } from "motion/react";
 import { DEFAULT_EASE } from "@/components/motion/variants";
 import { cn } from "@/lib/utils/cn";
+import type { CartServiceItem } from "@/store/landingpage/solutions/cart-store";
 import { useCartStore } from "@/store/landingpage/solutions/cart-store";
+import { useCustomerIdentifyStore } from "@/store/landingpage/solutions/customer-identify-store";
+import { useCustomerStore } from "@/store/landingpage/solutions/customer-store";
 
 interface ServiceItemProps {
-  servico: string;
-  solutionLabel: string;
+  item: CartServiceItem;
+  segmentId: number;
+  segmentName: string;
 }
 
-export function ServiceItem({ servico, solutionLabel }: ServiceItemProps) {
-  const added = useCartStore((state) => state.isInCart(solutionLabel, servico));
+export function ServiceItem({
+  item,
+  segmentId,
+  segmentName,
+}: ServiceItemProps) {
+  const added = useCartStore((state) => state.isInCart(segmentId, item.id));
   const toggleItem = useCartStore((state) => state.toggleItem);
+  const customer = useCustomerStore((state) => state.customer);
+  const openIdentifyDialog = useCustomerIdentifyStore((state) => state.open);
+
+  function handleClick() {
+    if (added || customer) {
+      toggleItem(segmentId, segmentName, item);
+      return;
+    }
+
+    openIdentifyDialog({ pendingItem: { segmentId, segmentName, item } });
+  }
 
   return (
     <motion.button
       type="button"
-      onClick={() => toggleItem(solutionLabel, servico)}
+      onClick={handleClick}
       whileTap={{ scale: 0.98 }}
       aria-pressed={added}
       aria-label={
-        added ? `Remover ${servico} da sacola` : `Adicionar ${servico} à sacola`
+        added
+          ? `Remover ${item.name} da sacola`
+          : `Adicionar ${item.name} à sacola`
       }
       className={cn(
         "group flex h-full w-full cursor-pointer items-center gap-3 rounded-lg border border-white/10 bg-white/3 p-4 text-left transition-all duration-300 ease-out hover:border-brand/50 hover:bg-white/6 sm:gap-4 sm:p-5",
@@ -44,7 +65,7 @@ export function ServiceItem({ servico, solutionLabel }: ServiceItemProps) {
           added && "text-white",
         )}
       >
-        {servico}
+        {item.name}
       </span>
 
       <span

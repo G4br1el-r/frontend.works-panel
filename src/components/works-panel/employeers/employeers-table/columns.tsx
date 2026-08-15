@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
+import { formatDate } from "@/lib/utils/format-date";
 
 function formatCurrency(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -12,17 +13,6 @@ function formatCurrency(value: number) {
 
 function toNumber(value: number | string) {
   return typeof value === "number" ? value : Number(value);
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-  const dateLabel = date.toLocaleDateString("pt-BR");
-  const timeLabel = date.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  return `${dateLabel} às ${timeLabel}`;
 }
 
 function getInitials(name: string) {
