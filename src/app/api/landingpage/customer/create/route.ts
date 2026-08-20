@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import type { CustomerResponseType } from "@/@type/works-panel/customer/get-customer.type";
@@ -11,7 +12,10 @@ export async function POST(request: Request) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { message: "Dados inválidos", issues: z.flattenError(parsed.error) },
+      {
+        message: parsed.error.issues[0]?.message ?? "Dados inválidos",
+        issues: z.flattenError(parsed.error),
+      },
       { status: 400 },
     );
   }
@@ -25,6 +29,9 @@ export async function POST(request: Request) {
     const customer = await api.get<CustomerResponseType>(
       `/customer/${created.id}`,
     );
+
+    // Sem isso o cliente novo não aparece na tela de clientes nem no orçamento.
+    revalidateTag("customers", { expire: 0 });
 
     return NextResponse.json(customer, { status: 201 });
   } catch (error) {

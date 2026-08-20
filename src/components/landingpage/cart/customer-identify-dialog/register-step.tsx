@@ -83,6 +83,22 @@ export function RegisterStep({
       </div>
 
       <div className="flex flex-col gap-1.5">
+        <label htmlFor="register-email" className={FIELD_LABEL_CLASSNAME}>
+          E-MAIL
+        </label>
+        <input
+          id="register-email"
+          type="email"
+          placeholder="seu@email.com"
+          className={FIELD_INPUT_CLASSNAME}
+          {...register("email")}
+        />
+        {errors.email && (
+          <p className="text-xs text-red-400">{errors.email.message}</p>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-1.5">
         <span className={FIELD_LABEL_CLASSNAME}>TIPO DE ENDEREÇO</span>
         <Controller
           control={control}

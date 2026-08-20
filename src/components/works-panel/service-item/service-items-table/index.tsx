@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { EditServiceItemDialog } from "@/components/works-panel/service-item/edit-service-item-dialog";
 import { SearchServiceItems } from "@/components/works-panel/service-item/search-service-items";
 import { ServiceItemMaterialsDialog } from "@/components/works-panel/service-item/service-item-materials-dialog";
+import { ServiceItemsFilterSheet } from "@/components/works-panel/service-item/service-items-filter-sheet";
 import { useServiceItemsTable } from "@/hooks/works-panel/service-item/use-service-items-table";
 
 interface ServiceItemsTableProps {
@@ -28,6 +29,7 @@ export function ServiceItemsTable({
   const {
     search,
     setSearch,
+    filters,
     filteredServiceItems,
     columns,
     deleteDialog,
@@ -40,14 +42,27 @@ export function ServiceItemsTable({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <SearchServiceItems value={search} onChange={setSearch} />
+        <div className="flex items-start gap-2">
+          <div className="flex-1">
+            <SearchServiceItems value={search} onChange={setSearch} />
+          </div>
+          <ServiceItemsFilterSheet
+            filters={filters}
+            segments={segments}
+            measures={measures}
+          />
+        </div>
         {filteredServiceItems.length > 0 ? (
           <DataTable columns={columns} data={filteredServiceItems} />
         ) : (
           <EmptyState
             icon="searchX"
             title="Nenhum serviço encontrado"
-            subtitle={`Não encontramos resultados para "${search.trim()}".`}
+            subtitle={
+              search.trim()
+                ? `Não encontramos resultados para "${search.trim()}".`
+                : "Nenhum serviço corresponde aos filtros selecionados."
+            }
           />
         )}
       </div>

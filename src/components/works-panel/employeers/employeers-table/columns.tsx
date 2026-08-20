@@ -5,11 +5,8 @@ import { Pencil, Trash2 } from "lucide-react";
 import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/utils/format-currency";
 import { formatDate } from "@/lib/utils/format-date";
-
-function formatCurrency(value: number) {
-  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
 
 function toNumber(value: number | string) {
   return typeof value === "number" ? value : Number(value);

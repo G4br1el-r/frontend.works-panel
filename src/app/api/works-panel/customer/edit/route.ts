@@ -16,7 +16,10 @@ export async function PATCH(request: Request) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { message: "Dados inválidos", issues: z.flattenError(parsed.error) },
+      {
+        message: parsed.error.issues[0]?.message ?? "Dados inválidos",
+        issues: z.flattenError(parsed.error),
+      },
       { status: 400 },
     );
   }

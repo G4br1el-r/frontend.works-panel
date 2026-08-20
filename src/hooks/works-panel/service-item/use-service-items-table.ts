@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import type { ServiceItemResponseType } from "@/@type/works-panel/service-item/get-service-item.type";
 import { createServiceItemsColumns } from "@/components/works-panel/service-item/service-items-table/columns";
+import { useServiceItemsFilters } from "@/hooks/works-panel/service-item/use-service-items-filters";
 
 async function deleteServiceItem(id: number) {
   const response = await fetch("/api/works-panel/service-item/delete", {
@@ -27,6 +28,7 @@ export function useServiceItemsTable({
 }: UseServiceItemsTableOptions) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const filters = useServiceItemsFilters();
   const [serviceItemToDelete, setServiceItemToDelete] =
     useState<ServiceItemResponseType | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -36,15 +38,15 @@ export function useServiceItemsTable({
   const [serviceItemToViewMaterials, setServiceItemToViewMaterials] =
     useState<ServiceItemResponseType | null>(null);
 
-  const filteredServiceItems = useMemo(() => {
-    const normalizedSearch = search.trim().toLowerCase();
+  const normalizedSearch = search.trim().toLowerCase();
 
-    if (!normalizedSearch) return serviceItems;
+  const bySearch = normalizedSearch
+    ? serviceItems.filter((serviceItem) =>
+        serviceItem.name.toLowerCase().includes(normalizedSearch),
+      )
+    : serviceItems;
 
-    return serviceItems.filter((serviceItem) =>
-      serviceItem.name.toLowerCase().includes(normalizedSearch),
-    );
-  }, [serviceItems, search]);
+  const filteredServiceItems = filters.applyServiceItemFilters(bySearch);
 
   const columns = useMemo(
     () =>
@@ -82,6 +84,7 @@ export function useServiceItemsTable({
   return {
     search,
     setSearch,
+    filters,
     filteredServiceItems,
     columns,
     deleteDialog: {

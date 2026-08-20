@@ -25,6 +25,15 @@ async function lookupCep(cep: string) {
   return (await response.json()) as CepResponseType;
 }
 
+class CustomerRegisterError extends Error {
+  constructor(
+    message: string,
+    readonly code?: string,
+  ) {
+    super(message);
+  }
+}
+
 async function createCustomer(payload: unknown) {
   const response = await fetch("/api/landingpage/customer/create", {
     method: "POST",
@@ -33,7 +42,15 @@ async function createCustomer(payload: unknown) {
   });
 
   if (!response.ok) {
-    throw new Error("Falha ao concluir seu cadastro");
+    const body = await response.json().catch(() => null);
+    const message = Array.isArray(body?.message)
+      ? body.message[0]
+      : body?.message;
+
+    throw new CustomerRegisterError(
+      message ?? "Falha ao concluir seu cadastro",
+      body?.code,
+    );
   }
 
   return (await response.json()) as CustomerResponseType;
@@ -57,6 +74,7 @@ export function useCustomerRegister({
     defaultValues: {
       name: "",
       cellPhone: "",
+      email: "",
       addressType: "RESIDENTIAL",
       cep: "",
       state: "",
@@ -93,6 +111,7 @@ export function useCustomerRegister({
       name: data.name,
       cellPhone: onlyDigits(data.cellPhone),
       document: onlyDigits(document),
+      email: data.email,
       addresses: [
         {
           type: data.addressType,
@@ -112,10 +131,20 @@ export function useCustomerRegister({
       const customer = await toast.promise(createCustomer(payload), {
         loading: "Finalizando seu cadastro...",
         success: "Cadastro concluído!",
-        error: "Não foi possível concluir seu cadastro.",
+        error: (error) =>
+          error instanceof CustomerRegisterError
+            ? error.message
+            : "Não foi possível concluir seu cadastro.",
       });
       onRegistered(customer);
-    } catch {}
+    } catch (error) {
+      if (error instanceof CustomerRegisterError && error.code === "CONFLICT") {
+        form.setError("cellPhone", {
+          type: "manual",
+          message: "Já existe um cadastro com esses dados.",
+        });
+      }
+    }
   }
 
   function onInvalid(_errors: FieldErrors<CustomerRegisterFormData>) {

@@ -6,11 +6,7 @@ import type { MaterialResponseType } from "@/@type/works-panel/material/get-mate
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
-
-function formatCurrency(value: number | string) {
-  const price = typeof value === "number" ? value : Number(value);
-  return price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 function formatDate(value: string) {
   const date = new Date(value);

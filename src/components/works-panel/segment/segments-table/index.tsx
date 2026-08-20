@@ -14,10 +14,17 @@ interface SegmentsTableProps {
 }
 
 export function SegmentsTable({ segments }: SegmentsTableProps) {
-  const { search, setSearch, filteredSegments, columns, deleteDialog, viewServiceItemsDialog, editDialog } =
-    useSegmentsTable({
-      segments,
-    });
+  const {
+    search,
+    setSearch,
+    filteredSegments,
+    columns,
+    deleteDialog,
+    viewServiceItemsDialog,
+    editDialog,
+  } = useSegmentsTable({
+    segments,
+  });
 
   return (
     <>
@@ -48,7 +55,11 @@ export function SegmentsTable({ segments }: SegmentsTableProps) {
         open={viewServiceItemsDialog.open}
         onOpenChange={viewServiceItemsDialog.onOpenChange}
       />
-      <EditSegmentDialog segment={editDialog.segment} open={editDialog.open} onOpenChange={editDialog.onOpenChange} />
+      <EditSegmentDialog
+        segment={editDialog.segment}
+        open={editDialog.open}
+        onOpenChange={editDialog.onOpenChange}
+      />
     </>
   );
 }

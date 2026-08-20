@@ -28,7 +28,8 @@ export const DESKTOP_BREAKPOINT_PX = 1024;
 export const SITE_URL = "https://gui-goulart.vercel.app";
 export const SITE_NAME = "Guilherme Goulart";
 export const SITE_DEFAULT_TITLE = "Guilherme Goulart | Prestação de Serviços";
-export const SITE_DEFAULT_DESCRIPTION = "Prestação de serviços com Guilherme Goulart. Solicite seu orçamento.";
+export const SITE_DEFAULT_DESCRIPTION =
+  "Prestação de serviços com Guilherme Goulart. Solicite seu orçamento.";
 export const SITE_CATEGORY = "construção civil";
 export const SITE_KEYWORDS = [
   "prestação de serviços",
@@ -86,7 +87,8 @@ export const SOLUTIONS_MORE_CARD = {
   id: "mais-solucoes",
   eyebrow: "E MAIS",
   title: "+10 SERVIÇOS",
-  description: "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
+  description:
+    "Montagem, instalação, telhados, impermeabilização e o que mais sua obra precisar. Fale com a gente.",
   cta: "VER TODOS",
   image: "/images/solutions/more_solutions.webp",
 };
@@ -95,7 +97,9 @@ export const SOLUTIONS_QUOTE_CTA_URL = "/orcamento";
 
 export const ALL_SOLUTIONS_URL = "/todas-solucoes";
 
-export const METRICS_BACKGROUND_VIDEO_SOURCES = [{ src: "/videos/metrics-background.mp4", type: "video/mp4" }];
+export const METRICS_BACKGROUND_VIDEO_SOURCES = [
+  { src: "/videos/metrics-background.mp4", type: "video/mp4" },
+];
 
 export const METRICS_ANIMATION_DELAY = 3;
 
@@ -121,7 +125,8 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "h",
     label: "TEMPO DE RESPOSTA",
-    description: "Orçamento respondido em até um dia útil, com atendimento de urgência para o que não pode esperar.",
+    description:
+      "Orçamento respondido em até um dia útil, com atendimento de urgência para o que não pode esperar.",
   },
   {
     id: "satisfacao",
@@ -131,7 +136,8 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "%",
     label: "CLIENTES SATISFEITOS",
-    description: "Avaliam o serviço como ótimo ou excelente e seguem chamando a equipe para os próximos projetos.",
+    description:
+      "Avaliam o serviço como ótimo ou excelente e seguem chamando a equipe para os próximos projetos.",
   },
   {
     id: "projetos",
@@ -141,7 +147,8 @@ export const METRICS_ITEMS = [
     prefix: "",
     suffix: "k",
     label: "SERVIÇOS ENTREGUES",
-    description: "Do reparo pontual à obra completa, cada frente concluída com acabamento conferido item por item.",
+    description:
+      "Do reparo pontual à obra completa, cada frente concluída com acabamento conferido item por item.",
   },
 ];
 

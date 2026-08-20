@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Pencil, Plus, Trash2 } from "lucide-react";
+import { MapPin, Pencil, Plus, Route, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useFormState } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -21,6 +21,16 @@ const ADDRESS_TYPE_LABEL: Record<AddressResponseType["type"], string> = {
   RESIDENTIAL: "RESIDENCIAL",
   COMMERCIAL: "COMERCIAL",
 };
+
+function formatDistance(distanceInMeters: number) {
+  const km = (distanceInMeters / 1000).toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+  const meters = Math.round(distanceInMeters).toLocaleString("pt-BR");
+
+  return `${km} km (${meters} m)`;
+}
 
 async function deleteAddress(customerId: number, addressId: number) {
   const response = await fetch(
@@ -142,57 +152,73 @@ export function EditCustomerDialog({
               {customer.addresses.map((address) => (
                 <div
                   key={address.id}
-                  className="flex items-start gap-2 rounded-lg border border-panel-border bg-panel-page/60 p-2.5"
+                  className="flex flex-col gap-2.5 rounded-lg border border-panel-border bg-panel-page/60 p-2.5"
                 >
-                  <MapPin
-                    size={14}
-                    className="mt-0.5 shrink-0 text-panel-accent"
-                    aria-hidden="true"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <span className="text-[0.65rem] font-semibold tracking-widest text-panel-accent">
-                      {ADDRESS_TYPE_LABEL[address.type]}
-                    </span>
-                    <p className="mt-0.5 text-sm text-panel-surface-foreground">
-                      {address.street}, {address.number}
-                    </p>
-                    <p className="text-xs text-panel-muted-foreground">
-                      {address.neighborhood} — {address.city}
-                    </p>
+                  <div className="flex items-start gap-2">
+                    <MapPin
+                      size={14}
+                      className="mt-0.5 shrink-0 text-panel-accent"
+                      aria-hidden="true"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <span className="text-[0.65rem] font-semibold tracking-widest text-panel-accent">
+                        {ADDRESS_TYPE_LABEL[address.type]}
+                      </span>
+                      <p className="mt-0.5 text-sm text-panel-surface-foreground">
+                        {address.street}, {address.number}
+                      </p>
+                      <p className="text-xs text-panel-muted-foreground">
+                        {address.neighborhood} — {address.city}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-1">
+                      <TooltipComponent
+                        content="Editar"
+                        disableHoverableContent
+                      >
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          className="cursor-pointer text-panel-muted-foreground hover:bg-sidebar-accent hover:text-panel-accent!"
+                          onClick={() => setAddressToEdit(address)}
+                        >
+                          <Pencil className="size-3.5" />
+                          <span className="sr-only">Editar endereço</span>
+                        </Button>
+                      </TooltipComponent>
+                      <TooltipComponent
+                        content={
+                          canDeleteAddress
+                            ? "Excluir"
+                            : "Cadastre outro endereço antes de excluir este"
+                        }
+                        disableHoverableContent
+                      >
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          disabled={!canDeleteAddress}
+                          className="cursor-pointer text-panel-muted-foreground hover:bg-sidebar-accent hover:text-destructive! disabled:cursor-not-allowed disabled:opacity-40"
+                          onClick={() => setAddressToDelete(address)}
+                        >
+                          <Trash2 className="size-3.5" />
+                          <span className="sr-only">Excluir endereço</span>
+                        </Button>
+                      </TooltipComponent>
+                    </div>
                   </div>
-                  <div className="flex shrink-0 items-center gap-1">
-                    <TooltipComponent content="Editar" disableHoverableContent>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        className="cursor-pointer text-panel-muted-foreground hover:bg-sidebar-accent hover:text-panel-accent!"
-                        onClick={() => setAddressToEdit(address)}
-                      >
-                        <Pencil className="size-3.5" />
-                        <span className="sr-only">Editar endereço</span>
-                      </Button>
-                    </TooltipComponent>
-                    <TooltipComponent
-                      content={
-                        canDeleteAddress
-                          ? "Excluir"
-                          : "Cadastre outro endereço antes de excluir este"
-                      }
-                      disableHoverableContent
-                    >
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        disabled={!canDeleteAddress}
-                        className="cursor-pointer text-panel-muted-foreground hover:bg-sidebar-accent hover:text-destructive! disabled:cursor-not-allowed disabled:opacity-40"
-                        onClick={() => setAddressToDelete(address)}
-                      >
-                        <Trash2 className="size-3.5" />
-                        <span className="sr-only">Excluir endereço</span>
-                      </Button>
-                    </TooltipComponent>
+
+                  <div className="ml-5.5 flex w-fit items-center gap-1.5 rounded-full bg-panel-accent/10 px-2.5 py-1">
+                    <Route
+                      size={12}
+                      className="shrink-0 text-panel-accent"
+                      aria-hidden="true"
+                    />
+                    <span className="text-xs font-medium text-panel-accent">
+                      {formatDistance(address.distanceInMeters)}
+                    </span>
                   </div>
                 </div>
               ))}

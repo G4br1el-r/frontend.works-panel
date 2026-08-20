@@ -13,7 +13,14 @@ interface EmployeersTableProps {
 }
 
 export function EmployeersTable({ employeers }: EmployeersTableProps) {
-  const { search, setSearch, filteredEmployeers, columns, deleteDialog, editDialog } = useEmployeersTable({
+  const {
+    search,
+    setSearch,
+    filteredEmployeers,
+    columns,
+    deleteDialog,
+    editDialog,
+  } = useEmployeersTable({
     employeers,
   });
 
