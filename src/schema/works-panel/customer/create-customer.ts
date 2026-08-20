@@ -19,6 +19,12 @@ export const createCustomerSchema = z.object({
       if (digits.length === 14) return cnpj.isValid(digits);
       return false;
     }, "CPF ou CNPJ inválido."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Informe o e-mail do cliente.")
+    .pipe(z.email("E-mail inválido.")),
+  observation: z.string().optional(),
   addressType: z.enum(["RESIDENTIAL", "COMMERCIAL"], {
     error: "Selecione o tipo de endereço.",
   }),

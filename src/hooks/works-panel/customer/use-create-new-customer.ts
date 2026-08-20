@@ -27,6 +27,15 @@ async function lookupCep(cep: string) {
   return (await response.json()) as CepResponseType;
 }
 
+class CreateCustomerError extends Error {
+  constructor(
+    message: string,
+    readonly code?: string,
+  ) {
+    super(message);
+  }
+}
+
 async function createCustomer(payload: unknown) {
   const response = await fetch("/api/works-panel/customer/create", {
     method: "POST",
@@ -35,7 +44,11 @@ async function createCustomer(payload: unknown) {
   });
 
   if (!response.ok) {
-    throw new Error("Falha ao cadastrar cliente");
+    const body = await response.json().catch(() => null);
+    throw new CreateCustomerError(
+      body?.message ?? "Falha ao cadastrar cliente",
+      body?.code,
+    );
   }
 
   return (await response.json()) as CustomerResponseType;
@@ -60,6 +73,8 @@ export function useCreateNewCustomer({
       name: "",
       cellPhone: "",
       document: "",
+      email: "",
+      observation: "",
       addressType: "RESIDENTIAL",
       cep: "",
       state: "",
@@ -104,6 +119,8 @@ export function useCreateNewCustomer({
       name: data.name,
       cellPhone: onlyDigits(data.cellPhone),
       document: onlyDigits(data.document),
+      email: data.email,
+      observation: data.observation,
       addresses: [
         {
           type: data.addressType,
@@ -123,12 +140,27 @@ export function useCreateNewCustomer({
       const customer = await toast.promise(createCustomer(payload), {
         loading: "Cadastrando cliente...",
         success: "Cliente cadastrado com sucesso.",
-        error: "Não foi possível cadastrar o cliente.",
+        error: (error) => {
+          if (!(error instanceof CreateCustomerError)) {
+            return "Não foi possível cadastrar o cliente.";
+          }
+          if (error.code === "CONFLICT") {
+            return "Já existe um cliente com esse CPF/CNPJ.";
+          }
+          return error.message;
+        },
       });
       form.reset();
       router.refresh();
       onCreated?.(customer);
-    } catch {}
+    } catch (error) {
+      if (error instanceof CreateCustomerError && error.code === "CONFLICT") {
+        form.setError("document", {
+          type: "manual",
+          message: "Já existe um cliente com esse CPF/CNPJ.",
+        });
+      }
+    }
   }
 
   function onInvalid(_errors: FieldErrors<CreateCustomerFormData>) {

@@ -4,6 +4,8 @@ export const customerCreatePayloadSchema = z.object({
   name: z.string().trim().min(1),
   cellPhone: z.string().min(1),
   document: z.string().min(1),
+  email: z.string().trim().min(1).pipe(z.email()),
+  observation: z.string().optional(),
   addresses: z
     .array(
       z.object({

@@ -9,6 +9,11 @@ export const customerRegisterSchema = z.object({
       (value) => value.replace(/\D/g, "").length === 11,
       "Celular inválido",
     ),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Informe o e-mail")
+    .pipe(z.email("E-mail inválido")),
   addressType: z.enum(["RESIDENTIAL", "COMMERCIAL"], {
     error: "Selecione o tipo de endereço",
   }),

@@ -13,12 +13,21 @@ type CreateSegmentFormProps = UseCreateNewSegmentReturn & {
   formId: string;
 };
 
-export function CreateSegmentForm({ form, onInvalid, onSubmit, formId }: CreateSegmentFormProps) {
+export function CreateSegmentForm({
+  form,
+  onInvalid,
+  onSubmit,
+  formId,
+}: CreateSegmentFormProps) {
   const { control, handleSubmit } = form;
   const { errors, isSubmitting } = useFormState({ control });
 
   return (
-    <form id={formId} className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit, onInvalid)}>
+    <form
+      id={formId}
+      className="flex flex-col gap-4"
+      onSubmit={handleSubmit(onSubmit, onInvalid)}
+    >
       <InputComponent.root>
         <div className="flex w-full items-center justify-start gap-2">
           <InputComponent.label
@@ -123,7 +132,9 @@ export function CreateSegmentForm({ form, onInvalid, onSubmit, formId }: CreateS
 
       <div className="flex items-center justify-between gap-4 rounded-lg border border-panel-border bg-panel-page/60 px-3 py-3">
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-panel-surface-foreground">Segmento ativo</span>
+          <span className="text-sm font-medium text-panel-surface-foreground">
+            Segmento ativo
+          </span>
           <span className="text-xs text-panel-muted-foreground">
             Segmentos inativos não aparecem para seleção em novas obras.
           </span>
@@ -132,7 +143,11 @@ export function CreateSegmentForm({ form, onInvalid, onSubmit, formId }: CreateS
           control={control}
           name="active"
           render={({ field }) => (
-            <Switch checked={field.value} onCheckedChange={field.onChange} disabled={isSubmitting} />
+            <Switch
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              disabled={isSubmitting}
+            />
           )}
         />
       </div>

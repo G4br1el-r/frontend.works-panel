@@ -31,6 +31,7 @@ export async function DELETE(request: Request) {
     }
 
     revalidateTag("segments", { expire: 0 });
+    revalidateTag("service-items", { expire: 0 });
 
     return new NextResponse(null, { status: 204 });
   } catch (error) {

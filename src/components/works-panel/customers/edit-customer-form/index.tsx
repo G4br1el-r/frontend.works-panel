@@ -128,6 +128,76 @@ export function EditCustomerForm({
           />
         </InputComponent.wrapper>
       </InputComponent.root>
+
+      <InputComponent.root>
+        <div className="w-full">
+          <InputComponent.label
+            label="E-mail"
+            htmlFor="email"
+            classNameLabel="text-sm font-medium text-panel-surface-foreground"
+          />
+        </div>
+        <InputComponent.wrapper
+          iconName="mail"
+          classNameWrapper={cn(
+            "h-11 rounded-lg border border-panel-border bg-panel-page/60",
+            errors.email
+              ? "animate-shake border-destructive"
+              : "focus-within:border-panel-accent focus-within:ring-2 focus-within:ring-panel-accent/20",
+          )}
+          classNameIcon="text-panel-muted-foreground"
+        >
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <InputComponent.inputBase
+                id="email"
+                type="email"
+                placeHolder="email@exemplo.com"
+                disabled={isSubmitting}
+                className="bg-transparent text-base text-panel-surface-foreground placeholder:text-panel-muted-foreground sm:text-sm"
+                {...field}
+              />
+            )}
+          />
+        </InputComponent.wrapper>
+      </InputComponent.root>
+
+      <InputComponent.root>
+        <div className="w-full">
+          <InputComponent.label
+            label="Observação"
+            htmlFor="observation"
+            classNameLabel="text-sm font-medium text-panel-surface-foreground"
+          />
+        </div>
+        <InputComponent.wrapper
+          iconName="fileText"
+          classNameWrapper={cn(
+            "h-auto min-h-24 items-start rounded-lg border border-panel-border bg-panel-page/60 py-2.5",
+            errors.observation
+              ? "animate-shake border-destructive"
+              : "focus-within:border-panel-accent focus-within:ring-2 focus-within:ring-panel-accent/20",
+          )}
+          classNameIcon="mt-0.5 text-panel-muted-foreground"
+        >
+          <Controller
+            control={control}
+            name="observation"
+            render={({ field }) => (
+              <InputComponent.textarea
+                id="observation"
+                placeHolder="Observações sobre o cliente"
+                disabled={isSubmitting}
+                rows={3}
+                className="bg-transparent text-base text-panel-surface-foreground placeholder:text-panel-muted-foreground sm:text-sm"
+                {...field}
+              />
+            )}
+          />
+        </InputComponent.wrapper>
+      </InputComponent.root>
     </form>
   );
 }

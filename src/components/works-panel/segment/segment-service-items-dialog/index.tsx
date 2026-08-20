@@ -10,13 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-function formatCurrency(value: string) {
-  return Number(value).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 interface SegmentServiceItemsDialogProps {
   segment: SegmentResponseType | null;
@@ -24,7 +18,11 @@ interface SegmentServiceItemsDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function SegmentServiceItemsDialog({ segment, open, onOpenChange }: SegmentServiceItemsDialogProps) {
+export function SegmentServiceItemsDialog({
+  segment,
+  open,
+  onOpenChange,
+}: SegmentServiceItemsDialogProps) {
   const serviceItems = segment?.serviceItems ?? [];
 
   return (
@@ -35,9 +33,13 @@ export function SegmentServiceItemsDialog({ segment, open, onOpenChange }: Segme
       >
         <DialogHeader className="flex-row shrink-0 items-start justify-between gap-4 space-y-0 border-b border-panel-border p-4 sm:p-6">
           <div className="flex flex-col">
-            <DialogTitle className="font-bold text-panel-surface-foreground">Serviços vinculados</DialogTitle>
+            <DialogTitle className="font-bold text-panel-surface-foreground">
+              Serviços vinculados
+            </DialogTitle>
             <DialogDescription className="text-panel-muted-foreground">
-              {segment ? `Itens de serviço cadastrados em "${segment.name}".` : ""}
+              {segment
+                ? `Itens de serviço cadastrados em "${segment.name}".`
+                : ""}
             </DialogDescription>
           </div>
           <DialogClose className="cursor-pointer rounded-xs text-panel-muted-foreground opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-panel-accent">
@@ -50,9 +52,16 @@ export function SegmentServiceItemsDialog({ segment, open, onOpenChange }: Segme
           {serviceItems.length > 0 ? (
             <ul className="flex flex-col divide-y divide-panel-border">
               {serviceItems.map((item) => (
-                <li key={item.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
-                  <span className="text-panel-surface-foreground">{item.name}</span>
-                  <span className="text-panel-muted-foreground">{formatCurrency(item.basePrice)}</span>
+                <li
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 py-2.5 text-sm"
+                >
+                  <span className="text-panel-surface-foreground">
+                    {item.name}
+                  </span>
+                  <span className="text-panel-muted-foreground">
+                    {formatCurrency(item.basePrice)}
+                  </span>
                 </li>
               ))}
             </ul>

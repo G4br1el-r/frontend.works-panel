@@ -19,6 +19,12 @@ export const customerSchema = z.object({
       if (digits.length === 14) return cnpj.isValid(digits);
       return false;
     }, "CPF ou CNPJ inválido."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Informe o e-mail do cliente.")
+    .pipe(z.email("E-mail inválido.")),
+  observation: z.string().optional(),
 });
 
 export type CustomerFormData = z.input<typeof customerSchema>;
@@ -28,4 +34,6 @@ export const editCustomerPayloadSchema = z.object({
   name: z.string().trim().min(1),
   cellPhone: z.string().min(1),
   document: z.string().min(1),
+  email: z.string().trim().min(1).pipe(z.email()),
+  observation: z.string().optional(),
 });

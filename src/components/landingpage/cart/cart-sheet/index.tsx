@@ -3,21 +3,13 @@
 import { Check, Send, ShoppingBag, Trash2, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
+import type { AddressResponseType } from "@/@type/works-panel/customer/get-customer.type";
 import { DEFAULT_EASE } from "@/components/motion/variants";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useCreateOrder } from "@/hooks/landingpage/cart/use-create-order";
 import { useAddressSelectStore } from "@/store/landingpage/solutions/address-select-store";
 import { useCartSheetStore } from "@/store/landingpage/solutions/cart-sheet-store";
-import {
-  useCartItemCount,
-  useCartStore,
-} from "@/store/landingpage/solutions/cart-store";
+import { useCartItemCount, useCartStore } from "@/store/landingpage/solutions/cart-store";
 import { useCustomerIdentifyStore } from "@/store/landingpage/solutions/customer-identify-store";
 import { useCustomerStore } from "@/store/landingpage/solutions/customer-store";
 
@@ -34,25 +26,33 @@ export function CartSheet() {
   const openIdentifyDialog = useCustomerIdentifyStore((state) => state.open);
   const openAddressSelect = useAddressSelectStore((state) => state.open);
   const [justSubmitted, setJustSubmitted] = useState(false);
+  const { submitOrder } = useCreateOrder({
+    onSuccess: () => {
+      setJustSubmitted(true);
+      clearCart();
+    },
+  });
 
   const groups = Object.entries(cart);
 
   useEffect(() => {
     if (!justSubmitted) return;
-    const timeout = setTimeout(
-      () => setJustSubmitted(false),
-      SUBMITTED_FEEDBACK_DURATION_MS,
-    );
+    const timeout = setTimeout(() => setJustSubmitted(false), SUBMITTED_FEEDBACK_DURATION_MS);
     return () => clearTimeout(timeout);
   }, [justSubmitted]);
 
-  const submitQuote = () => {
-    setJustSubmitted(true);
-    clearCart();
+  const submitQuote = (address: AddressResponseType) => {
+    if (!customer) return;
+
+    submitOrder({
+      customerId: customer.id,
+      addressId: address.id,
+      serviceItemIds: Object.values(cart).flatMap((group) => group.items.map((item) => item.id)),
+    });
   };
 
   const chooseAddressThenSubmit = () => {
-    openAddressSelect(() => submitQuote());
+    openAddressSelect((address) => submitQuote(address));
   };
 
   const handleSubmitClick = () => {
@@ -71,10 +71,7 @@ export function CartSheet() {
 
   return (
     <Sheet open={isOpen} onOpenChange={handleOpenChange}>
-      <SheetContent
-        side="right"
-        className="flex w-3/4 flex-col border-white/10 bg-black sm:max-w-sm"
-      >
+      <SheetContent side="right" className="flex w-3/4 flex-col border-white/10 bg-black sm:max-w-sm">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 text-white">
             <ShoppingBag size={18} className="text-brand" aria-hidden="true" />
@@ -107,12 +104,8 @@ export function CartSheet() {
                 </motion.span>
 
                 <div className="flex flex-col gap-1">
-                  <p className="font-display text-lg text-white">
-                    Solicitação enviada!
-                  </p>
-                  <p className="text-sm text-white/60">
-                    Em breve entraremos em contato com o seu orçamento.
-                  </p>
+                  <p className="font-display text-lg text-white">Solicitação enviada!</p>
+                  <p className="text-sm text-white/60">Em breve entraremos em contato com o seu orçamento.</p>
                 </div>
               </motion.div>
             )}
@@ -121,17 +114,14 @@ export function CartSheet() {
           {groups.length === 0 ? (
             <div className="flex h-full items-center justify-center">
               <p className="text-center text-sm text-white/50">
-                Navegue pelas soluções e clique no + para adicionar serviços à
-                sua sacola.
+                Navegue pelas soluções e clique no + para adicionar serviços à sua sacola.
               </p>
             </div>
           ) : (
             <div className="flex flex-col gap-6">
               {groups.map(([segmentId, group]) => (
                 <div key={segmentId}>
-                  <p className="text-xs font-semibold tracking-widest text-brand">
-                    {group.segmentName}
-                  </p>
+                  <p className="text-xs font-semibold tracking-widest text-brand">{group.segmentName}</p>
                   <ul className="mt-3 flex flex-col gap-2">
                     {group.items.map((item) => (
                       <li

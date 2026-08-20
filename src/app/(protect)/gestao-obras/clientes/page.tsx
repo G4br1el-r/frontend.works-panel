@@ -17,10 +17,7 @@ export default async function Customer() {
         onMount
         className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between"
       >
-        <TitleSection
-          title="Clientes"
-          subtitle="Acompanhe os clientes cadastrados e seus dados de contato."
-        />
+        <TitleSection title="Clientes" subtitle="Acompanhe os clientes cadastrados e seus dados de contato." />
         <CreateCustomerDialog />
       </FadeIn>
 

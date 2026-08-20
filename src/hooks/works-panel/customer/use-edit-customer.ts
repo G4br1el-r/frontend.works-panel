@@ -21,6 +21,15 @@ interface UseEditCustomerOptions {
   onSuccess?: () => void;
 }
 
+class EditCustomerError extends Error {
+  constructor(
+    message: string,
+    readonly code?: string,
+  ) {
+    super(message);
+  }
+}
+
 async function editCustomer(id: number, payload: CustomerFormOutput) {
   const response = await fetch("/api/works-panel/customer/edit", {
     method: "PATCH",
@@ -30,11 +39,17 @@ async function editCustomer(id: number, payload: CustomerFormOutput) {
       name: payload.name,
       cellPhone: onlyDigits(payload.cellPhone),
       document: onlyDigits(payload.document),
+      email: payload.email,
+      observation: payload.observation,
     }),
   });
 
   if (!response.ok) {
-    throw new Error("Falha ao editar cliente");
+    const body = await response.json().catch(() => null);
+    throw new EditCustomerError(
+      body?.message ?? "Falha ao editar cliente",
+      body?.code,
+    );
   }
 
   return response.json();
@@ -48,7 +63,13 @@ export function useEditCustomer({
 
   const form = useForm<CustomerFormData, unknown, CustomerFormOutput>({
     resolver: zodResolver(customerSchema),
-    defaultValues: { name: "", cellPhone: "", document: "" },
+    defaultValues: {
+      name: "",
+      cellPhone: "",
+      document: "",
+      email: "",
+      observation: "",
+    },
   });
 
   useEffect(() => {
@@ -58,6 +79,8 @@ export function useEditCustomer({
       name: customer.name,
       cellPhone: customer.cellPhone,
       document: customer.document,
+      email: customer.email ?? "",
+      observation: customer.observation ?? "",
     });
   }, [customer, form]);
 
@@ -68,11 +91,26 @@ export function useEditCustomer({
       await toast.promise(editCustomer(customer.id, payload), {
         loading: "Salvando alterações...",
         success: "Cliente atualizado com sucesso.",
-        error: "Não foi possível atualizar o cliente.",
+        error: (error) => {
+          if (!(error instanceof EditCustomerError)) {
+            return "Não foi possível atualizar o cliente.";
+          }
+          if (error.code === "CONFLICT") {
+            return "Já existe um cliente com esse CPF/CNPJ.";
+          }
+          return error.message;
+        },
       });
       router.refresh();
       onSuccess?.();
-    } catch {}
+    } catch (error) {
+      if (error instanceof EditCustomerError && error.code === "CONFLICT") {
+        form.setError("document", {
+          type: "manual",
+          message: "Já existe um cliente com esse CPF/CNPJ.",
+        });
+      }
+    }
   }
 
   function onInvalid(_errors: FieldErrors<CustomerFormData>) {

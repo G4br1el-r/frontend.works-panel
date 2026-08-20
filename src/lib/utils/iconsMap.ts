@@ -1,4 +1,6 @@
 import {
+  Calendar,
+  Clock,
   Eye,
   EyeOff,
   FileText,
@@ -9,6 +11,7 @@ import {
   Lock,
   Mail,
   Package,
+  Percent,
   Phone,
   RulerDimensionLine,
   Search,
@@ -40,6 +43,9 @@ export const iconMap = {
   phone: Phone,
   waypoints: Waypoints,
   home: Home,
+  calendar: Calendar,
+  clock: Clock,
+  percent: Percent,
 } as const;
 
 export type IconName = keyof typeof iconMap;

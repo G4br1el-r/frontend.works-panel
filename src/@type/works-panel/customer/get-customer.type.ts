@@ -11,6 +11,7 @@ export interface AddressResponseType {
   number: string;
   latitude: string;
   longitude: string;
+  distanceInMeters: number;
   customerId: number;
   createdAt: string;
   updatedAt: string;
@@ -21,6 +22,8 @@ export interface CustomerResponseType {
   name: string;
   cellPhone: string;
   document: string;
+  email: string | null;
+  observation: string | null;
   createdAt: string;
   updatedAt: string;
   addresses: AddressResponseType[];
