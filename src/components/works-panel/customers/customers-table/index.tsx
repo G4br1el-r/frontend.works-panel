@@ -4,6 +4,7 @@ import type { CustomerResponseType } from "@/@type/works-panel/customer/get-cust
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { DataTable } from "@/components/shared/data-table";
 import { EmptyState } from "@/components/shared/empty-state";
+import { CustomerBudgetsSheet } from "@/components/works-panel/customers/customer-budgets-sheet";
 import { EditCustomerDialog } from "@/components/works-panel/customers/edit-customer-dialog";
 import { SearchCustomers } from "@/components/works-panel/customers/search-customers";
 import { useCustomersTable } from "@/hooks/works-panel/customer/use-customers-table";
@@ -20,6 +21,7 @@ export function CustomersTable({ customers }: CustomersTableProps) {
     columns,
     deleteDialog,
     editDialog,
+    budgetsSheet,
   } = useCustomersTable({ customers });
 
   return (
@@ -36,6 +38,12 @@ export function CustomersTable({ customers }: CustomersTableProps) {
           />
         )}
       </div>
+      <CustomerBudgetsSheet
+        customer={budgetsSheet.customer}
+        open={budgetsSheet.open}
+        onOpenChange={budgetsSheet.onOpenChange}
+      />
+
       <ConfirmDialog
         open={deleteDialog.open}
         onOpenChange={deleteDialog.onOpenChange}

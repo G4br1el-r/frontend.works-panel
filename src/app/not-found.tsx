@@ -18,7 +18,7 @@ export default function GlobalNotFound() {
           </p>
           <Link
             href="/"
-            className="mt-8 inline-flex items-center justify-center gap-2 bg-linear-to-r from-brand-light via-brand to-brand-deep px-6 py-3 text-xs font-bold tracking-widest text-black transition-all duration-300 ease-out hover:scale-102 hover:shadow-(--shadow-brand-hover) active:scale-98"
+            className="mt-8 inline-flex cursor-pointer items-center justify-center gap-2 bg-linear-to-r from-brand-light via-brand to-brand-deep px-6 py-3 text-xs font-bold tracking-widest text-black transition-all duration-300 ease-out hover:scale-102 hover:shadow-(--shadow-brand-hover) active:scale-98"
           >
             VOLTAR PARA O INÍCIO
           </Link>

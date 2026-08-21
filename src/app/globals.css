@@ -41,6 +41,11 @@
   --color-status-danger: var(--status-danger);
   --color-status-danger-bg: var(--status-danger-bg);
   --color-status-info: var(--status-info);
+
+  --color-chart-received: var(--chart-received);
+  --color-chart-receivable: var(--chart-receivable);
+  --color-chart-overdue: var(--chart-overdue);
+  --color-chart-grid: var(--chart-grid);
   --color-status-info-bg: var(--status-info-bg);
 
   --color-primary: var(--primary);
@@ -82,6 +87,13 @@
   --panel-border: hsl(220 16% 89%);
   --panel-muted: hsl(220 20% 95%);
   --panel-muted-foreground: hsl(220 9% 46%);
+
+  /* Séries dos gráficos: derivadas dos tokens de status, para o dashboard
+     falar a mesma língua de cor do resto do painel. */
+  --chart-received: hsl(152 60% 32%);
+  --chart-receivable: var(--panel-accent);
+  --chart-overdue: hsl(0 72% 51%);
+  --chart-grid: hsl(220 16% 89%);
 
   --status-success: hsl(152 60% 32%);
   --status-success-bg: hsl(150 55% 94%);
@@ -268,4 +280,28 @@ video::-webkit-media-controls-overlay-play-button {
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+/* Scroll horizontal discreto — usado pela DataTable com `scrollable`. */
+.data-table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-border) transparent;
+  overscroll-behavior-x: contain;
+}
+
+.data-table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.data-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.data-table-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: var(--panel-border);
+}
+
+.data-table-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--panel-muted-foreground);
 }

@@ -39,7 +39,10 @@ async function editEmployeer(id: number, payload: EmployeerFormOutput) {
   return response.json();
 }
 
-export function useEditEmployeer({ employeer, onSuccess }: UseEditEmployeerOptions) {
+export function useEditEmployeer({
+  employeer,
+  onSuccess,
+}: UseEditEmployeerOptions) {
   const router = useRouter();
 
   const form = useForm<EmployeerFormData, unknown, EmployeerFormOutput>({

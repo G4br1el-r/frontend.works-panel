@@ -84,7 +84,7 @@ export default function LoginPage() {
           </InputComponent.root>
 
           <Button asChild className="mt-2 h-11 w-full">
-            <Link href="/gestao-obras/funcionarios">Entrar</Link>
+            <Link href="/gestao-obras/dashboard">Entrar</Link>
           </Button>
         </StaggerItem>
       </Stagger>

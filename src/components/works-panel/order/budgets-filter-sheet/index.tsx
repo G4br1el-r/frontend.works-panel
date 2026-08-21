@@ -2,8 +2,6 @@
 
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
-import type { BudgetStatus } from "@/@type/works-panel/order/get-budget.type";
-import type { OrderStatus } from "@/@type/works-panel/order/get-order.type";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -16,25 +14,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { BudgetRowOrigin } from "@/lib/order/budget-row";
-import {
-  BUDGET_STATUS_LABEL,
-  ORDER_STATUS_LABEL,
-} from "@/lib/order/format-budget";
+import { UNIFIED_STATUS_FILTERS } from "@/lib/order/format-budget";
 import { cn } from "@/lib/utils/cn";
 
 const ORIGIN_OPTIONS: { value: BudgetRowOrigin; label: string }[] = [
   { value: "PAINEL", label: "Do painel" },
   { value: "SITE", label: "Do site" },
 ];
-
-const BUDGET_STATUS_OPTIONS: BudgetStatus[] = [
-  "DRAFT",
-  "SENT",
-  "APPROVED",
-  "REJECTED",
-];
-
-const ORDER_STATUS_OPTIONS: OrderStatus[] = ["PENDING", "ACCEPTED", "CANCELED"];
 
 interface BudgetsFilterSheetProps {
   selectedOrigins: BudgetRowOrigin[];
@@ -60,8 +46,8 @@ export function BudgetsFilterSheet({
       <SheetTrigger asChild>
         <Button
           type="button"
-          variant="outline"
-          className="relative h-10 shrink-0 cursor-pointer gap-1.5 border-panel-border bg-panel-page/60 text-panel-surface-foreground hover:bg-panel-border"
+          variant="ghost"
+          className="relative h-10 shrink-0 cursor-pointer gap-1.5 border border-panel-border bg-panel-surface text-panel-muted-foreground transition-colors hover:bg-panel-page hover:text-panel-surface-foreground!"
         >
           <SlidersHorizontal className="size-4" />
           Filtros
@@ -111,31 +97,15 @@ export function BudgetsFilterSheet({
 
           <div className="flex flex-col gap-2">
             <span className="text-sm font-medium text-panel-surface-foreground">
-              Situação do painel
+              Situação
             </span>
             <div className="grid grid-cols-2 gap-2">
-              {BUDGET_STATUS_OPTIONS.map((status) => (
+              {UNIFIED_STATUS_FILTERS.map((filter) => (
                 <FilterChip
-                  key={status}
-                  label={BUDGET_STATUS_LABEL[status]}
-                  active={selectedStatus.includes(status)}
-                  onSelect={() => onToggleStatus(status)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-panel-surface-foreground">
-              Situação do site
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              {ORDER_STATUS_OPTIONS.map((status) => (
-                <FilterChip
-                  key={status}
-                  label={ORDER_STATUS_LABEL[status]}
-                  active={selectedStatus.includes(status)}
-                  onSelect={() => onToggleStatus(status)}
+                  key={filter.value}
+                  label={filter.label}
+                  active={selectedStatus.includes(filter.value)}
+                  onSelect={() => onToggleStatus(filter.value)}
                 />
               ))}
             </div>

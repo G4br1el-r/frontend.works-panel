@@ -38,6 +38,7 @@ export const BUDGET_STATUS_LABEL: Record<BudgetStatus, string> = {
   SENT: "Enviado",
   APPROVED: "Aprovado",
   REJECTED: "Recusado",
+  CANCELED: "Cancelado",
 };
 
 export const BUDGET_STATUS_CLASSNAME: Record<BudgetStatus, string> = {
@@ -45,6 +46,7 @@ export const BUDGET_STATUS_CLASSNAME: Record<BudgetStatus, string> = {
   SENT: "border-status-warning/30 bg-status-warning-bg text-status-warning",
   APPROVED: "border-status-success/30 bg-status-success-bg text-status-success",
   REJECTED: "border-status-danger/30 bg-status-danger-bg text-status-danger",
+  CANCELED: "border-status-danger/30 bg-status-danger-bg text-status-danger",
 };
 
 export const PAYMENT_TYPE_LABEL: Record<BudgetPaymentType, string> = {
@@ -83,7 +85,66 @@ export function getStatusClassName(status: BudgetStatus | OrderStatus): string {
   );
 }
 
+/**
+ * Situações unificadas do painel e do site. O usuário não distingue "pedido
+ * cancelado" de "orçamento cancelado" — é tudo cancelado. Cada chave lista os
+ * status crus que ela cobre nas duas origens.
+ */
+export const UNIFIED_STATUS_FILTERS = [
+  { value: "DRAFT", label: "Rascunho", matches: ["DRAFT"] },
+  { value: "PENDING", label: "Pendente", matches: ["PENDING"] },
+  { value: "SENT", label: "Enviado", matches: ["SENT"] },
+  { value: "APPROVED", label: "Aprovado", matches: ["APPROVED", "ACCEPTED"] },
+  { value: "REJECTED", label: "Recusado", matches: ["REJECTED"] },
+  { value: "CANCELED", label: "Cancelado", matches: ["CANCELED"] },
+] as const satisfies ReadonlyArray<{
+  value: string;
+  label: string;
+  matches: readonly (BudgetStatus | OrderStatus)[];
+}>;
+
+/** Os status crus que cada filtro unificado seleciona. */
+export function resolveUnifiedStatus(
+  selected: string[],
+): (BudgetStatus | OrderStatus)[] {
+  return UNIFIED_STATUS_FILTERS.filter((filter) =>
+    selected.includes(filter.value),
+  ).flatMap((filter) => [...filter.matches]);
+}
+
 /** Orçamento fechado é imutável — o PUT devolve 409. */
 export function isBudgetEditable(status: BudgetStatus): boolean {
   return status === "DRAFT" || status === "SENT";
+}
+
+/**
+ * Transições permitidas pelo `PATCH /budget/:id`. Espelha a validação do
+ * backend, que responde 409 no que não estiver aqui.
+ *
+ * `APPROVED → CANCELED` não aparece: o cancelamento tem rota própria
+ * (`/cancel`), porque cancela as parcelas em aberto na mesma transação.
+ */
+export const BUDGET_STATUS_TRANSITIONS: Record<BudgetStatus, BudgetStatus[]> = {
+  DRAFT: ["SENT", "REJECTED"],
+  SENT: ["APPROVED", "REJECTED"],
+  APPROVED: [],
+  REJECTED: [],
+  CANCELED: [],
+};
+
+export function canTransitionBudgetStatus(
+  from: BudgetStatus,
+  to: BudgetStatus,
+): boolean {
+  return from === to || BUDGET_STATUS_TRANSITIONS[from].includes(to);
+}
+
+/** Estado final: nenhuma troca de situação é mais possível. */
+export function isBudgetStatusFinal(status: BudgetStatus): boolean {
+  return BUDGET_STATUS_TRANSITIONS[status].length === 0;
+}
+
+/** Só orçamento aprovado pode ser cancelado. */
+export function isBudgetCancelable(status: BudgetStatus): boolean {
+  return status === "APPROVED";
 }

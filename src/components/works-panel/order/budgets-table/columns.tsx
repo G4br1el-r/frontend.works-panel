@@ -2,22 +2,33 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import {
+  Ban,
   Copy,
   Eye,
   FilePlus2,
   Globe,
   HardHat,
+  MoreHorizontal,
   Package,
   Wrench,
 } from "lucide-react";
+import type { BudgetStatus } from "@/@type/works-panel/order/get-budget.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { BudgetRow } from "@/lib/order/budget-row";
 import {
   formatBudgetDate,
   formatBudgetPeriod,
   getStatusClassName,
   getStatusLabel,
+  isBudgetCancelable,
   PAYMENT_TYPE_LABEL,
 } from "@/lib/order/format-budget";
 import { cn } from "@/lib/utils/cn";
@@ -27,6 +38,7 @@ interface CreateBudgetsColumnsOptions {
   onView?: (row: BudgetRow) => void;
   onCreateFromOrder?: (row: BudgetRow) => void;
   onDuplicate?: (row: BudgetRow) => void;
+  onCancel?: (row: BudgetRow) => void;
 }
 
 /** Traço para o que a origem não tem — pedido do site não tem obra planejada. */
@@ -36,6 +48,7 @@ export function createBudgetsColumns({
   onView,
   onCreateFromOrder,
   onDuplicate,
+  onCancel,
 }: CreateBudgetsColumnsOptions): ColumnDef<BudgetRow>[] {
   return [
     {
@@ -58,8 +71,15 @@ export function createBudgetsColumns({
       header: "Cliente",
       cell: ({ row }) => (
         <div className="flex min-w-0 flex-col">
-          <span className="truncate font-medium text-panel-surface-foreground">
-            {row.original.customerName}
+          <span className="flex min-w-0 items-center gap-1.5">
+            <span className="truncate font-medium text-panel-surface-foreground">
+              {row.original.customerName}
+            </span>
+            <span className="shrink-0 font-medium text-panel-muted-foreground text-xs tabular-nums">
+              {row.original.origin === "SITE"
+                ? `Pedido #${row.original.id}`
+                : `#${row.original.id}`}
+            </span>
           </span>
           <span className="truncate text-xs text-panel-muted-foreground">
             {row.original.addressLabel ?? "Sem endereço"}
@@ -174,53 +194,69 @@ export function createBudgetsColumns({
     },
     {
       id: "actions",
-      header: "",
-      cell: ({ row }) => (
-        <div className="flex items-center justify-end">
-          {row.original.origin === "SITE" ? (
-            <TooltipComponent content="Montar orçamento a partir deste pedido">
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                className="cursor-pointer text-panel-muted-foreground hover:text-panel-accent"
-                onClick={() => onCreateFromOrder?.(row.original)}
-              >
-                <FilePlus2 className="size-4" />
-                <span className="sr-only">Criar orçamento</span>
-              </Button>
-            </TooltipComponent>
-          ) : (
-            <>
-              <TooltipComponent content="Duplicar como novo orçamento">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  className="cursor-pointer text-panel-muted-foreground hover:text-panel-accent"
-                  onClick={() => onDuplicate?.(row.original)}
-                >
-                  <Copy className="size-4" />
-                  <span className="sr-only">Duplicar orçamento</span>
-                </Button>
-              </TooltipComponent>
+      header: "Ações",
+      enableSorting: false,
+      meta: { align: "center" },
+      cell: ({ row }) => {
+        const budget = row.original;
+        const isFromSite = budget.origin === "SITE";
+        const cancelable = isBudgetCancelable(budget.status as BudgetStatus);
 
-              <TooltipComponent content="Abrir orçamento">
+        return (
+          <div className="flex items-center justify-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon-sm"
-                  className="cursor-pointer text-panel-muted-foreground hover:text-panel-accent"
-                  onClick={() => onView?.(row.original)}
+                  className="cursor-pointer text-panel-muted-foreground transition-colors hover:bg-panel-page hover:text-panel-surface-foreground!"
                 >
-                  <Eye className="size-4" />
-                  <span className="sr-only">Abrir orçamento</span>
+                  <MoreHorizontal className="size-4" />
+                  <span className="sr-only">
+                    Ações do orçamento #{budget.id}
+                  </span>
                 </Button>
-              </TooltipComponent>
-            </>
-          )}
-        </div>
-      ),
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent>
+                {isFromSite ? (
+                  <DropdownMenuItem
+                    onSelect={() => onCreateFromOrder?.(budget)}
+                  >
+                    <FilePlus2 />
+                    Montar orçamento
+                  </DropdownMenuItem>
+                ) : (
+                  <>
+                    <DropdownMenuItem onSelect={() => onView?.(budget)}>
+                      <Eye />
+                      Abrir orçamento
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => onDuplicate?.(budget)}>
+                      <Copy />
+                      Duplicar
+                    </DropdownMenuItem>
+
+                    {cancelable && (
+                      <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          variant="destructive"
+                          onSelect={() => onCancel?.(budget)}
+                        >
+                          <Ban />
+                          Cancelar orçamento
+                        </DropdownMenuItem>
+                      </>
+                    )}
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        );
+      },
     },
   ];
 }
