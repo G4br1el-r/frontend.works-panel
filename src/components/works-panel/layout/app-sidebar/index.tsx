@@ -32,7 +32,7 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" variant="floating">
       <SidebarHeader className="h-14 justify-center px-2">
         <Link
-          href="/gestao-obras"
+          href="/gestao-obras/dashboard"
           className="flex items-center gap-2.5 rounded-lg px-1 py-1.5 group-data-[collapsible=icon]:justify-center"
         >
           <span className="relative size-8 shrink-0 overflow-hidden rounded-md ring-1 ring-black/5">

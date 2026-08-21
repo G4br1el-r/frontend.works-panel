@@ -5,11 +5,31 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import type { BudgetStatus } from "@/@type/works-panel/order/get-budget.type";
 import { SelectCombobox } from "@/components/shared/select-combobox";
-import { BUDGET_STATUS_LABEL } from "@/lib/order/format-budget";
+import {
+  BUDGET_STATUS_LABEL,
+  canTransitionBudgetStatus,
+  isBudgetStatusFinal,
+} from "@/lib/order/format-budget";
 
-const STATUS_OPTIONS = (
-  ["DRAFT", "SENT", "APPROVED", "REJECTED"] as BudgetStatus[]
-).map((status) => ({ value: status, label: BUDGET_STATUS_LABEL[status] }));
+const ALL_STATUS: BudgetStatus[] = [
+  "DRAFT",
+  "SENT",
+  "APPROVED",
+  "REJECTED",
+  "CANCELED",
+];
+
+/**
+ * Mostra só o estado atual e para onde ele pode ir. Enviado não volta para
+ * rascunho, e aprovado/recusado/cancelado são finais — o backend recusa com
+ * 409, aqui a opção nem aparece.
+ */
+function buildOptions(current: BudgetStatus) {
+  return ALL_STATUS.filter(
+    (status) =>
+      status === current || canTransitionBudgetStatus(current, status),
+  ).map((status) => ({ value: status, label: BUDGET_STATUS_LABEL[status] }));
+}
 
 async function updateBudgetStatus(budgetId: number, status: BudgetStatus) {
   const response = await fetch(`/api/works-panel/budget/${budgetId}/status`, {
@@ -38,6 +58,9 @@ export function BudgetStatusSelect({
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
 
+  const options = buildOptions(status);
+  const isFinal = isBudgetStatusFinal(status);
+
   async function handleChange(value: string | null) {
     if (!value || value === status) return;
 
@@ -64,11 +87,11 @@ export function BudgetStatusSelect({
   return (
     <div className="w-full sm:w-44">
       <SelectCombobox
-        options={STATUS_OPTIONS}
+        options={options}
         value={status}
         onChange={handleChange}
         placeholder="Situação"
-        disabled={isPending}
+        disabled={isPending || isFinal}
       />
     </div>
   );

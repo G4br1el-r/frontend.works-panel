@@ -241,7 +241,7 @@ export const APP_SIDEBAR_NAV_GROUPS = [
     items: [
       {
         title: "Dashboard",
-        href: "/gestao-obras",
+        href: "/gestao-obras/dashboard",
         icon: HomeIcon,
         badge: undefined,
       },

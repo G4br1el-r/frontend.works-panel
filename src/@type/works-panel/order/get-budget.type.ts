@@ -6,7 +6,12 @@ import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-em
 import type { MaterialResponseType } from "@/@type/works-panel/material/get-material.type";
 import type { ServiceItemResponseType } from "@/@type/works-panel/service-item/get-service-item.type";
 
-export type BudgetStatus = "DRAFT" | "SENT" | "APPROVED" | "REJECTED";
+export type BudgetStatus =
+  | "DRAFT"
+  | "SENT"
+  | "APPROVED"
+  | "REJECTED"
+  | "CANCELED";
 export type BudgetPaymentType = "WEEKLY" | "BIWEEKLY" | "MONTHLY" | "SINGLE";
 export type BudgetWeekDay =
   | "SUN"
@@ -73,6 +78,9 @@ export interface BudgetInstallmentResponseType {
   dueDate: string;
   amount: string;
   isManuallyEdited: boolean;
+  paidAt: string | null;
+  /** Preenchido quando o orçamento foi cancelado com a parcela em aberto. */
+  canceledAt: string | null;
 }
 
 /** Comprovante arquivado de um envio ao cliente. */

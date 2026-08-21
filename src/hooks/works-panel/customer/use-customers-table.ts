@@ -29,6 +29,8 @@ export function useCustomersTable({ customers }: UseCustomersTableOptions) {
   const [customerToEdit, setCustomerToEdit] =
     useState<CustomerResponseType | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [customerToViewBudgets, setCustomerToViewBudgets] =
+    useState<CustomerResponseType | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -53,6 +55,7 @@ export function useCustomersTable({ customers }: UseCustomersTableOptions) {
           setIsEditDialogOpen(true);
         },
         onDelete: (customer) => setCustomerToDelete(customer),
+        onViewBudgets: setCustomerToViewBudgets,
       }),
     [],
   );
@@ -87,6 +90,11 @@ export function useCustomersTable({ customers }: UseCustomersTableOptions) {
       isLoading: isDeleting,
       onOpenChange: (open: boolean) => !open && setCustomerToDelete(null),
       onConfirm: handleConfirmDelete,
+    },
+    budgetsSheet: {
+      open: customerToViewBudgets !== null,
+      customer: customerToViewBudgets,
+      onOpenChange: (open: boolean) => !open && setCustomerToViewBudgets(null),
     },
     editDialog: {
       customer: customerToEdit,

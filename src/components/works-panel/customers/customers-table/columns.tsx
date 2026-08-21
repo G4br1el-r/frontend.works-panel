@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { MapPin, Pencil, Trash2 } from "lucide-react";
+import { FileText, MapPin, Pencil, Trash2 } from "lucide-react";
 import type { CustomerResponseType } from "@/@type/works-panel/customer/get-customer.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
@@ -35,11 +35,13 @@ function getInitials(name: string) {
 interface CreateCustomersColumnsOptions {
   onEdit?: (customer: CustomerResponseType) => void;
   onDelete?: (customer: CustomerResponseType) => void;
+  onViewBudgets?: (customer: CustomerResponseType) => void;
 }
 
 export function createCustomersColumns({
   onEdit,
   onDelete,
+  onViewBudgets,
 }: CreateCustomersColumnsOptions): ColumnDef<CustomerResponseType>[] {
   return [
     {
@@ -110,6 +112,20 @@ export function createCustomersColumns({
       meta: { align: "center" },
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-1">
+          <TooltipComponent content="Ver orçamentos" disableHoverableContent>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              className="cursor-pointer text-panel-muted-foreground hover:bg-sidebar-accent hover:text-panel-accent!"
+              onClick={() => onViewBudgets?.(row.original)}
+            >
+              <FileText className="size-4" />
+              <span className="sr-only">
+                Ver orçamentos de {row.original.name}
+              </span>
+            </Button>
+          </TooltipComponent>
           <TooltipComponent content="Editar" disableHoverableContent>
             <Button
               type="button"

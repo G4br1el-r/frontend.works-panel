@@ -54,4 +54,6 @@ export function useCreateNewEmployeer() {
   return { onSubmit, onInvalid, form };
 }
 
-export type UseCreateNewEmployeerReturn = ReturnType<typeof useCreateNewEmployeer>;
+export type UseCreateNewEmployeerReturn = ReturnType<
+  typeof useCreateNewEmployeer
+>;

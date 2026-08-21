@@ -32,6 +32,13 @@ interface DataTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   pageSize?: number;
+  /** Classe extra por linha — para estados como cancelado/inativo. */
+  rowClassName?: (row: TData) => string | undefined;
+  /**
+   * Largura mínima da tabela (ex: "56rem"). Abaixo disso a área rola na
+   * horizontal em vez de espremer as colunas; a paginação fica fora do scroll.
+   */
+  minWidth?: string;
 }
 
 const ALIGN_TEXT_CLASS: Record<DataTableColumnAlign, string> = {
@@ -66,6 +73,8 @@ export function DataTable<TData>({
   columns,
   data,
   pageSize = 10,
+  rowClassName,
+  minWidth,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize });
@@ -126,91 +135,106 @@ export function DataTable<TData>({
     <div className="flex flex-col gap-3">
       {/* Tabela — telas médias pra cima */}
       <div className="hidden overflow-hidden rounded-lg border border-panel-border md:block">
-        <table className="w-full text-sm">
-          <thead className="bg-panel-page/60">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  const canSort = header.column.getCanSort();
-                  const sortDirection = header.column.getIsSorted();
-                  const align = header.column.columnDef.meta?.align ?? "left";
-
-                  return (
-                    <th key={header.id} className={ALIGN_TEXT_CLASS[align]}>
-                      {canSort ? (
-                        <button
-                          type="button"
-                          onClick={header.column.getToggleSortingHandler()}
-                          className={cn(
-                            "flex w-full cursor-pointer items-center gap-1 px-4 py-3 font-medium text-panel-muted-foreground transition-colors hover:text-panel-surface-foreground",
-                            ALIGN_JUSTIFY_CLASS[align],
-                          )}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                          {sortDirection === "asc" && (
-                            <ArrowUp className="size-2.5" strokeWidth={2.5} />
-                          )}
-                          {sortDirection === "desc" && (
-                            <ArrowDown className="size-2.5" strokeWidth={2.5} />
-                          )}
-                        </button>
-                      ) : (
-                        <div
-                          className={cn(
-                            "px-4 py-3 font-medium text-panel-muted-foreground",
-                            ALIGN_TEXT_CLASS[align],
-                          )}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                        </div>
-                      )}
-                    </th>
-                  );
-                })}
-              </tr>
-            ))}
-          </thead>
-          <motion.tbody
-            key={pageIndex}
-            className="divide-y divide-panel-border"
-            variants={ROWS_CONTAINER_VARIANTS}
-            initial="hidden"
-            animate="visible"
+        <div
+          className={cn(
+            minWidth && "data-table-scroll overflow-x-auto overflow-y-hidden",
+          )}
+        >
+          <table
+            className="w-full text-sm"
+            style={minWidth ? { minWidth } : undefined}
           >
-            {rows.map((row) => (
-              <motion.tr
-                key={row.id}
-                variants={ROW_VARIANTS}
-                className="transition-colors hover:bg-panel-page/40"
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const align = cell.column.columnDef.meta?.align ?? "left";
+            <thead className="bg-panel-page/60">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    const canSort = header.column.getCanSort();
+                    const sortDirection = header.column.getIsSorted();
+                    const align = header.column.columnDef.meta?.align ?? "left";
 
-                  return (
-                    <td
-                      key={cell.id}
-                      className={cn(
-                        "px-4 py-3 text-panel-surface-foreground",
-                        ALIGN_TEXT_CLASS[align],
-                      )}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  );
-                })}
-              </motion.tr>
-            ))}
-          </motion.tbody>
-        </table>
+                    return (
+                      <th key={header.id} className={ALIGN_TEXT_CLASS[align]}>
+                        {canSort ? (
+                          <button
+                            type="button"
+                            onClick={header.column.getToggleSortingHandler()}
+                            className={cn(
+                              "flex w-full cursor-pointer items-center gap-1 px-4 py-3 font-medium text-panel-muted-foreground transition-colors hover:text-panel-surface-foreground",
+                              ALIGN_JUSTIFY_CLASS[align],
+                            )}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            {sortDirection === "asc" && (
+                              <ArrowUp className="size-2.5" strokeWidth={2.5} />
+                            )}
+                            {sortDirection === "desc" && (
+                              <ArrowDown
+                                className="size-2.5"
+                                strokeWidth={2.5}
+                              />
+                            )}
+                          </button>
+                        ) : (
+                          <div
+                            className={cn(
+                              "px-4 py-3 font-medium text-panel-muted-foreground",
+                              ALIGN_TEXT_CLASS[align],
+                            )}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                          </div>
+                        )}
+                      </th>
+                    );
+                  })}
+                </tr>
+              ))}
+            </thead>
+            <motion.tbody
+              key={pageIndex}
+              className="divide-y divide-panel-border"
+              variants={ROWS_CONTAINER_VARIANTS}
+              initial="hidden"
+              animate="visible"
+            >
+              {rows.map((row) => (
+                <motion.tr
+                  key={row.id}
+                  variants={ROW_VARIANTS}
+                  className={cn(
+                    "transition-colors hover:bg-panel-page/40",
+                    rowClassName?.(row.original),
+                  )}
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    const align = cell.column.columnDef.meta?.align ?? "left";
+
+                    return (
+                      <td
+                        key={cell.id}
+                        className={cn(
+                          "px-4 py-3 text-panel-surface-foreground",
+                          ALIGN_TEXT_CLASS[align],
+                        )}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
+                    );
+                  })}
+                </motion.tr>
+              ))}
+            </motion.tbody>
+          </table>
+        </div>
 
         {paginationControls && (
           <div className="border-t border-panel-border">
@@ -228,7 +252,11 @@ export function DataTable<TData>({
         animate="visible"
       >
         {rows.map((row) => (
-          <DataTableCard key={row.id} row={row} />
+          <DataTableCard
+            key={row.id}
+            row={row}
+            className={rowClassName?.(row.original)}
+          />
         ))}
       </motion.div>
 
@@ -241,7 +269,13 @@ export function DataTable<TData>({
   );
 }
 
-function DataTableCard<TData>({ row }: { row: Row<TData> }) {
+function DataTableCard<TData>({
+  row,
+  className,
+}: {
+  row: Row<TData>;
+  className?: string;
+}) {
   const cells = row.getVisibleCells();
   const [titleCell, ...restCells] = cells;
   const actionCell = restCells.find(
@@ -252,7 +286,10 @@ function DataTableCard<TData>({ row }: { row: Row<TData> }) {
   return (
     <motion.div
       variants={ROW_VARIANTS}
-      className="flex flex-col gap-3 rounded-lg border border-panel-border bg-panel-surface p-4"
+      className={cn(
+        "flex flex-col gap-3 rounded-lg border border-panel-border bg-panel-surface p-4",
+        className,
+      )}
     >
       <div className="flex items-start justify-between gap-2">
         <span className="font-medium text-panel-surface-foreground text-sm">

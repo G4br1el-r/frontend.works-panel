@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import type { BudgetResponseType } from "@/@type/works-panel/order/get-budget.type";
 import type { OrderResponseType } from "@/@type/works-panel/order/get-order.type";
 import { createBudgetsColumns } from "@/components/works-panel/order/budgets-table/columns";
@@ -10,6 +11,20 @@ import {
   type BudgetRowOrigin,
   mergeBudgetRows,
 } from "@/lib/order/budget-row";
+import { resolveUnifiedStatus } from "@/lib/order/format-budget";
+
+async function cancelBudget(budgetId: number) {
+  const response = await fetch(`/api/works-panel/budget/${budgetId}/cancel`, {
+    method: "PATCH",
+  });
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    throw new Error(body?.message ?? "Falha ao cancelar o orçamento");
+  }
+
+  return await response.json();
+}
 
 interface UseBudgetsTableOptions {
   budgets: BudgetResponseType[];
@@ -21,6 +36,8 @@ export function useBudgetsTable({ budgets, orders }: UseBudgetsTableOptions) {
   const [search, setSearch] = useState("");
   const [selectedOrigins, setSelectedOrigins] = useState<BudgetRowOrigin[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [budgetToCancel, setBudgetToCancel] = useState<BudgetRow | null>(null);
+  const [isCanceling, setIsCanceling] = useState(false);
 
   const rows = mergeBudgetRows(budgets, orders);
   const normalizedSearch = search.trim().toLowerCase();
@@ -31,7 +48,8 @@ export function useBudgetsTable({ budgets, orders }: UseBudgetsTableOptions) {
     if (!matchesOrigin) return false;
 
     const matchesStatus =
-      selectedStatus.length === 0 || selectedStatus.includes(row.status);
+      selectedStatus.length === 0 ||
+      resolveUnifiedStatus(selectedStatus).includes(row.status);
     if (!matchesStatus) return false;
 
     if (!normalizedSearch) return true;
@@ -56,10 +74,35 @@ export function useBudgetsTable({ budgets, orders }: UseBudgetsTableOptions) {
     router.push(`/gestao-obras/orcamentos/novo?duplicar=${row.id}`);
   }
 
+  async function handleConfirmCancel() {
+    if (!budgetToCancel) return;
+
+    setIsCanceling(true);
+
+    try {
+      await toast.promise(cancelBudget(budgetToCancel.id), {
+        loading: "Cancelando orçamento...",
+        success: "Orçamento cancelado.",
+        error: (error) =>
+          error instanceof Error
+            ? error.message
+            : "Não foi possível cancelar o orçamento.",
+      });
+
+      router.refresh();
+      setBudgetToCancel(null);
+    } catch {
+      // O toast.promise já notificou o usuário.
+    } finally {
+      setIsCanceling(false);
+    }
+  }
+
   const columns = createBudgetsColumns({
     onView: handleView,
     onCreateFromOrder: handleCreateFromOrder,
     onDuplicate: handleDuplicate,
+    onCancel: setBudgetToCancel,
   });
 
   function toggleOrigin(origin: BudgetRowOrigin) {
@@ -88,6 +131,20 @@ export function useBudgetsTable({ budgets, orders }: UseBudgetsTableOptions) {
     setSearch,
     filteredRows,
     columns,
+    /** Mesmas ações das colunas, para o card mobile reaproveitar. */
+    rowActions: {
+      onView: handleView,
+      onCreateFromOrder: handleCreateFromOrder,
+      onDuplicate: handleDuplicate,
+      onCancel: setBudgetToCancel,
+    },
+    cancelDialog: {
+      open: budgetToCancel !== null,
+      budget: budgetToCancel,
+      isLoading: isCanceling,
+      onOpenChange: (open: boolean) => !open && setBudgetToCancel(null),
+      onConfirm: handleConfirmCancel,
+    },
     filters: {
       selectedOrigins,
       selectedStatus,

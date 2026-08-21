@@ -1,10 +1,11 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import type { EmployeerResponseType } from "@/@type/works-panel/employeer/get-employeer.type";
 import { TooltipComponent } from "@/components/shared/tooltip-component";
 import { Button } from "@/components/ui/button";
+import type { EmployeerScheduleSummary } from "@/lib/utils/employeer-schedule";
 import { formatCurrency } from "@/lib/utils/format-currency";
 import { formatDate } from "@/lib/utils/format-date";
 
@@ -20,11 +21,16 @@ function getInitials(name: string) {
 interface CreateEmployeersColumnsOptions {
   onEdit?: (employeer: EmployeerResponseType) => void;
   onDelete?: (employeer: EmployeerResponseType) => void;
+  onViewSchedule?: (employeer: EmployeerResponseType) => void;
+  /** Resumo pré-carregado no servidor, indexado por id — evita N+1 por linha. */
+  schedules?: Record<number, EmployeerScheduleSummary>;
 }
 
 export function createEmployeersColumns({
   onEdit,
   onDelete,
+  onViewSchedule,
+  schedules,
 }: CreateEmployeersColumnsOptions): ColumnDef<EmployeerResponseType>[] {
   return [
     {
@@ -64,11 +70,35 @@ export function createEmployeersColumns({
       id: "agendaDays",
       header: "Dias da agenda",
       enableSorting: false,
-      cell: () => (
-        <span className="inline-flex items-center rounded-full border border-dashed border-panel-border px-2 py-0.5 text-xs text-panel-muted-foreground">
-          Em breve
-        </span>
-      ),
+      cell: ({ row }) => {
+        const summary = schedules?.[row.original.id];
+
+        if (!summary || summary.confirmedDays === 0) {
+          return (
+            <span className="text-panel-muted-foreground text-sm">
+              Sem obra agendada
+            </span>
+          );
+        }
+
+        return (
+          <button
+            type="button"
+            onClick={() => onViewSchedule?.(row.original)}
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-panel-border bg-panel-page px-2.5 py-1 font-medium text-panel-surface-foreground text-xs transition-colors hover:border-panel-accent hover:bg-panel-accent-light hover:text-panel-accent"
+          >
+            <CalendarDays className="size-3.5" />
+            <span className="tabular-nums">
+              {summary.confirmedDays}{" "}
+              {summary.confirmedDays === 1 ? "dia" : "dias"}
+            </span>
+            <span className="text-panel-muted-foreground">
+              · {summary.worksCount}{" "}
+              {summary.worksCount === 1 ? "obra" : "obras"}
+            </span>
+          </button>
+        );
+      },
     },
     {
       id: "actions",
